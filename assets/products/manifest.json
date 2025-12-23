@@ -1,0 +1,104 @@
+{
+  "products": [
+    {
+      "name": "Active LED",
+      "slug": "active-led",
+      "images": [
+        "/assets/products/Active LED/elite-led-technologies-karmanghat-hyderabad-led-screens-on-hire-p65hoe20fm.avif",
+        "/assets/products/Active LED/fixed-led-screen-2228816276-aetw5kqa.webp",
+        "/assets/products/Active LED/Illuminating-Brilliance-Exploring-the-Features-of-LED-Video.jpg",
+        "/assets/products/Active LED/outdoor-led-video-wall-1.jpg",
+        "/assets/products/Active LED/P2-604-500-X-500mm-Outdoor-Rental-Concert-Stage-Background-LED-Video-Wall-Display-Full-Color-Billboard-Digital-Signage-Screen.avif"
+      ]
+    },
+    {
+      "name": "Display",
+      "slug": "display",
+      "images": [
+        "/assets/products/Display/6683e235d281f212df282ef6-55-digital-signage-displays-4k-lcd.jpg",
+        "/assets/products/Display/66abfc1086f20257d53ba9f4-65-digital-signage-displays-4k.jpg",
+        "/assets/products/Display/display-fort-dhenu-mkt-indore-digital-signage-dealers-r2pnoz7bj2.avif",
+        "/assets/products/Display/IQ-Digital-Signage-small.webp",
+        "/assets/products/Display/Scala-Expert-Guide_-How-to-Create-Digital-Signage-img1-1536x864.webp",
+        "/assets/products/Display/Sony-India-Introduces-EZ20L-4K-Professional-Displays.webp",
+        "/assets/products/Display/wall-mounted-and-free-standing-digital-advertising-screen-and-poster-display.jpg"
+      ]
+    },
+    {
+      "name": "Home Theater",
+      "slug": "home-theater",
+      "images": [
+        "/assets/products/Home Theater/65f424daa8498f18411160c1-sony-sscs5-3-way-3-driver-bookshelf.jpg",
+        "/assets/products/Home Theater/diy-home-theater-room-.jpeg",
+        "/assets/products/Home Theater/iStock-177100713.jpg",
+        "/assets/products/Home Theater/main_header_03.jpg",
+        "/assets/products/Home Theater/picturescreen.webp",
+        "/assets/products/Home Theater/when-to-use-7-1-surround-sound-what-is-7-1-surround-sound-AV-Access-1900x1027.jpg"
+      ]
+    },
+    {
+      "name": "Immersive Room",
+      "slug": "immersive-room",
+      "images": [
+        "/assets/products/Immersive Room/dali-pano-dalle-2-1280-1.jpg",
+        "/assets/products/Immersive Room/interactive-immersive-room.jpeg",
+        "/assets/products/Immersive Room/museum-is_slider2.jpg",
+        "/assets/products/Immersive Room/Pixel-Artworks-Immersive-Room-Jungle-2.jpg",
+        "/assets/products/Immersive Room/rent_04_immersive_room.jpg",
+        "/assets/products/Immersive Room/room-to-breathe.jpg"
+      ]
+    },
+    {
+      "name": "Projection Mapping",
+      "slug": "projection-mapping",
+      "images": [
+        "/assets/products/Projection Mapping/mapping.webp",
+        "/assets/products/Projection Mapping/Pani- video mapping technology- basa studio 4.jpg",
+        "/assets/products/Projection Mapping/project-mapping-06.jpg",
+        "/assets/products/Projection Mapping/projection-mapping.webp",
+        "/assets/products/Projection Mapping/WhatsAppImage2023-04-30at2.46.48PMX4KT.jpeg",
+        "/assets/products/Projection Mapping/Zz03MTA3ODI3YWU0MjU3ZTAzN2Q3ZWUzYTVmNDJhMGEwOA==.jpg"
+      ]
+    },
+    {
+      "name": "Projector",
+      "slug": "projector",
+      "images": [
+        "/assets/products/Projector/0009958_8.png",
+        "/assets/products/Projector/1_08c1c81d-8b1f-469e-9eae-bbaad6344393.webp",
+        "/assets/products/Projector/1_41acb45f-3ef9-489f-8ea3-1e0ca1ec0607.webp",
+        "/assets/products/Projector/AVStore2_ab296e73-f10e-452d-8f56-1e4a588b8882.webp",
+        "/assets/products/Projector/lu935st-01.webp",
+        "/assets/products/Projector/sony.jpg",
+        "/assets/products/Projector/tw-9400_1200x1200.webp"
+      ]
+    },
+    {
+      "name": "Sound",
+      "slug": "sound",
+      "images": [
+        "/assets/products/Sound/1740b256422f56af079deeb73614208b.webp",
+        "/assets/products/Sound/audio-system-1669880933.jpg",
+        "/assets/products/Sound/bs301w.jpg",
+        "/assets/products/Sound/DGWCmL7EGdgJBr9T49gfAD.jpg",
+        "/assets/products/Sound/download.jpg",
+        "/assets/products/Sound/images.jpg",
+        "/assets/products/Sound/sib_evo_kit_5-1.jpg"
+      ]
+    },
+    {
+      "name": "Video Conferencing",
+      "slug": "video-conferencing",
+      "images": [
+        "/assets/products/Video Conferencing/20240627054727337521e.png",
+        "/assets/products/Video Conferencing/3-3.jpg",
+        "/assets/products/Video Conferencing/Best-Video-Conferencing-System-Provider-in-Mumbai-Go-Ninja.jpg",
+        "/assets/products/Video Conferencing/meeting-room-video-conferencing-solution-jpg-1-jpg.jpg",
+        "/assets/products/Video Conferencing/MVC860-en-us-20240719T042819-2.png",
+        "/assets/products/Video Conferencing/PIC4.jpg",
+        "/assets/products/Video Conferencing/slider-2c.jpg",
+        "/assets/products/Video Conferencing/untitled_98-sixteen_nine.webp"
+      ]
+    }
+  ]
+}
