@@ -1,0 +1,1795 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FusionVue</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root{
+      --gold:#4a60dc; /* header/CTA */
+      --gold-dark:#FFAA00;
+      --bg-start:#0b1116; --bg-end:#1b2330;
+      --header-height: 100px; /* used to offset fixed header */
+      --panel:#ffffff;
+      --muted:#9fb0c7;
+      --card-grad: linear-gradient(180deg,#0b1116,#111827);
+      --radius:14px; --shadow: 0 10px 30px rgba(2,6,23,0.6);
+      --gutter:28px;
+    }
+    html,body{height:100%;overflow-x:hidden;}
+    body{
+      margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,var(--bg-start), var(--bg-end)); color:#e6eef8;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; padding:0 0 48px 0;
+    }
+    /* offset main content so fixed header doesn't cover it */
+    body { padding-top: var(--header-height); }
+    .container{
+  max-width:100%;
+  margin:0 auto;
+  padding: 0;
+}
+
+    .container-inner{padding:0 var(--gutter)}
+    
+    @media (max-width:640px) {
+  .container-inner,
+  .container {
+    padding: 0 14px !important;
+  }
+}
+
+
+    /* top gold header (full width) */
+    header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;     
+    padding: 0 28px;
+    background: linear-gradient(90deg, #96c3de, #0f0fe9);
+    padding-left: 62px;
+    padding-right: 62px;
+    color: #111;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+}
+img, video {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+  @media(max-width: 640px) {
+  header {
+    padding: 10px 14px;
+    height: 72px; /* smaller header on phones */
+  }
+  /* reduce header offset variable on mobile */
+  :root { --header-height: 72px; }
+
+  header nav {
+    display: flex !important;
+    flex-wrap: nowrap; /* prevent vertical stacking */
+    margin-left: auto;
+    gap: 8px;
+  }
+
+  header nav a {
+    margin-left: 0;
+    font-size: 15px;
+    padding: 8px 12px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+.slide img { min-height: 120px; }
+
+
+@keyframes blobFloat {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(20px, -20px); }
+  100% { transform: translate(0, 0); }
+}
+
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:64px; width:auto; display:block}
+    
+    @media (max-width: 640px) {
+      .brand {
+        gap: 8px;
+      }
+        .brand img {
+          height: 36px;
+        }
+      .brand div {
+        font-size: 14px;
+      }
+    }
+    
+    nav a{color:#fff;text-decoration:none;margin-left:22px;font-weight:600;transition:0.2s ease}
+    /* nav link appearance */
+    nav a.nav-link{ color: #fff; font-size: 18px; font-weight:600; letter-spacing: .6px; }
+
+    /* HERO SECTION */
+.hero {
+  display: flex;
+  flex-direction: row;
+  height: 520px; 
+  background: #ffffff;
+}
+
+/* LEFT & RIGHT */
+.hero-side {
+  flex: 1;
+  overflow: hidden;
+}
+
+.hero-side img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* CENTER */
+.hero-center {
+  flex: 0 0 42%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+   padding: 24px 28px; 
+  z-index: 2;
+}
+
+.hero-logo {
+  width: 540px;
+}
+.gold {
+  color: var(--gold);
+}
+.hero-card .lead {
+  font-size: 16px;   /* was 18–20px */
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) { .hero-logo { width: 80px; margin-bottom: 10px; } }
+
+
+
+
+/* Mobile optimization */
+@media (max-width: 640px) {
+  header {
+    height: 72px;
+  }
+
+  /* make hero much shorter on phones so content appears above the fold */
+  .hero {
+    min-height: 48vh; /* smaller hero on mobile */
+    max-height: none;
+    padding-top: 76px; /* allow space for fixed header */
+    padding-bottom: 20px;
+    background-position: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 60vh;
+    padding: 80px 20px;
+    background-size: contain;   /* 🔑 prevents cropping */
+    background-position: center;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+}
+@media (max-width: 768px) {
+  .product-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .product-card button {
+    width: 100%;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 420px) {
+  .hero { min-height: 42vh; padding-top: 68px; }
+}
+  .hero {
+    /* larger hero on desktop/tablet for better visual impact */
+    min-height: 78vh;
+    padding-top: calc(var(--header-height) + 4px);
+    padding-bottom: 20px;
+    background-position: center right;
+  }
+
+  /* Default nav: show nav on larger screens, hide mobile toggle */
+  #navToggle { display: none; background: transparent; border: none; color: #fff; font-size: 28px; }
+  header nav { display: flex; align-items: center; gap: 16px; }
+  header nav.open { display: flex !important; position: fixed; top: var(--header-height); left: 0; right: 0; background: linear-gradient(90deg, #96c3de, #0f0fe9); padding: 18px; flex-direction: column; align-items: flex-start; gap: 12px; z-index: 2001; }
+  header nav.open a { color: #fff; font-size: 20px; border-radius: 8px; margin-left: 0; }
+
+  /* Mobile: hide desktop nav, show toggle button */
+  @media (max-width: 640px) {
+    #navToggle { display: block; }
+    header nav { display: none !important; }
+  }
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 100px 20px;
+    background-position: center;
+  }
+}
+
+/* Tweak hero typography and background crop so mobile layout resembles desktop more closely */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 40px !important; line-height:1.02; }
+  .hero h2 { font-size: 20px !important; }
+  .hero .lead { font-size: 15px; max-width: 100%; }
+  .cta-btn { padding: 12px 18px; font-size: 16px; }
+  .hero-card { max-width: 720px; }
+}
+
+/* For medium devices (tablets) bring it closer to desktop proportions */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero { padding: 90px 48px; min-height: 60vh; }
+  .hero h1 { font-size: 56px; }
+  .hero h2 { font-size: 24px; }
+}
+
+@media (max-width: 640px) {
+  .hero-card {
+    margin-left: 0;
+    padding: 0;
+  }
+}
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+  color: #e6eef8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0 0 48px 0;
+}
+
+/* TEXT SLIDE FROM LEFT */
+@keyframes slideLeft {
+  0% { transform: translateX(-60px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+    
+    h1 {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: 74px;
+  line-height: 1.05;
+  margin: 0 0 18px 0;
+  letter-spacing: 1px;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  /* GOLD GRADIENT TEXT */
+  background: linear-gradient(90deg, #4159de, #0a0a0a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 32px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  h1 small {
+    font-size: 20px;
+  }
+}
+
+    h1 small{color:#ffffff;display:block;font-size:30px}
+    
+    @media (max-width: 640px) {
+      h1 small {
+        font-size: 22px;
+        color: #ffffff;
+      }
+      
+      .hero h2 {
+        color: #000000 !important;
+        font-size: 24px !important;
+        line-height: 1.2 !important;
+      }
+    }
+    
+    p.lead{color:#d6dbe2;font-size:20px;max-width:640px;margin:18px 0}
+    
+    @media (max-width: 640px) {
+      p.lead {
+        font-size: 16px;
+        max-width: 100%;
+      }
+    }
+    
+    .cta-btn{display:inline-block;padding:16px 28px;border-radius:28px;background:#111;color:#f3eded;font-weight:700;text-decoration:none;margin-right:10px;box-shadow:0 10px 30px rgba(224,168,0,0.12);cursor:pointer;transition:0.2s ease}
+    
+    @media (max-width: 640px) {
+      .cta-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+        margin-right: 0;
+      }
+    }
+
+    /* product stack */
+    .stack{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .stack img{width:100%;height:120px;object-fit:cover;border-radius:10px}
+    
+    @media (max-width: 640px) {
+      .stack {
+        gap: 8px;
+      }
+      .stack img {
+        height: 100px;
+      }
+    }
+
+    /* hero background / ornaments - make full-viewport and remove heavy blur so image stays sharp */
+    .hero-bg{
+      position:fixed;
+      inset:0; /* cover the viewport */
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:-3;
+      opacity:1; /* allow media element opacity to control visibility */
+      filter:none; /* remove blur to keep background crisp */
+      display:block;
+      box-sizing:border-box;
+    }
+    .hero-bg .blob{width:100%;height:100%;background:radial-gradient(circle at 10% 20%, rgba(224,168,0,0.28) 0%, transparent 20%), radial-gradient(circle at 80% 80%, rgba(224,168,0,0.12) 0%, transparent 25%);transform:rotate(8deg)}
+    .circle-orn{position:absolute;border-radius:50%;background:rgba(224,168,0,0.06);box-shadow:0 0 80px rgba(224,168,0,0.03)}
+
+    /* full-bleed hero media (video / fallback image) */
+    .hero-bg-media {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;              /* 🔥 was 0.95 */
+  filter: none !important; /* 🔥 ensure sharp */
+}
+
+
+    /* Stepper */
+    .card{background:linear-gradient(180deg,#0c1118,#0f1724);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(0,0,0,0.6);}
+    .stepper{display:flex;gap:16px;align-items:center;margin-bottom:12px}
+    .step{display:flex;align-items:center;gap:12px;position:relative;flex:1;min-width:0}
+    .circle{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.03);display:grid;place-items:center;font-weight:700;color:var(--gold);flex:0 0 48px}
+    .step .meta{min-width:0}
+    .title{font-weight:700;font-size:14px}
+    .desc{font-size:12px;color:#93abc3;margin-top:4px}
+    .step::after{content:"";position:absolute;height:6px;background:rgba(255,255,255,0.02);left:70px;right:-10px;top:21px;border-radius:3px;z-index:-1}
+    .step:last-child::after{display:none}
+    .step.active .circle{background:linear-gradient(180deg,var(--gold),var(--gold-dark));color:#111;transform:scale(1.04)}
+    .step.completed .circle{background:linear-gradient(180deg,#34d399,#10b981);color:#fff}
+    .step.active::after,.step.completed::after{background:linear-gradient(90deg,var(--gold),#ffd87a)}
+
+    .panes{margin-top:10px}
+    .pane{display:none;padding-top:12px;border-top:1px dashed rgba(255,255,255,0.03)}
+    .pane.active{display:block}
+    .controls{display:flex;justify-content:space-between;margin-top:16px}
+    .controls .actions{display:flex;gap:10px}
+    .small{font-size:13px;color:#9fb0c7}
+    
+
+    /* responsive */
+    @media (max-width:920px){
+      .hero{grid-template-columns:1fr; padding:28px 0}
+      .brand img{height:34px}
+      h1{font-size:48px}
+      .stepper{flex-direction:column;gap:12px}.step::after{display:none}
+    }
+    /* Inverted color swap: black <-> white */
+    body.inverted{background:linear-gradient(180deg,#ffffff,#f3f3f3);color:#111}
+    body.inverted .container{color:#111}
+    body.inverted .card{background:#ffffff;color:#111;border:1px solid rgba(0,0,0,0.06);box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    body.inverted header {
+  background: linear-gradient(90deg, #96c3de, #4a60dc);
+  color: #0a0a0a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+}
+
+    body.inverted nav a{color:#111}
+    body.inverted .hero-bg{opacity:0.85;filter:none}
+    body.inverted .offer-loader{background:#ffffff}
+    body.inverted .offer-loader .spinner{border:10px solid rgba(0,0,0,0.06);border-top-color:var(--gold)}
+    body.inverted .slide img{box-shadow:0 8px 20px rgba(0,0,0,0.06)}
+    body.inverted .small{color:#45546a}
+    body.inverted .lead{color:#334155}
+    body.inverted input, body.inverted textarea{background:#fff;color:#111;border:1px solid #e2e8f0}
+    body.inverted .offerings-wrap{background:#ffffff;box-shadow:0 8px 24px rgba(0,0,0,0.06);color:#111}
+    body.inverted #allProducts .card{background:#fff}
+    /* Offerings slider */
+    /* make offerings visually full-bleed but keep inner content aligned */
+
+    /* Section Styling */
+    #why-choose-us {
+      background-color: #4a60dc;
+      padding: 24px 16px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 640px) {
+      #why-choose-us {
+        padding: 16px 12px;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+      }
+    }
+
+    #why-choose-us h2 {
+      font-size: 60px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      line-height: 1.1;
+    }
+
+    @media (max-width: 640px) {
+      #why-choose-us h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.15;
+        letter-spacing: -0.5px;
+      }
+    }
+
+    #why-choose-us h2 span.highlight {
+      color: #f5f5f8 /* yellow */
+    }
+
+    #why-choose-us p.section-desc {
+      max-width: 660px;
+      margin: 0 auto 18px auto;
+      font-size: 18px;
+      color: #f6f3f3;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      #why-choose-us p.section-desc {
+        font-size: 12px;
+        padding: 0 6px;
+        margin: 0 auto 12px auto;
+        line-height: 1.3;
+      }
+    }
+
+    /* Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 680px) {
+      .feature-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .feature-grid {
+        gap: 10px;
+        padding: 0 2px;
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cards */
+    .feature-card {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px 10px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    }
+
+    .feature-card img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #4a60dc;
+    }
+
+    .feature-card p {
+      color: #111;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    
+    @media (max-width: 640px) {
+      .feature-card {
+        padding: 10px 8px;
+        border-radius: 8px;
+      }
+      
+      .feature-card img {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 6px;
+      }
+      
+      .feature-card h3 {
+        font-size: 12px;
+        margin-bottom: 4px;
+      }
+      
+      .feature-card p {
+        font-size: 11px;
+        line-height: 1.2;
+      }
+    }
+    /* Tagline */
+    .tagline {
+      margin-top: 24px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .tagline span {
+      font-weight: bold;
+      color: #111;
+    }
+    
+    @media (max-width: 640px) {
+      .tagline {
+        margin-top: 10px;
+        font-size: 12px;
+        padding: 0 6px;
+      }
+    }
+    
+    #offerings{
+  padding:24px 12px;
+  margin-top:12px;
+  position:relative;
+  text-align:center;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Full width background block (MUST have black background) */
+#offerings .full-bleed{
+  position:relative;
+  left:50%;
+  right:50%;
+  margin-left:-50vw;
+  margin-right:-50vw;
+  width:100vw;
+  box-sizing:border-box;
+  padding:14px 0;
+  text-align:center;
+  overflow-x: hidden;
+}
+
+@media (max-width: 640px) {
+  #offerings .full-bleed {
+    left: auto;
+    right: auto;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    padding: 12px 0;
+  }
+}
+
+/* Inner centered block */
+.offerings-wrap{
+  max-width:1200px;
+  margin:0 auto;
+  background:linear-gradient(180deg,#01040c,#0c1722);
+  padding:16px;
+  border-radius:12px;
+  position:relative;
+  box-shadow:var(--shadow);
+  text-align:center;
+  background:linear-gradient(180deg,#01040c,#0c1722);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .offerings-wrap {
+    padding: 12px;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+/* Title area */
+.offerings-hero{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-bottom:10px;
+  gap:12px;
+  font-weight:1600;
+}
+.offerings-hero h3{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  color:var(--gold);
+  font-weight:1600;
+  display:inline-block;
+}
+
+    .slider{position:relative;overflow:hidden;border-radius:10px}
+    .slider .track{display:flex;transition:transform 0.6s ease;width:100%}
+    .slider .track{display:flex;transition:transform 0.6s ease;width:100%}
+    .slide{min-width:100%;box-sizing:border-box;padding:12px;display:flex;align-items:center;justify-content:center;position:relative}
+    .slide img{max-width:100%;max-height:420px;object-fit:cover;border-radius:8px}
+    .slide .caption{position:absolute;left:16px;bottom:16px;background:rgba(0,0,0,0.6);color:#fff;padding:10px 12px;border-radius:8px;font-weight:700}
+    body.inverted .slide .caption{background:rgba(255,255,255,0.95);color:#111}
+    .offer-loader{position:relative;height:420px;display:grid;place-items:center;background:linear-gradient(180deg,#0b1116,#0f1724);border-radius:8px}
+    .offer-loader .spinner{width:48px;height:48px;border-radius:50%;border:6px solid rgba(255,255,255,0.06);border-top-color:var(--gold);animation:spin 1s linear infinite}
+    /* cards in grid (category cards) */
+/* Card grid */
+#allProducts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+@media (max-width: 640px) {
+  /* two-column layout on most phones to avoid a single long vertical column */
+  #allProducts {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 8px;
+  }
+}
+
+/* very small phones (narrow) fall back to single column */
+@media (max-width: 420px) {
+  #allProducts { grid-template-columns: 1fr; }
+}
+
+/* Card */
+#allProducts .card {
+  background: linear-gradient(180deg, #ffffff, #fbfbfb);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0;
+}
+#allProducts .card div:first-of-type {
+  font-size: 50px !important;
+  font-weight: 700;
+  color: #fff;
+}
+
+
+#allProducts .card .card-media {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;   /* X-axis center */
+  align-items: center;       /* Y-axis center */
+  background: #f3f4f6;
+  padding: 0;                /* Remove padding */
+}
+
+@media (max-width: 640px) {
+  #allProducts .card .card-media { height: 140px; }
+}
+
+#allProducts .card img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  display: block;
+  margin: auto;              /* Force visual center */
+}
+
+
+
+#allProducts .card div {
+  padding: 15px;
+}
+#allProducts .card > div:last-child {
+      font-size: 20px;          /* larger product name */
+      font-weight: 800;         /* bold */
+      color: var(--gold);       /* keep gold accent */
+      text-align: center;
+      padding: 14px 12px;
+      line-height: 1.15;
+    }
+
+    /* slightly larger on wider screens */
+    @media (min-width: 768px) {
+      #allProducts .card > div:last-child {
+        font-size: 22px;
+      }
+    }
+    @media(max-width: 600px) {
+  #allProducts .card img {
+      object-fit: cover;
+  }
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+    /* Stats box styling when inverted */
+    .stats-box{background:linear-gradient(180deg,#b2cde4,#09285c);border-radius:18px;padding:30px;width:180px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.5);box-sizing:border-box}
+    body.inverted .stats-box{background:#0e0e0e;padding:30px}
+    
+    @media (max-width: 640px) {
+      .stats-box {
+        width: 100%;
+        max-width: 160px;
+        padding: 20px;
+        margin: 0 auto;
+      }
+      
+      .stats-box div:first-child {
+        font-size: 24px !important;
+      }
+    }
+    
+    html, body {
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+section {
+  scroll-margin-top: 90px !important;
+}
+
+main, section, .product-hero, .product-section {
+  padding-top: 90px !important;
+}
+
+/* 🔥 Mobile optimizations applied globally */
+  </style>
+  <style>
+    /* Responsive parity fixes to make mobile match desktop proportions */
+    :root { --max-content-width: 1200px; }
+
+    /* header respects the header-height variable */
+    header { height: var(--header-height); }
+
+    /* nav sizing */
+    nav .nav-link { font-size: clamp(14px, 2.2vw, 20px); padding: 6px 10px; }
+
+    /* Sections use consistent padding and scroll margin */
+    section { padding: clamp(24px, 4vw, 64px) 16px; box-sizing: border-box; scroll-margin-top: var(--header-height); }
+    section h2 { font-size: clamp(22px, 3.4vw, 44px); line-height:1.05; margin-bottom: 12px; }
+
+    /* Hero adjustments */
+    .hero { background-size: cover; background-position: center right; }
+    .hero h1 { font-size: clamp(36px, 6vw, 72px); line-height:1.02; }
+    .hero h2 { font-size: clamp(16px, 2.2vw, 28px); }
+    .hero .lead { font-size: clamp(14px, 2vw, 18px); max-width: 68ch; }
+    .cta-btn { font-size: clamp(14px, 2vw, 18px); padding: 12px 20px; }
+
+    /* Offerings grid: 4 / 3 / 2 / 1 columns at breakpoints */
+    #allProducts { display: grid; grid-template-columns: repeat(4,1fr); gap:18px; margin-top: 16px; }
+    @media (max-width: 1024px) { #allProducts { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width: 768px) { #allProducts { grid-template-columns: repeat(2,1fr); gap:14px; padding: 0 8px; } }
+    @media (max-width: 420px) { #allProducts { grid-template-columns: 1fr; } }
+
+    /* Card media sizing */
+    #allProducts .card .card-media { height: 220px; display:flex; align-items:center; justify-content:center; background:#f3f4f6; }
+    @media (max-width: 768px) { #allProducts .card .card-media { height: 160px; } }
+
+    /* Feature grid responsive */
+    .feature-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:20px; max-width: var(--max-content-width); margin: 24px auto; }
+    @media (max-width: 1024px) { .feature-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 640px) { .feature-grid { grid-template-columns: 1fr; padding: 0 12px; } }
+
+    /* Contact form sizing */
+    .contact-form { max-width: 720px; margin: 18px auto; }
+    .contact-form form { width: 100%; }
+
+    /* Ensure images keep consistent cropping */
+    img { object-fit: cover; }
+    #allProducts .card img { object-fit: contain; }
+    @media (max-width: 640px) {
+      /* Hide section headings only when mobile nav is open */
+      body.nav-open .offerings-hero,
+      body.nav-open section h2,
+      body.nav-open section h3 { display: none !important; }
+    }
+  </style>
+</head>
+<body class="inverted">
+  <div class="hero-bg" aria-hidden="true">
+    <!-- background video/image removed to disable moving product images -->
+    <div class="blob"></div>
+    <div class="circle-orn" style="width:220px;height:220px;left:48px;bottom:36px;opacity:0.12"></div>
+    <div class="circle-orn" style="width:140px;height:140px;right:64px;top:96px;opacity:0.12"></div>
+  </div>
+  <div class="container">
+    <header>
+      <div class="brand">
+          <img src="assets/logo.png" alt="FusionVue logo">
+      </div>
+      <button id="navToggle" aria-label="Toggle menu">☰</button>
+      <nav>
+        <a href="#" class="nav-link" style="color: #fff;">Home</a>
+        <a href="#about" class="nav-link" style="color: #fff;">About</a>
+        <a href="#offerings" class="nav-link" style="color: #fff;">Offerings</a>
+        <a href="#contact" class="nav-link" style="color: #fff;">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+
+  <!-- LEFT IMAGE -->
+  <div class="hero-side hero-left">
+    <img src="assets/hero-left.png" alt="FusionVue AV Visual">
+  </div>
+
+  <!-- CENTER CONTENT -->
+  <div class="hero-center">
+    <div class="hero-card">
+      <img src="assets/logo.png" alt="FusionVue logo" class="hero-logo">
+
+      <p class="lead">
+        Delivering <strong class="gold">immersive AV solutions</strong> that transform
+        corporate, commercial, and luxury environments.
+        Combining <strong class="gold">technology, design, and precision</strong>
+        to create <strong class="gold">connected, intelligent spaces</strong>.
+      </p>
+
+      <div style="margin-top:26px">
+        <a class="cta-btn" href="#offerings">Explore Offerings</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT IMAGE -->
+  <div class="hero-side hero-right">
+    <img src="assets/hero-right.png" alt="FusionVue Experience Spaces">
+  </div>
+
+</section>
+
+     <!-- WHO / STATS section -->
+    <section id="about"  style="padding:32px 16px; background:#4a60dc; color:#fff; width:100%; box-sizing:border-box; overflow-x:hidden;">
+      <div style="max-width:900px;margin:0 auto;text-align:center;color:#fff;padding:12px 12px">
+        <h2 style="font-family:'Poppins',sans-serif;font-size:44px;margin:0 0 10px; line-height:1.1;"><span style="color:#111;background:#fff;padding:4px 10px;border-radius:4px; display:inline-block; font-size:44px;">WHO IS</span> <span style="color:#fff; font-size:44px;">FUSIONVUE?</span></h2>
+        <p style="color:#f0f0f0;max-width:860px;margin:12px auto;font-size:16px; line-height:1.4;">At <strong style="color:#e9eaf0">FusionVue</strong> we are a premier Audio & Video Integration company specializing in cutting-edge AV solutions for corporate, commercial and luxury residential spaces.</p>
+      </div>
+
+      <div style="display:flex;justify-content:center;gap:12px;max-width:100%;margin:16px auto; flex-wrap:wrap; padding:0 8px; box-sizing:border-box;">
+        <div class="stats-box">
+          <div style="font-size:24px;color:var(--gold);font-weight:800">10+</div>
+          <div style="color:#fff;margin-top:8px; font-size:13px;">Years<br/>Experience</div>
+        </div>
+        <div class="stats-box">
+          <div style="font-size:24px;color:var(--gold);font-weight:800">500+</div>
+          <div style="color:#fff;margin-top:8px; font-size:13px;">Projects<br/>Completed</div>
+        </div>
+        <div class="stats-box">
+          <div style="font-size:24px;color:var(--gold);font-weight:800">250+</div>
+          <div style="color:#fff;margin-top:8px; font-size:13px;">Happy<br/>Clients</div>
+        </div>
+         <div class="stats-box">
+          <div style="font-size:24px;color:var(--gold);font-weight:800">15+</div>
+          <div style="color:#fff;margin-top:8px; font-size:13px;">Industry<br/>Awards</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Offerings slider -->
+    <section id="offerings" style="width:100%; box-sizing:border-box; overflow-x:hidden;">
+      <div class="full-bleed">
+        <div class="offerings-wrap" style="text-align:center; background:linear-gradient(180deg,#01040c,#0c1722); ">
+        <div class="offerings-hero">
+          <h3 style="font-family:'Poppins',sans-serif;font-size:48px;margin:0 0 12px; text-align:center; line-height:1.1;"><span style="color:#fff;padding:6px 14px;border-radius:6px;text-align:center">OUR OFFERINGS</span></h3>
+
+        </div>
+
+        <div id="offerContainer">
+          <div id="offerLoader" class="offer-loader">
+            <div class="spinner" aria-hidden="true"></div>
+          </div>
+
+            <div id="productSlider" class="slider" style="display:none">
+              <div id="sliderTrack" class="track" aria-live="polite" aria-atomic="true"></div>
+            </div>
+
+            <!-- All products gallery (one card per category) -->
+            <div id="allProducts"></div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- WHY CHOOSE US SECTION -->
+ <section id="why-choose-us">
+    <h2>WHY CHOOSE <span class="highlight">FUSIONVUE?</span></h2>
+    <p class="section-desc">
+      Empowering businesses with intelligent, high-performance AV solutions that connect, engage, and inspire.
+      Experience seamless integration, cutting-edge technology, and unmatched reliability with FusionVue.
+    </p>
+
+    <div class="feature-grid">
+      <!-- Card 1 -->
+      <div class="feature-card">
+        <img src="assets/icons/expertise.png" alt="Expertise">
+        <h3>10+ Years of Expertise</h3>
+        <p>Decade-long experience delivering high-end AV systems that redefine communication and collaboration.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="feature-card">
+        <img src="assets/icons/custom.png" alt="Custom Solutions">
+        <h3>Tailored AV Solutions</h3>
+        <p>We build custom systems that align with your brand’s vision and existing IT ecosystem.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="feature-card">
+        <img src="assets/icons/integration.png" alt="Integration">
+        <h3>Seamless Integration</h3>
+        <p>Our expert setups blend effortlessly into your space, enhancing performance and efficiency.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="feature-card">
+        <img src="assets/icons/future.png" alt="Future Ready">
+        <h3>Future-Ready Technology</h3>
+        <p>Stay ahead with scalable, upgradable solutions built to meet tomorrow’s AV needs.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="feature-card">
+        <img src="assets/icons/support.png" alt="Support">
+        <h3>Comprehensive Support</h3>
+        <p>24/7 maintenance and assistance ensure your systems run flawlessly without downtime.</p>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="feature-card">
+        <img src="assets/icons/innovation.png" alt="Innovation">
+        <h3>Driven by Innovation</h3>
+        <p>We constantly evolve our technology to deliver cutting-edge visual and audio experiences.</p>
+      </div>
+    </div>
+
+    <p class="tagline"><span>FusionVue</span> — Innovation. Integration. Excellence.</p>
+  </section>
+<!-- Mission & Vision Section -->
+<section id="mission-vision" style="position:relative; padding:40px 16px; overflow:hidden; background:#f9fafb; color:#111; width:100%; box-sizing:border-box;">
+  <div class="container">
+
+    <!-- Add a class for the grid -->
+    <div class="mission-vision-grid">
+      <!-- Mission Card -->
+      <div class="mission-card">
+        <div class="card-header">
+          <img src="assets/mission.png" alt="Mission Icon">
+          <h3>OUR VISION</h3>
+        </div>
+        <p>
+          We deliver bespoke AV ecosystems blending 
+          <span>stunning visuals</span>, 
+          <span>crystal-clear audio</span>, and 
+          <span>intuitive control systems</span> — engineered to amplify engagement, simplify operations, and future-proof your spaces. From concept to commissioning, our solutions are tailored, scalable, and designed to delight.
+        </p>
+      </div>
+
+      <!-- Vision Card -->
+      <div class="mission-card">
+        <div class="card-header">
+          <img src="assets/vision.png" alt="Vision Icon">
+          <h3>OUR MISSION</h3>
+        </div>
+        <p>
+          To be the trusted AV partner for visionary organisations — enabling memorable experiences across boardrooms, auditoriums, retail, and residential spaces. We pursue 
+          <span>innovation</span>, 
+          <span>impeccable support</span>, and 
+          <span>reliable partnerships</span> that turn ambitious ideas into measurable results.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Decorative Floating Circles -->
+  <div class="circle yellow top-left"></div>
+  <div class="circle amber bottom-right"></div>
+
+  <style>
+    .mission-vision-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .mission-vision-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .mission-card {
+      background:#fff; 
+      border-radius:14px; 
+      padding:40px; 
+      box-shadow:0 10px 30px rgba(0,0,0,0.1); 
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .mission-card:hover {
+      transform: translateY(-10px);
+      box-shadow:0 15px 25px rgba(0,0,0,0.2);
+    }
+
+    .mission-card .card-header {
+      display:flex; 
+      align-items:center; 
+      gap:16px; 
+      margin-bottom:24px;
+    }
+
+    .mission-card .card-header img {
+      width:48px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .mission-card .card-header h3 {
+      font-size:28px; 
+      font-weight:bold; 
+      color:#111; 
+      letter-spacing:1px;
+    }
+
+    .mission-card p {
+      color:#333; 
+      font-size:16px; 
+      line-height:1.6;
+    }
+
+    .mission-card p span {
+      color:#4a60dc; 
+      font-weight:600;
+    }
+
+    .circle {
+      position:absolute;
+      border-radius:50%;
+      filter:blur(100px);
+      opacity:0.3;
+      animation:pulse 6s infinite alternate;
+    }
+
+    .yellow { background:#fef08a; top:-80px; left:-80px; width:250px; height:250px; }
+    .amber { background:#fcd34d; bottom:-80px; right:-80px; width:250px; height:250px; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 640px) {
+      .mission-card {
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .mission-card .card-header {
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .mission-card .card-header img {
+        width: 36px;
+      }
+
+      .mission-card .card-header h3 {
+        font-size: 18px;
+        letter-spacing: 0;
+      }
+
+      .mission-card p {
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .yellow, .amber {
+        display: none;
+      }
+    }
+  </style>
+</section>
+<!-- Partners Section -->
+<section id="brands" style="padding:32px 16px; background:#d6d8f1; color:#111; text-align:center; width:100%; box-sizing:border-box; overflow-x:hidden;">
+  <h2 style="font-size:48px; font-weight:bold; margin-bottom:32px; word-wrap:break-word;">
+    OUR <span style="background:linear-gradient(90deg, #52a4d3, #4a60dc); -webkit-background-clip:text; color:transparent;">PARTNERS</span>
+  </h2>
+
+  <div class="brands-grid">
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/ATEN.png" alt="ATEN" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/BenQ-Logo.wine.png" alt="BenQ" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/biamp-systems-logo.png" alt="Biamp" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Cisco-logo.png" alt="Cisco" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Crestron-Logo.jpg" alt="Crestron" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Epson-Logo.png" alt="Epson" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/JBL-logo.png" alt="JBL" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Kramer_Logo.png" alt="Kramer" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/lg-logo-png-transparent.png" alt="LG" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/logitech-logo-2.png" alt="Logitech" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Optoma-Logo.png" alt="Optoma" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Panasonic-Logo.png" alt="Panasonic" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Poly.png" alt="Poly" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/qsc-logo.png" alt="QSC" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Samsung-Symbol.png" alt="Samsung" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Sony-Logo.jpg" alt="Sony" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/ViewSonic-logo.png" alt="ViewSonic" loading="lazy">
+    </div>
+  </div>
+
+  <style>
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: center;
+      justify-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 8px;
+      box-sizing: border-box;
+    }
+
+    .brand-logo img {
+      max-height: 60px;
+      width: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .brand-logo img:hover {
+      transform: scale(1.1);
+    }
+
+    @media (min-width: 768px) {
+      .brands-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .brands-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 0 6px;
+      }
+      
+      .brand-logo img {
+        max-height: 45px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .brands-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      
+      .brand-logo img {
+        max-height: 40px;
+      }
+    }
+  </style>
+</section>
+
+<section id="contact" style="padding:48px 20px; background:#fff; width:100%; box-sizing:border-box; overflow-x:hidden;">
+  <h2 style="font-size:48px; font-weight:bold; margin-bottom:32px; text-align:center; word-wrap:break-word;">
+    GET IN <span style="background:linear-gradient(90deg, #52a4d3, #4a60dc); -webkit-background-clip:text; color:transparent;">TOUCH</span>
+  </h2>
+
+  <!-- Grid Container -->
+  <div class="contact-grid" text-align="center">
+    <!-- Left Column: Info -->
+    <div class="contact-info" style="background-color: #01040c; text-align: center;">
+      <h3 style="font-size: 40px; font-weight:bold;color: #4a60dc;">Contact Us</h3>
+      <p style="color: #fff;">
+        <img src="./assets/location.png" alt="Location" style="width:24px; vertical-align:middle; margin-right:8px;">
+        <strong>Address</strong></p> <p style="color: #fff;"> Navi Mumbai, Maharashtra - 410206 </p>
+      </p>
+      <br>
+      <p style="color: #fff;">
+        <img src="./assets/phone.png" alt="Phone" style="width:24px; vertical-align:middle; margin-right:8px;">
+        <strong>Contact</strong></p> <p style="color: #fff;"> +91 93213 94029, +91 88283 25566 </p>
+      <p style="color: #fff;">
+        <br>
+        <img src="./assets/email.png" alt="Email" style="width:24px; vertical-align:middle; margin-right:8px;">
+        <strong>Email</strong></p> <p style="color: #fff;"> sales@fusionvue.com, fusionvue@gmail.com </p>
+      </p>
+      <p style="color: #fff;">
+        <br>
+        <img src="./assets/website.png" alt="Hours" style="width:24px; vertical-align:middle; margin-right:8px;">
+        <strong>website</strong></p> <p style="color: #fff;"> www.fusionvue.com </p>
+    </div>
+
+    <!-- Right Column: Form -->
+    <div class="contact-form" style="background-color: #4a60dc;">
+      <form action="mailto:sales@fusionvue.com" method="post" enctype="text/plain" id="contactForm">
+  <input name="name" type="text" placeholder="Your Name *" required>
+  <input name="email" type="email" placeholder="Email Address *" required>
+  <input name="phone" type="text" placeholder="Phone Number">
+  <input name="company" type="text" placeholder="Company Name">
+  <textarea name="message" placeholder="Message *" rows="5" required></textarea>
+  <button type="submit">SUBMIT</button>
+</form>
+    </div>
+  </div>
+
+  <!-- WhatsApp -->
+  <a href="https://api.whatsapp.com/send?phone=8693068891&text=Hi%20FusionVue%20Team%20👋" target="_blank" class="whatsapp-btn">
+    <img src="assets/whatsapp.png" alt="Chat on WhatsApp">
+  </a>
+
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .contact-info, .contact-form {
+      background:#fff;
+      padding:32px;
+      border-radius:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .contact-info h3 {
+      font-size:24px;
+      font-weight:bold;
+      margin-bottom:16px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding:12px 16px;
+      margin-bottom:16px;
+      border:1px solid #ccc;
+      border-radius:8px;
+      font-size:16px;
+    }
+
+    .contact-form button {
+      padding:14px 28px;
+      border-radius:12px;
+      background:#f59e0b;
+      color:#111;
+      font-weight:bold;
+      border:none;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .contact-form button:hover {
+      background:#060400;
+    }
+
+    .whatsapp-btn {
+      position:fixed;
+      bottom:24px;
+      right:24px;
+      z-index:9999;
+    }
+
+    .whatsapp-btn img {
+      width:56px;
+      height:56px;
+    }
+
+    @media (min-width:768px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .contact-grid {
+        gap: 20px;
+      }
+
+      .contact-info, .contact-form {
+        padding: 16px;
+        border-radius: 12px;
+      }
+
+      .contact-info h3 {
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+
+      .contact-info p {
+        font-size: 12px;
+        margin-bottom: 8px;
+      }
+
+      .contact-info img {
+        width: 18px !important;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        padding: 10px 12px;
+        margin-bottom: 12px;
+        font-size: 14px;
+      }
+
+      .contact-form button {
+        padding: 12px 20px;
+        font-size: 14px;
+        width: 100%;
+      }
+
+      .whatsapp-btn img {
+        width: 48px;
+        height: 48px;
+      }
+    }
+  </style>
+</section>
+
+
+  <script>
+    // Stepper logic (HTML-only): saves drafts to localStorage and allows download of submission JSON
+    (function(){
+      const steps = Array.from(document.querySelectorAll('.step'));
+      const panes = Array.from(document.querySelectorAll('.pane'));
+      const nextBtn = document.getElementById('next');
+      const prevBtn = document.getElementById('prev');
+      const saveBtn = document.getElementById('save');
+      const importBtn = document.getElementById('import');
+      const importFile = document.getElementById('importFile');
+      let idx = 0;
+
+      function update(){
+        steps.forEach((s,i)=>{
+          s.classList.toggle('active', i===idx);
+          s.classList.toggle('completed', i<idx);
+        });
+        panes.forEach(p=> p.classList.toggle('active', +p.dataset.pane===idx));
+        prevBtn.disabled = idx===0;
+        nextBtn.textContent = idx===panes.length-1 ? 'Submit' : 'Next';
+
+        // update progress
+        const percent = Math.round((idx / (panes.length - 1)) * 100);
+        const progressText = document.getElementById('progressText');
+        if(progressText) progressText.textContent = percent + '%';
+
+        // validate required fields in current pane to enable/disable Next
+        const currentPane = document.querySelector('.pane.active');
+        let enableNext = true;
+        if(currentPane){
+          const requiredInputs = Array.from(currentPane.querySelectorAll('input[data-required="true"]'));
+          if(requiredInputs.length){
+            enableNext = requiredInputs.every(i => i.value && i.value.trim().length > 0);
+          }
+        }
+        nextBtn.disabled = !enableNext;
+      }
+
+      function collectData(){
+        const data = {};
+        document.querySelectorAll('.pane input').forEach(input=>{
+          const key = input.placeholder ? input.placeholder.toLowerCase().replace(/\s+/g,'_') : input.name || ('field_' + Math.random().toString(36).slice(2,7));
+          data[key] = input.value;
+        });
+        return data;
+      }
+
+      function downloadJSON(obj, filename){
+        const blob = new Blob([JSON.stringify(obj, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      // validate on input to update Next button state
+      document.addEventListener('input', (e)=>{
+        const pane = document.querySelector('.pane.active');
+        if(!pane) return;
+        const requiredInputs = Array.from(pane.querySelectorAll('input[data-required="true"]'));
+        if(requiredInputs.length){
+          const ok = requiredInputs.every(i => i.value && i.value.trim().length>0);
+          nextBtn.disabled = !ok;
+        }
+      });
+
+      // keyboard accessibility: Enter to progress, ArrowLeft/Right to navigate
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter'){
+          const active = document.activeElement;
+          if(active && active.tagName === 'INPUT'){
+            e.preventDefault();
+            if(!nextBtn.disabled) nextBtn.click();
+          }
+        } else if(e.key === 'ArrowRight'){
+          if(idx < panes.length-1) { idx++; update(); }
+        } else if(e.key === 'ArrowLeft'){
+          if(idx > 0) { idx--; update(); }
+        }
+      });
+
+      nextBtn.addEventListener('click', ()=>{
+        if(idx < panes.length-1) { idx++; update(); return; }
+
+        // final submit: save to localStorage and offer download
+        const payload = { id: Date.now(), data: collectData(), ts: new Date().toISOString() };
+
+        try{
+          const key = 'fusionvue.submissions';
+          const arr = JSON.parse(localStorage.getItem(key) || '[]');
+          arr.push(payload);
+          localStorage.setItem(key, JSON.stringify(arr));
+        }catch(e){ console.warn('Failed to persist to localStorage', e); }
+
+        downloadJSON(payload, 'fusionvue-submission-' + payload.id + '.json');
+        alert('Submission saved locally and download started.');
+        idx = panes.length - 1; update();
+      });
+
+      prevBtn.addEventListener('click', ()=>{ if(idx>0) idx--; update(); });
+
+      saveBtn.addEventListener('click', ()=>{
+        const draft = { id: Date.now(), data: collectData(), ts: new Date().toISOString() };
+        try{
+          const key = 'fusionvue.drafts';
+          const arr = JSON.parse(localStorage.getItem(key) || '[]');
+          arr.push(draft);
+          localStorage.setItem(key, JSON.stringify(arr));
+          downloadJSON(draft, 'fusionvue-draft-' + draft.id + '.json');
+          alert('Draft saved to localStorage and download started.');
+        }catch(e){ alert('Save draft failed: ' + e.message); }
+      });
+
+      // Import draft flow
+      importBtn.addEventListener('click', ()=> importFile.click());
+      importFile.addEventListener('change', (e)=>{
+        const f = e.target.files && e.target.files[0];
+        if(!f) return;
+        const reader = new FileReader();
+        reader.onload = function(){
+          try{
+            const obj = JSON.parse(reader.result);
+            // applyData if present
+            if(obj && obj.data){
+              document.querySelectorAll('.pane input').forEach(input=>{
+                const key = input.placeholder ? input.placeholder.toLowerCase().replace(/\s+/g,'_') : input.name;
+                if(key && obj.data[key]) input.value = obj.data[key];
+              });
+            }
+            alert('Draft imported.');
+          }catch(err){ alert('Failed to parse JSON: ' + err.message); }
+        };
+        reader.readAsText(f);
+      });
+
+      steps.forEach((s,i)=> s.addEventListener('click', ()=>{ idx = i; update(); }));
+      update();
+    })();
+  </script>
+  <script>
+    // Offerings slider: preload images, show loader, then autoplay every 2s
+    (function(){
+      // Image list gathered from workspace product folders
+      const productImages = [
+        "assets/products/Active%20LED/elite-led-technologies-karmanghat-hyderabad-led-screens-on-hire-p65hoe20fm.avif",
+        "assets/products/Active%20LED/fixed-led-screen-2228816276-aetw5kqa.webp",
+        "assets/products/Active%20LED/Illuminating-Brilliance-Exploring-the-Features-of-LED-Video.jpg",
+        "assets/products/Active%20LED/outdoor-led-video-wall-1.jpg",
+        "assets/products/Active%20LED/P2-604-500-X-500mm-Outdoor-Rental-Concert-Stage-Background-LED-Video-Wall-Display-Full-Color-Billboard-Digital-Signage-Screen.avif",
+
+        "assets/products/Display/6683e235d281f212df282ef6-55-digital-signage-displays-4k-lcd.jpg",
+        "assets/products/Display/66abfc1086f20257d53ba9f4-65-digital-signage-displays-4k.jpg",
+        "assets/products/Display/display-fort-dhenu-mkt-indore-digital-signage-dealers-r2pnoz7bj2.avif",
+        "assets/products/Display/IQ-Digital-Signage-small.webp",
+        "assets/products/Display/Scala-Expert-Guide_-How-to-Create-Digital-Signage-img1-1536x864.webp",
+        "assets/products/Display/Sony-India-Introduces-EZ20L-4K-Professional-Displays.webp",
+        "assets/products/Display/wall-mounted-and-free-standing-digital-advertising-screen-and-poster-display.jpg",
+
+        "assets/products/Home%20Theater/65f424daa8498f18411160c1-sony-sscs5-3-way-3-driver-bookshelf.jpg",
+        "assets/products/Home%20Theater/diy-home-theater-room-.jpeg",
+        "assets/products/Home%20Theater/iStock-177100713.jpg",
+        "assets/products/Home%20Theater/main_header_03.jpg",
+        "assets/products/Home%20Theater/picturescreen.webp",
+        "assets/products/Home%20Theater/when-to-use-7-1-surround-sound-what-is-7-1-surround-sound-AV-Access-1900x1027.jpg",
+
+        "assets/products/Immersive%20Room/dali-pano-dalle-2-1280-1.jpg",
+        "assets/products/Immersive%20Room/interactive-immersive-room.jpeg",
+        "assets/products/Immersive%20Room/museum-is_slider2.jpg",
+        "assets/products/Immersive%20Room/Pixel-Artworks-Immersive-Room-Jungle-2.jpg",
+        "assets/products/Immersive%20Room/rent_04_immersive_room.jpg",
+        "assets/products/Immersive%20Room/room-to-breathe.jpg",
+
+        "assets/products/Projection%20Mapping/mapping.webp",
+        "assets/products/Projection%20Mapping/Pani-%20video%20mapping%20technology-%20basa%20studio%204.jpg",
+        "assets/products/Projection%20Mapping/project-mapping-06.jpg",
+        "assets/products/Projection%20Mapping/projection-mapping.webp",
+        "assets/products/Projection%20Mapping/WhatsAppImage2023-04-30at2.46.48PMX4KT.jpeg",
+        "assets/products/Projection%20Mapping/Zz03MTA3ODI3YWU0MjU3ZTAzN2Q3ZWUzYTVmNDJhMGEwOA==.jpg",
+
+        "assets/products/Projector/0009958_8.png",
+        "assets/products/Projector/1_08c1c81d-8b1f-469e-9eae-bbaad6344393.webp",
+        "assets/products/Projector/1_41acb45f-3ef9-489f-8ea3-1e0ca1ec0607.webp",
+        "assets/products/Projector/AVStore2_ab296e73-f10e-452d-8f56-1e4a588b8882.webp",
+        "assets/products/Projector/lu935st-01.webp",
+        "assets/products/Projector/sony.jpg",
+        "assets/products/Projector/tw-9400_1200x1200.webp",
+
+        "assets/products/Sound/1740b256422f56af079deeb73614208b.webp",
+        "assets/products/Sound/audio-system-1669880933.jpg",
+        "assets/products/Sound/bs301w.jpg",
+        "assets/products/Sound/DGWCmL7EGdgJBr9T49gfAD.jpg",
+        "assets/products/Sound/download.jpg",
+        "assets/products/Sound/images.jpg",
+        "assets/products/Sound/sib_evo_kit_5-1.jpg",
+
+        "assets/products/Video%20Conferencing/20240627054727337521e.png",
+        "assets/products/Video%20Conferencing/3-3.jpg",
+        "assets/products/Video%20Conferencing/Best-Video-Conferencing-System-Provider-in-Mumbai-Go-Ninja.jpg",
+        "assets/products/Video%20Conferencing/meeting-room-video-conferencing-solution-jpg-1-jpg.jpg",
+        "assets/products/Video%20Conferencing/MVC860-en-us-20240719T042819-2.png",
+        "assets/products/Video%20Conferencing/PIC4.jpg",
+        "assets/products/Video%20Conferencing/slider-2c.jpg",
+        "assets/products/Video%20Conferencing/untitled_98-sixteen_nine.webp"
+      ];
+
+      const loader = document.getElementById('offerLoader');
+      const slider = document.getElementById('productSlider');
+      const track = document.getElementById('sliderTrack');
+
+      // Preload images
+      const loaders = productImages.map(src => new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve({src, ok:true});
+        img.onerror = () => resolve({src, ok:false});
+        img.src = src;
+      }));
+
+      Promise.all(loaders).then(results => {
+        // Filter successful images
+        const valid = results.filter(r => r.ok).map(r => r.src);
+        if(valid.length === 0){
+          loader.innerHTML = '<div style="color:#fff">No product images found.</div>';
+          return;
+        }
+
+        // utility: get folder (category) and readable name
+        function parsePath(p){
+          try{ p = decodeURIComponent(p); }catch(e){}
+          const parts = p.split('/');
+          const prodIndex = parts.indexOf('products');
+          let folder = 'General';
+          let file = parts[parts.length-1] || '';
+          if(prodIndex >= 0 && parts.length > prodIndex + 1){ folder = parts[prodIndex+1]; file = parts[prodIndex+2] || file; }
+          const name = (file || folder).replace(/\.[^/.]+$/, '').replace(/[-_\.]+/g,' ').trim();
+          return { folder: folder, file: file, displayName: name };
+        }
+
+        // Group images by category folder
+        const byCategory = {};
+        valid.forEach(src => {
+          const info = parsePath(src);
+          const key = info.folder || 'General';
+          if(!byCategory[key]) byCategory[key] = [];
+          byCategory[key].push(src);
+        });
+
+        // Build one card per category; each card cycles its category images every 2s
+        const allProductsContainer = document.getElementById('allProducts');
+        Object.keys(byCategory).forEach(cat => {
+          const images = byCategory[cat];
+          
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.style.display = 'flex';
+          card.style.flexDirection = 'column';
+          card.style.alignItems = 'stretch';
+          card.style.gap = '8px';
+
+          card.onclick = () => window.location.href = `product.html#${cat.replace(/\s+/g,'-')}`;
+
+
+
+          // image area
+          const mediaWrap = document.createElement('div');
+          mediaWrap.style.width = '100%';
+          mediaWrap.style.height = '160px';
+          mediaWrap.style.overflow = 'hidden';
+          mediaWrap.style.borderRadius = '8px';
+          mediaWrap.style.background = 'rgba(255,255,255,0.02)';
+          mediaWrap.style.display = 'grid';
+          mediaWrap.style.placeItems = 'center';
+          
+
+          const img = document.createElement('img');
+          img.src = images[0];
+          img.alt = cat;
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'cover';
+          img.style.transition = 'opacity 300ms ease';
+          mediaWrap.appendChild(img);
+
+          const title = document.createElement('div');
+          title.style.padding = '10px';
+          title.style.fontWeight = '700';
+          title.style.color = 'var(--gold)';
+          title.textContent = cat.replace(/[-_\.]+/g,' ');
+
+          card.appendChild(mediaWrap);
+          card.appendChild(title);
+          allProductsContainer.appendChild(card);
+
+          // cycle images for this card
+          let idxLocal = 0;
+          setInterval(()=>{
+            idxLocal = (idxLocal + 1) % images.length;
+            // fade effect
+            img.style.opacity = '0';
+            setTimeout(()=>{
+              img.src = images[idxLocal];
+              img.style.opacity = '1';
+            }, 220);
+          }, 2000);
+        });
+
+        // hide loader and slider track (we now show one card per category)
+        loader.style.display = 'none';
+        const sliderEl = document.getElementById('productSlider');
+        if(sliderEl) sliderEl.style.display = 'none';
+      });
+    })();
+  </script>
+    <script>
+      // Mobile nav toggle script — also set body.nav-open so headings hide only when nav is open
+      (function(){
+        const navToggle = document.getElementById('navToggle');
+        const headerNav = document.querySelector('header nav');
+        if(!navToggle || !headerNav) return;
+        navToggle.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          const opened = headerNav.classList.toggle('open');
+          document.body.classList.toggle('nav-open', opened);
+        });
+        headerNav.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=>{
+          headerNav.classList.remove('open');
+          document.body.classList.remove('nav-open');
+        }));
+        document.addEventListener('click', (e)=>{
+          if (!headerNav.contains(e.target) && e.target !== navToggle && headerNav.classList.contains('open')){
+            headerNav.classList.remove('open');
+            document.body.classList.remove('nav-open');
+          }
+        });
+      })();
+    </script>
+</body>
+</html>

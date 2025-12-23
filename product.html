@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" type="text/css">
+  <title>Our Products — FusionVue</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* GLOBAL MOBILE FIXES — ADD THESE */
+:root {
+  --header-height: 100px;
+}
+
+/* All sections must not hide behind the header */
+section {
+  padding-top: var(--header-height);
+  padding-bottom: 20px;
+  scroll-margin-top: var(--header-height);
+  box-sizing: border-box;
+}
+
+/* Body height fits screen */
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+
+section { scroll-margin-top: 80px; }
+
+/* FIXED TOP HEADER */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+      height: var(--header-height);     
+    padding: 0 28px;
+    background: linear-gradient(90deg, #96c3de, #0f0fe9);
+    padding-left: 62px;
+    padding-right: 62px;
+    color: #111;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+}
+
+@media(max-width: 640px) {
+    header {
+        padding: 8px 12px;
+    }
+      /* reduce header height on small screens */
+      :root { --header-height: 72px; }
+    section { scroll-margin-top: var(--header-height); }
+    
+    header nav {
+        display: flex !important;
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 8px;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    header nav a {
+        padding: 6px 4px;
+        flex: 0 0 auto;
+        font-size: 12px;
+        margin-left: 0;
+    }
+}
+@media (max-width: 640px) {
+  .thumb {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+@media(max-width: 600px) {
+  .hero-img {
+    object-fit: contain;
+  }
+}
+
+.slide img { min-height: 320px; }
+
+
+/* BRAND */
+.brand { display:flex; align-items:center; gap:12px; }
+.brand img { height:100px; }
+
+@media (max-width: 640px) {
+  .brand {
+    gap: 8px;
+  }
+  .brand img {
+    height: 32px;
+  }
+  .brand div {
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+nav a { color:#f2efef; text-decoration:none; margin-left:22px; font-weight:600; transition: 0.2s ease; }
+
+/* THUMBNAILS */
+.thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    opacity: 0.6;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.thumb:hover,
+.thumb.active {
+    opacity: 1;
+    border-color: #4f46e5;
+}
+
+@media (max-width: 640px) {
+  .thumb {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* STATS BOX */
+.stats-box {
+    background:linear-gradient(180deg,#f0f2f4,#96abd0);
+    border-radius:18px;
+    padding:30px;
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    text-align:center;
+    box-shadow:0 8px 24px rgba(9, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.stats-box-2 {
+    background:linear-gradient(180deg,#111,#7a9bd4);
+    border-radius:18px;
+    padding:30px;
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    text-align:center;
+    box-shadow:0 8px 24px rgba(233, 38, 38, 0.5);
+    box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .stats-box,
+  .stats-box-2 {
+    padding: 16px;
+    margin: 0;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  
+  main {
+    padding: 70px 0 0 0 !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    margin-top: var(--header-height) 
+  }
+}
+
+body.inverted .stats-box{ background:#0e0e0e; padding:30px; }
+body.inverted .stats-box-2{ background:#222fef; padding:30px; }
+
+/* MOBILE IMAGE FIX */
+@media(max-width: 600px) {
+    .hero-img {
+        height:auto !important;
+        object-fit:contain !important;
+    }
+
+     .thumb {
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  opacity: 0.7;
+}
+
+@media(max-width:640px) {
+  .thumb {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+
+    .stats-box img,
+    .stats-box-2 img {
+        height: 180px !important;
+    }
+
+    .product-hero,
+    .product-section {
+        margin-top: 70px !important;
+    }
+}
+
+html, body {
+    overflow-x: hidden;
+}
+/* 1. Keep header nav usable on mobile instead of hiding it */
+@media (max-width: 640px) {
+  header {
+    padding: 8px 12px;
+  }
+
+  header nav {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 8px;
+    /* hide scrollbar chrome but keep scroll functionality */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  header nav a {
+    padding: 6px 4px;
+    flex: 0 0 auto;
+    font-size: 12px;
+  }
+}
+
+/* 2. Friendlier heading sizes on phones (inline styles need !important) */
+@media (max-width: 640px) {
+  /* Section titles */
+  section h2 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Bigger sections near bottom */
+  #brands h2,
+  #contact h2 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* 3. Make feature lists single-column on small screens */
+@media (max-width: 768px) {
+  stats-box ul.grid,
+  .stats-box-2 ul.grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .stats-box li,
+  .stats-box-2 li {
+    font-size: 14px;
+  }
+}
+
+/* 4. Improve touch targets for slider arrows & thumbnail spacing */
+button.prev,
+button.next {
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+@media (max-width: 640px) {
+  button.prev,
+  button.next {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  /* Slightly more breathing room between thumbs on small screens */
+  #Active-LED .thumb,
+  #Display .thumb,
+  #Home-Theater .thumb,
+  #Immersive-Room .thumb,
+  #Projection-Mapping .thumb,
+  #Projector .thumb,
+  #Sound .thumb,
+  #Video-Conferencing .thumb {
+    margin: 0 2px;
+  }
+}
+
+/* 5. Safer overflow handling */
+body {
+  overflow-x: hidden;
+}
+
+/* 6. Ensure generic images never overflow viewport */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 7. Responsive flex layout for sections */
+@media (max-width: 768px) {
+  .flex-col {
+    flex-direction: column;
+  }
+  
+  section {
+    padding: 20px 0 !important;
+  }
+  
+  section h2 {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 16px !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  section ul {
+    padding: 0;
+    margin: 0;
+  }
+  
+  section ul li {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  section .flex {
+    gap: 12px !important;
+  }
+  
+  section .w-full {
+    width: 100%;
+  }
+}  
+@media(max-width: 640px) {
+  h1, h2, h3 {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    font-size: 28px !important;
+  }
+}
+</style>
+
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+<header class="bg-white shadow fixed w-full z-10">
+  <div class="brand">
+        <img src="assets/logo.png" alt="FusionVue logo">
+      </div>
+    <nav>
+      <!-- Use a relative link to the local index file so clicking 'Home' works when opened from the filesystem -->
+      <a href="index.html" class="text-sm text-gray-2600 mr-4">Home</a>
+      <a href="#Active-LED" class="text-sm text-gray-2600 mr-2">Active LED</a>
+      <a href="#Display" class="text-sm text-gray-2600 mr-2">Display</a>
+      <a href="#Home-Theater" class="text-sm text-gray-2600 mr-2">Home Theater</a>
+      <a href="#Immersive-Room" class="text-sm text-gray-2600 mr-2">Immersive Room</a>
+      <a href="#Projection-Mapping" class="text-sm text-gray-2600 mr-2">Projection Mapping</a>
+      <a href="#Projector" class="text-sm text-gray-2600 mr-2">Projector</a>
+      <a href="#Sound" class="text-sm text-gray-2600 mr-2">Sound</a>
+      <a href="#Video-Conferencing" class="text-sm text-gray-2600">Video Conferencing</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-32">
+  
+  <!-- Active LED Section -->
+ <section id="Active-LED" class="stats-box">
+  <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
+    <span style="background:linear-gradient(90deg, #010911, #0527eb); -webkit-background-clip:text; color:transparent;">ACTIVE LED</span>
+  </h2>
+ <div class="flex flex-col lg:flex-row items-start gap-8">
+
+    <!-- LEFT SIDE — TEXT CONTENT -->
+    <div class="flex-1 text-gray-900 leading-relaxed">
+  <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+
+      <li class ="ml-6">Vertical & horizontal display options</li>
+      <li class ="ml-6">16×7 and 24×7 operation modes</li>  
+
+      <li class ="ml-6">Touchscreen & gesture-based LED displays</li>
+      <li class ="ml-6">Real-time content & remote management</li>
+
+      <li class ="ml-6">High-definition, vibrant visuals</li>
+      <li class ="ml-6">Indoor & outdoor performance</li>
+
+      <li class ="ml-6">Energy-efficient and long-lasting</li>
+      <li class ="ml-6">Customizable sizes & layouts</li>
+
+      <li class ="ml-6">Wide viewing angles</li>
+      <li class ="ml-6">Lightweight and durable</li>
+
+      <li class ="ml-6">Remote content control</li>
+      <li class ="ml-6">Low maintenance</li>
+
+  </ul>
+</div>
+
+
+
+    <!-- RIGHT SIDE — IMAGE BLOCK -->
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+
+      <!-- Main Image -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img id="mainImage-LED"
+            src="assets/products/Active LED/elite-led-technologies-karmanghat-hyderabad-led-screens-on-hire-p65hoe20fm.avif"
+            class="w-full h-56 object-contain transition-all duration-300 hover:scale-95" />
+
+        <!-- Arrows -->
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❮</button>
+
+<button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❯</button>
+
+
+      <!-- Thumbnails -->
+      <div class="flex gap-2 mt-3 justify-center">
+        <img  src="assets/products/Active LED/elite-led-technologies-karmanghat-hyderabad-led-screens-on-hire-p65hoe20fm.avif" class="thumb">
+        <img  src="assets/products/Active LED/fixed-led-screen-2228816276-aetw5kqa.webp" class="thumb">
+        <img  src="assets/products/Active LED/Illuminating-Brilliance-Exploring-the-Features-of-LED-Video.jpg" class="thumb">
+        <img  src="assets/products/Active LED/outdoor-led-video-wall-1.jpg" class="thumb">
+        <img  src="assets/products/Active LED/P2-604-500-X-500mm-Outdoor-Rental-Concert-Stage-Background-LED-Video-Wall-Display-Full-Color-Billboard-Digital-Signage-Screen.avif" class="thumb">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<br><br>
+  <!-- Display Section -->
+ <section id="Display" class="stats-box-2">
+  <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
+    <span style="background:linear-gradient(90deg, #fff, #0527eb); -webkit-background-clip:text; color:transparent;">
+      DISPLAY SOLUTIONS
+    </span>
+  </h2>
+
+  <div class="flex flex-col lg:flex-row items-start gap-8">
+    <!-- LEFT SIDE — TEXT CONTENT -->
+    <div class="flex-1 leading-relaxed" style="color: #fff;">
+      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+        <li class="ml-6">Innovative display solutions</li>
+        <li class="ml-6">LED screens for all environments</li>
+        <li class="ml-6">LCD monitors for clear visuals</li>
+        <li class="ml-6">Digital signage & interactive kiosks</li>
+        <li class="ml-6">Custom display solutions</li>
+        <li class="ml-6">Immersive and engaging experiences</li>
+        <li class="ml-6">Vertical & horizontal installations</li>
+        <li class="ml-6">16×7 operation mode</li>
+        <li class="ml-6">24×7 operation mode</li>
+        <li class="ml-6">Touchscreen interaction</li>
+        <li class="ml-6">Gesture-based displays</li>
+        <li class="ml-6">Real-time content updates</li>
+        <li class="ml-6">Remote management & control</li>
+        <li class="ml-6">Energy-efficient and long-lasting</li>
+        <li class="ml-6">Lightweight and durable designs</li>
+        <li class="ml-6">Customizable sizes & layouts</li>
+        <li class="ml-6">Wide viewing angles</li>
+        <li class="ml-6">Seamless integration in spaces</li>
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE — IMAGE BLOCK -->
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+      <!-- Main Image -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img id="mainImage-Display"
+             src="assets/products/Display/Scala-Expert-Guide_-How-to-Create-Digital-Signage-img1-1536x864.webp"
+             class="w-full h-56 object-contain transition-all duration-300 hover:scale-95" />
+
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❮</button>
+
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❯</button>
+
+      </div>
+        
+      <!-- Thumbnails -->
+      <div class="flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Display/6683e235d281f212df282ef6-55-digital-signage-displays-4k-lcd.jpg" class="thumb">
+        <img src="assets/products/Display/IQ-Digital-Signage-small.webp" class="thumb">
+        <img src="assets/products/Display/Scala-Expert-Guide_-How-to-Create-Digital-Signage-img1-1536x864.webp" class="thumb">
+        <img src="assets/products/Display/Sony-India-Introduces-EZ20L-4K-Professional-Displays.webp" class="thumb">
+        <img src="assets/products/Display/wall-mounted-and-free-standing-digital-advertising-screen-and-poster-display.jpg" class="thumb">
+      </div>
+    </div>
+  </div>
+</section>
+<br><br>
+  <!-- Home Theater Section -->
+  <section id="Home-Theater" class="stats-box mt-16">
+  <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
+    <span style="background:linear-gradient(90deg, #010911, #0527eb); -webkit-background-clip:text; color:transparent;">
+      HOME THEATER
+    </span>
+  </h2>
+
+  <div class="flex flex-col lg:flex-row items-start gap-8">
+
+    <!-- LEFT SIDE — TEXT CONTENT -->
+    <div class="flex-1 text-gray-900 leading-relaxed">
+      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+
+        <li class="ml-6">Premium audio & visual clarity</li>
+        <li class="ml-6">Immersive surround sound</li>
+
+        <li class="ml-6">Custom-designed theater setups</li>
+        <li class="ml-6">Optimized for any room size</li>
+
+        <li class="ml-6">Professional installation</li>
+        <li class="ml-6">Smart home automation</li>
+
+        <li class="ml-6">4K & Ultra HD projection</li>
+        <li class="ml-6">High-end acoustic treatment</li>
+
+        <li class="ml-6">Remote and app-based control</li>
+        <li class="ml-6">Cinematic viewing experience</li>
+
+        <li class="ml-6">Comfort-focused layouts</li>
+        <li class="ml-6">Low maintenance</li>
+
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE — IMAGE BLOCK -->
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+
+      <!-- Main Image -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img id="mainImage-HT"
+             src="assets/products/Home Theater/65f424daa8498f18411160c1-sony-sscs5-3-way-3-driver-bookshelf.jpg"
+             class="w-full h-56 object-contain transition-all duration-300 hover:scale-95" />
+
+        <!-- Arrows -->
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">
+          ❮
+        </button>
+
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">
+          ❯
+        </button>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Home Theater/65f424daa8498f18411160c1-sony-sscs5-3-way-3-driver-bookshelf.jpg" class="thumb">
+        <img src="assets/products/Home Theater/diy-home-theater-room-.jpeg" class="thumb">
+        <img src="assets/products/Home Theater/iStock-177100713.jpg" class="thumb">
+        <img src="assets/products/Home Theater/main_header_03.jpg" class="thumb">
+        <img src="assets/products/Home Theater/picturescreen.webp" class="thumb">
+        <img src="assets/products/Home Theater/when-to-use-7-1-surround-sound-what-is-7-1-surround-sound-AV-Access-1900x1027.jpg" class="thumb">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<br><br>
+  <!-- Immersive Room Section -->
+ <!-- Immersive Room Section -->
+<section id="Immersive-Room" class="stats-box-2 mt-20">
+  <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
+    <span style="background:linear-gradient(90deg, #fff, #0527eb); -webkit-background-clip:text; color:transparent;">
+      IMMERSIVE ROOM SOLUTIONS
+    </span>
+  </h2>
+
+  <div class="flex flex-col lg:flex-row items-start gap-8">
+    
+    <!-- LEFT SIDE — TEXT CONTENT -->
+    <div class="flex-1 leading-relaxed" style="color:#fff;">
+      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+
+        <li class="ml-6">360° immersive projection</li>
+        <li class="ml-6">Interactive touch & gesture control</li>
+        <li class="ml-6">High-resolution dynamic visuals</li>
+        <li class="ml-6">Spatial surround audio</li>
+        <li class="ml-6">Real-time content control</li>
+        <li class="ml-6">Multi-wall synchronization</li>
+        <li class="ml-6">Suitable for museums & exhibitions</li>
+        <li class="ml-6">Perfect for training simulations</li>
+        <li class="ml-6">Custom-built room environments</li>
+        <li class="ml-6">Supports VR + AR integrations</li>
+        <li class="ml-6">Lightweight projection panels</li>
+        <li class="ml-6">Remote monitoring & playback</li>
+        <li class="ml-6">Low-latency visual rendering</li>
+        <li class="ml-6">Adaptive lighting effects</li>
+        <li class="ml-6">Scalable room sizes</li>
+        <li class="ml-6">Seamless wall-to-wall blending</li>
+
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE — IMAGE SLIDER -->
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+
+      <!-- Main Image -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img 
+          id="mainImage-Immersive"
+          src="assets/products/Immersive Room/dali-pano-dalle-2-1280-1.jpg"
+          class="w-full h-56 object-contain transition-all duration-300 hover:scale-95"
+        />
+
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❮</button>
+
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❯</button>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Immersive Room/dali-pano-dalle-2-1280-1.jpg" class="thumb">
+        <img src="assets/products/Immersive Room/interactive-immersive-room.jpeg" class="thumb">
+        <img src="assets/products/Immersive Room/museum-is_slider2.jpg" class="thumb">
+        <img src="assets/products/Immersive Room/Pixel-Artworks-Immersive-Room-Jungle-2.jpg" class="thumb">
+        <img src="assets/products/Immersive Room/rent_04_immersive_room.jpg" class="thumb">
+        <img src="assets/products/Immersive Room/room-to-breathe.jpg" class="thumb">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<br><br>
+  <!-- Projection Mapping Section -->
+  <!-- Projection Mapping Section -->
+<section id="Projection-Mapping" class="stats-box">
+  <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
+    <span style="background:linear-gradient(90deg, #010911, #0527eb); -webkit-background-clip:text; color:transparent;">
+      PROJECTION MAPPING
+    </span>
+  </h2>
+
+  <div class="flex flex-col lg:flex-row items-start gap-8">
+
+    <!-- LEFT SIDE — TEXT CONTENT -->
+    <div class="flex-1 leading-relaxed" style="color:#111;">
+      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+        <li class="ml-6">Transforms surfaces into visual displays</li>
+        <li class="ml-6">Ideal for events & branding</li>
+        <li class="ml-6">Accurate 2D/3D projection mapping</li>
+        <li class="ml-6">Immersive visual experiences</li>
+        <li class="ml-6">Custom content for businesses</li>
+        <li class="ml-6">Touch & motion interaction</li>
+        <li class="ml-6">Perfect for product launches</li>
+        <li class="ml-6">Creates engaging storytelling</li>
+        <li class="ml-6">Scalable for any venue size</li>
+        <li class="ml-6">Useful for marketing & training</li>
+        <li class="ml-6">Architectural visualization</li>
+        <li class="ml-6">High-impact presentations</li>
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE — IMAGE BLOCK -->
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+
+      <!-- Main Image -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img id="mainImage-Projection"
+             src="assets/products/Projection Mapping/mapping.webp"
+             class="w-full h-56 object-contain transition-all duration-300 hover:scale-95" />
+
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2
+          bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl
+          flex items-center justify-center">❮</button>
+
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2
+          bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl
+          flex items-center justify-center">❯</button>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Projection Mapping/mapping.webp" class="thumb">
+         <img src="assets/products/Projection Mapping/Pani- video mapping technology- basa studio 4.jpg" class="thumb">
+
+  
+        <img src="assets/products/Projection Mapping/project-mapping-06.jpg" class="thumb">
+                
+        <img src="assets/products/Projection Mapping/WhatsAppImage2023-04-30at2.46.48PMX4KT.jpeg" class="thumb">
+        <img src="assets/products/Projection Mapping/Zz03MTA3ODI3YWU0MjU3ZTAzN2Q3ZWUzYTVmNDJhMGEwOA==.jpg" class="thumb">
+        <img src="assets/products/Projection Mapping/projection-mapping.webp" class="thumb">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<br><br>
+  <!-- Projector Section -->
+ <!-- Projector Section -->
+<section id="Projector" class="stats-box-2 mt-20">
+  <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
+    <span style="background:linear-gradient(90deg, #fff, #0527eb); 
+                 -webkit-background-clip:text; 
+                 color:transparent;">
+      PROJECTOR SOLUTIONS
+    </span>
+  </h2>
+
+  <div class="flex flex-col lg:flex-row items-start gap-8">
+
+    <!-- LEFT SIDE — TEXT CONTENT -->
+    <div class="flex-1 leading-relaxed" style="color:#fff;">
+      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+
+        <li class="ml-6">High-performance projection</li>
+        <li class="ml-6">Ideal for business presentations</li>
+        <li class="ml-6">Perfect for classrooms & training</li>
+        <li class="ml-6">Suitable for home theaters</li>
+        <li class="ml-6">Supports gaming visuals</li>
+        <li class="ml-6">Great for large venues</li>
+        <li class="ml-6">High-brightness projection</li>
+        <li class="ml-6">Outdoor-ready options</li>
+        <li class="ml-6">Interactive touch projection</li>
+        <li class="ml-6">Gesture-based controls</li>
+        <li class="ml-6">Lightweight mini projectors</li>
+        <li class="ml-6">Portable compact designs</li>
+        <li class="ml-6">Perfect for on-the-go use</li>
+        <li class="ml-6">Lighting & signage projection</li>
+        <li class="ml-6">Dynamic branding displays</li>
+        <li class="ml-6">Smooth, user-friendly operation</li>
+
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE — IMAGE SLIDER -->
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+
+      <!-- Main Image -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img 
+          id="mainImage-Projector"
+          src="assets/products/Projector/0009958_8.png"
+          class="w-full h-56 object-contain transition-all duration-300 hover:scale-95"
+        />
+
+        <button 
+          class="prev absolute left-2 top-1/2 -translate-y-1/2 
+                 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full 
+                 text-xl flex items-center justify-center">❮</button>
+
+        <button 
+          class="next absolute right-2 top-1/2 -translate-y-1/2 
+                 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full 
+                 text-xl flex items-center justify-center">❯</button>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Projector/1_08c1c81d-8b1f-469e-9eae-bbaad6344393.webp" class="thumb">
+        <img src="assets/products/Projector/1_41acb45f-3ef9-489f-8ea3-1e0ca1ec0607.webp" class="thumb">
+        <img src="assets/products/Projector/AVStore2_ab296e73-f10e-452d-8f56-1e4a588b8882.webp" class="thumb">
+        <img src="assets/products/Projector/lu935st-01.webp" class="thumb">
+        <img src="assets/products/Projector/sony.jpg" class="thumb">
+        <img src="assets/products/Projector/tw-9400_1200x1200.webp" class="thumb">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<br><br>
+  <!-- Sound Section -->
+  <!-- Sound Solutions Section -->
+<section id="Sound" class="stats-box mt-20">
+  <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
+    <span style="background:linear-gradient(90deg, #010911, #0527eb); -webkit-background-clip:text; color:transparent;">
+      SOUND SOLUTIONS
+    </span>
+  </h2>
+
+  <div class="flex flex-col lg:flex-row items-start gap-8">
+
+    <!-- LEFT SIDE — TEXT CONTENT -->
+    <div class="flex-1 leading-relaxed" style="color:#111;">
+      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+
+        <li class="ml-6">High-fidelity audio output</li>
+        <li class="ml-6">Perfect for events & conferences</li>
+        <li class="ml-6">Corporate-grade sound systems</li>
+        <li class="ml-6">Crystal-clear voice projection</li>
+        <li class="ml-6">Professional PA system support</li>
+        <li class="ml-6">Home theater audio setups</li>
+        <li class="ml-6">Wireless & Bluetooth connectivity</li>
+        <li class="ml-6">Compact speakers for portability</li>
+        <li class="ml-6">Amplifiers for large venues</li>
+        <li class="ml-6">High-power bass output</li>
+        <li class="ml-6">Ideal for studios & production</li>
+        <li class="ml-6">Perfect for stage & live sound</li>
+
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE — IMAGE SLIDER -->
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+
+      <!-- Main Image -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img 
+          id="mainImage-Sound"
+          src="assets/products/Sound/1740b256422f56af079deeb73614208b.webp"
+          class="w-full h-56 object-contain transition-all duration-300 hover:scale-95"
+        />
+
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 
+          bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl 
+          flex items-center justify-center">❮</button>
+
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 
+          bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl 
+          flex items-center justify-center">❯</button>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Sound/1740b256422f56af079deeb73614208b.webp" class="thumb">
+        <img src="assets/products/Sound/audio-system-1669880933.jpg" class="thumb">
+        <img src="assets/products/Sound/bs301w.jpg" class="thumb">
+        <img src="assets/products/Sound/DGWCmL7EGdgJBr9T49gfAD.jpg" class="thumb">
+        <img src="assets/products/Sound/download.jpg" class="thumb">
+        <img src="assets/products/Sound/images.jpg" class="thumb">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<br><br>
+  <!-- Video Conferencing Section -->
+  <!-- Video Conferencing Solutions Section -->
+<section id="Video-Conferencing" class="stats-box-2 mt-20">
+  <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
+    <span style="background:linear-gradient(90deg, #fff, #0527eb);
+                 -webkit-background-clip:text;
+                 color:transparent;">
+      VIDEO CONFERENCING SOLUTIONS
+    </span>
+  </h2>
+
+  <div class="flex flex-col lg:flex-row items-start gap-8">
+
+    <!-- LEFT SIDE — TEXT CONTENT -->
+    <div class="flex-1 leading-relaxed" style="color:#fff;">
+      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+
+        <li class="ml-6">High-resolution cameras for crystal-clear video</li>
+        <li class="ml-6">Superior audio clarity for effective communication</li>
+        <li class="ml-6">All-in-one video conferencing setups</li>
+        <li class="ml-6">Ideal for corporate boardrooms</li>
+        <li class="ml-6">Perfect for remote & hybrid teams</li>
+        <li class="ml-6">Advanced systems for small to large meeting rooms</li>
+        <li class="ml-6">Seamless connectivity for uninterrupted meetings</li>
+        <li class="ml-6">Supports interactive collaboration tools</li>
+        <li class="ml-6">Compact & easy-mount camera solutions</li>
+        <li class="ml-6">High-performance audio-video integration</li>
+        <li class="ml-6">Optimized for online training & education</li>
+        <li class="ml-6">Professional-grade conferencing hardware</li>
+
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE — IMAGE SLIDER -->
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+
+      <!-- Main Image -->
+      <div class="relative overflow-hidden rounded-lg">
+        <img 
+          id="mainImage-VideoConferencing"
+          src="assets/products/Video%20Conferencing/20240627054727337521e.png"
+          class="w-full h-56 object-contain transition-all duration-300 hover:scale-95"
+        />
+
+        <button 
+          class="prev absolute left-2 top-1/2 -translate-y-1/2 
+                 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full 
+                 text-xl flex items-center justify-center">❮</button>
+
+        <button 
+          class="next absolute right-2 top-1/2 -translate-y-1/2 
+                 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full 
+                 text-xl flex items-center justify-center">❯</button>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Video%20Conferencing/20240627054727337521e.png" class="thumb">
+        <img src="assets/products/Video%20Conferencing/3-3.jpg" class="thumb">
+        <img src="assets/products/Video%20Conferencing/meeting-room-video-conferencing-solution-jpg-1-jpg.jpg" class="thumb">
+        <img src="assets/products/Video%20Conferencing/MVC860-en-us-20240719T042819-2.png" class="thumb">
+        <img src="assets/products/Video%20Conferencing/PIC4.jpg" class="thumb">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<br>
+<!-- Partners Section -->
+<section id="brands" style="padding:48px 20px; background:#f9fafb; color:#111; text-align:center;">
+  <h2 style="font-size:60px; font-weight:bold; margin-bottom:40px;">
+    OUR <span style="background:linear-gradient(90deg, #52a4d3, #4a60dc); -webkit-background-clip:text; color:transparent;">PARTNERS</span>
+  </h2>
+
+  <div class="brands-grid">
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/ATEN.png" alt="ATEN" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/BenQ-Logo.wine.png" alt="BenQ" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/biamp-systems-logo.png" alt="Biamp" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Cisco-logo.png" alt="Cisco" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Crestron-Logo.jpg" alt="Crestron" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Epson-Logo.png" alt="Epson" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/JBL-logo.png" alt="JBL" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Kramer_Logo.png" alt="Kramer" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/lg-logo-png-transparent.png" alt="LG" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/logitech-logo-2.png" alt="Logitech" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Optoma-Logo.png" alt="Optoma" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Panasonic-Logo.png" alt="Panasonic" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Poly.png" alt="Poly" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/qsc-logo.png" alt="QSC" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Samsung-Symbol.png" alt="Samsung" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/Sony-Logo.jpg" alt="Sony" loading="lazy">
+    </div>
+    <div class="brand-logo">
+      <img src="assets/Brand Logo/ViewSonic-logo.png" alt="ViewSonic" loading="lazy">
+    </div>
+  </div>
+
+  <style>
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: center;
+      justify-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .brand-logo img {
+      max-height: 60px;
+      width: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .brand-logo img:hover {
+      transform: scale(1.1);
+    }
+
+    @media (min-width: 768px) {
+      .brands-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .brands-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</section>
+
+<section id="contact" style="padding:64px 20px; background:#d6d8f1;">
+  <h2 style="font-size:60px; font-weight:bold; margin-bottom:40px; text-align:center;">
+    GET IN <span style="background:linear-gradient(90deg, #52a4d3, #4a60dc); -webkit-background-clip:text; color:transparent;">TOUCH</span>
+  </h2>
+
+  <!-- Grid Container -->
+  <div class="contact-grid" text-align="center">
+    <!-- Left Column: Info -->
+    <div class="contact-info" style="background-color: #01040c; text-align: center;">
+      <h3 style="font-size: 40px; font-weight:bold;color: #4a60dc;">Contact Us</h3>
+      <p style="color: #fff;">
+        <img src="./assets/location.png" alt="Location" style="width:24px; vertical-align:middle; margin-right:8px;">
+        <strong>Address</strong></p> <p style="color: #fff;"> Navi Mumbai, Maharashtra - 410206 </p>
+      </p>
+      <br>
+      <p style="color: #fff;">
+        <img src="./assets/phone.png" alt="Phone" style="width:24px; vertical-align:middle; margin-right:8px;">
+        <strong>Contact</strong></p> <p style="color: #fff;"> +91 93213 94029, +91 88283 25566 </p>
+      <p style="color: #fff;">
+        <br>
+        <img src="./assets/email.png" alt="Email" style="width:24px; vertical-align:middle; margin-right:8px;">
+        <strong>Email</strong></p> <p style="color: #fff;"> sales@fusionvue.com, fusionvue@gmail.com </p>
+      </p>
+      <p style="color: #fff;">
+        <br>
+        <img src="./assets/website.png" alt="Hours" style="width:24px; vertical-align:middle; margin-right:8px;">
+        <strong>website</strong></p> <p style="color: #fff;"> www.fusionvue.com </p>
+    </div>
+
+    <!-- Right Column: Form -->
+    <div class="contact-form">
+      <form>
+        <input type="text" placeholder="Your Name *" required>
+        <input type="email" placeholder="Email Address *" required>
+        <input type="text" placeholder="Phone Number">
+        <input type="text" placeholder="Company Name">
+        <textarea placeholder="Message *" rows="5" required></textarea>
+        <button type="submit">SUBMIT</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- WhatsApp -->
+  <a href="https://api.whatsapp.com/send?phone=8693068891&text=Hi%20FusionVue%20Team%20👋" target="_blank" class="whatsapp-btn">
+    <img src="assets/whatsapp.png" alt="Chat on WhatsApp">
+  </a>
+
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .contact-info, .contact-form {
+      background:#fff;
+      padding:32px;
+      border-radius:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .contact-info h3 {
+      font-size:24px;
+      font-weight:bold;
+      margin-bottom:16px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding:12px 16px;
+      margin-bottom:16px;
+      border:1px solid #ccc;
+      border-radius:8px;
+      font-size:16px;
+    }
+
+    .contact-form button {
+      padding:14px 28px;
+      border-radius:12px;
+      background:#4a60dc;
+      color:#111;
+      font-weight:bold;
+      border:none;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .contact-form button:hover {
+      background:#f59e0b;
+    }
+
+    .whatsapp-btn {
+      position:fixed;
+      bottom:24px;
+      right:24px;
+      z-index:9999;
+    }
+
+    .whatsapp-btn img {
+      width:56px;
+      height:56px;
+    }
+
+    @media (min-width:768px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr; /* TWO columns side by side */
+      }
+    }
+    
+    @media (max-width: 640px) {
+      #brands {
+        padding: 24px 12px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+      }
+      
+      #brands h2 {
+        font-size: 32px;
+        margin-bottom: 24px;
+      }
+      
+      #contact {
+        padding: 32px 12px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+      }
+      
+      #contact h2 {
+        font-size: 28px;
+        margin-bottom: 24px;
+      }
+      
+      .contact-info, .contact-form {
+        padding: 16px;
+        border-radius: 12px;
+      }
+      
+      .contact-info h3 {
+        font-size: 18px;
+      }
+      
+      .contact-form input,
+      .contact-form textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+      
+      .contact-form button {
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      
+      .whatsapp-btn img {
+        width: 48px;
+        height: 48px;
+      }
+    }
+  </style>
+</section>
+
+</main>
+
+<script>
+  // Optional: smooth scroll for anchor links in header
+  document.querySelectorAll('header nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href') || '';
+      if (href.charAt(0) !== '#') return; // allow normal navigation for "/" or external links
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // CONFIG: Each slider section with its images and mainImage ID
+  const sliders = [
+    {
+      sectionId: "Active-LED",
+      mainImageId: "mainImage-LED",
+      images: [
+        "assets/products/Active LED/elite-led-technologies-karmanghat-hyderabad-led-screens-on-hire-p65hoe20fm.avif",
+        "assets/products/Active LED/fixed-led-screen-2228816276-aetw5kqa.webp",
+        "assets/products/Active LED/Illuminating-Brilliance-Exploring-the-Features-of-LED-Video.jpg",
+        "assets/products/Active LED/outdoor-led-video-wall-1.jpg",
+        "assets/products/Active LED/P2-604-500-X-500mm-Outdoor-Rental-Concert-Stage-Background-LED-Video-Wall-Display-Full-Color-Billboard-Digital-Signage-Screen.avif"
+      ]
+    },
+    {
+      sectionId: "Display",
+      mainImageId: "mainImage-Display",
+      images: [
+        "assets/products/Display/6683e235d281f212df282ef6-55-digital-signage-displays-4k-lcd.jpg",
+        "assets/products/Display/IQ-Digital-Signage-small.webp",
+        "assets/products/Display/Scala-Expert-Guide_-How-to-Create-Digital-Signage-img1-1536x864.webp",
+        "assets/products/Display/Sony-India-Introduces-EZ20L-4K-Professional-Displays.webp",
+        "assets/products/Display/wall-mounted-and-free-standing-digital-advertising-screen-and-poster-display.jpg"
+      ]
+    },
+    {
+  sectionId: "Home-Theater",
+  mainImageId: "mainImage-HT",
+  images: [
+    "assets/products/Home Theater/65f424daa8498f18411160c1-sony-sscs5-3-way-3-driver-bookshelf.jpg",
+    "assets/products/Home Theater/diy-home-theater-room-.jpeg",
+    "assets/products/Home Theater/iStock-177100713.jpg",
+    "assets/products/Home Theater/main_header_03.jpg",
+    "assets/products/Home Theater/picturescreen.webp",
+    "assets/products/Home Theater/when-to-use-7-1-surround-sound-what-is-7-1-surround-sound-AV-Access-1900x1027.jpg"
+  ]
+},
+ {
+  sectionId: "Immersive-Room",
+  mainImageId: "mainImage-Immersive",
+  images: [
+    "assets/products/Immersive Room/dali-pano-dalle-2-1280-1.jpg",
+    "assets/products/Immersive Room/interactive-immersive-room.jpeg",
+    "assets/products/Immersive Room/museum-is_slider2.jpg",
+    "assets/products/Immersive Room/Pixel-Artworks-Immersive-Room-Jungle-2.jpg",
+    "assets/products/Immersive Room/rent_04_immersive_room.jpg",
+    "assets/products/Immersive Room/room-to-breathe.jpg"
+  ]
+},
+{
+    sectionId: "Projection-Mapping",
+    mainImageId: "mainImage-Projection",
+    images: [
+    "assets/products/Projection Mapping/mapping.webp",
+    "assets/products/Projection Mapping/Pani- video mapping technology- basa studio 4.jpg",
+    "assets/products/Projection Mapping/project-mapping-06.jpg",
+    "assets/products/Projection Mapping/WhatsAppImage2023-04-30at2.46.48PMX4KT.jpeg",
+    "assets/products/Projection Mapping/Zz03MTA3ODI3YWU0MjU3ZTAzN2Q3ZWUzYTVmNDJhMGEwOA==.jpg",
+    "assets/products/Projection Mapping/projection-mapping.webp"
+  ]
+},
+{
+  sectionId: "Projector",
+  mainImageId: "mainImage-Projector",
+  images: [
+    "assets/products/Projector/1_08c1c81d-8b1f-469e-9eae-bbaad6344393.webp",
+    "assets/products/Projector/1_41acb45f-3ef9-489f-8ea3-1e0ca1ec0607.webp",
+    "assets/products/Projector/AVStore2_ab296e73-f10e-452d-8f56-1e4a588b8882.webp",
+    "assets/products/Projector/lu935st-01.webp",
+    "assets/products/Projector/sony.jpg",
+    "assets/products/Projector/tw-9400_1200x1200.webp"
+  ]
+},
+{
+    sectionId: "Sound",
+    mainImageId: "mainImage-Sound",
+    images: [
+    "assets/products/Sound/1740b256422f56af079deeb73614208b.webp",
+    "assets/products/Sound/audio-system-1669880933.jpg",
+    "assets/products/Sound/bs301w.jpg",
+    "assets/products/Sound/DGWCmL7EGdgJBr9T49gfAD.jpg",
+    "assets/products/Sound/download.jpg",
+    "assets/products/Sound/images.jpg"
+  ]
+},
+{
+  sectionId: "Video-Conferencing",
+  mainImageId: "mainImage-VideoConferencing",
+  images: [
+    "assets/products/Video%20Conferencing/20240627054727337521e.png",
+    "assets/products/Video%20Conferencing/3-3.jpg",
+    "assets/products/Video%20Conferencing/meeting-room-video-conferencing-solution-jpg-1-jpg.jpg",
+    "assets/products/Video%20Conferencing/MVC860-en-us-20240719T042819-2.png",
+    "assets/products/Video%20Conferencing/PIC4.jpg",
+  ]
+}
+  ];
+
+  // Initialize sliders
+  sliders.forEach(slider => {
+    let current = 0;
+
+    const mainImg = document.getElementById(slider.mainImageId);
+    const thumbs = document.querySelectorAll(`#${slider.sectionId} .thumb`);
+
+    function updateMainImage() {
+      mainImg.style.opacity = 0;
+      setTimeout(() => {
+        mainImg.src = slider.images[current];
+        mainImg.style.opacity = 1;
+      }, 200);
+
+      thumbs.forEach((t, i) => t.classList.toggle("active", i === current));
+    }
+
+    // Attach click events to thumbnails
+    thumbs.forEach((t, i) => {
+      t.addEventListener("click", () => {
+        current = i;
+        updateMainImage();
+      });
+    });
+
+    // Add prev/next arrows
+    const prevBtn = document.querySelector(`#${slider.sectionId} .prev`);
+    const nextBtn = document.querySelector(`#${slider.sectionId} .next`);
+
+    if(prevBtn) prevBtn.addEventListener("click", () => { 
+      current = (current - 1 + slider.images.length) % slider.images.length; 
+      updateMainImage(); 
+    });
+
+    if(nextBtn) nextBtn.addEventListener("click", () => { 
+      current = (current + 1) % slider.images.length; 
+      updateMainImage(); 
+    });
+
+    updateMainImage();
+  });
+</script>
+
+</body>
+</html>
