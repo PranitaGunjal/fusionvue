@@ -109,19 +109,17 @@ img, video {
 }
 
     .brand{display:flex;align-items:center;gap:12px}
-    .brand img{height:100px; width:auto; display:block}
-    
-    @media (max-width: 640px) {
-      .brand {
-        gap: 8px;
-      }
-        .brand img {
-          height: 36px;
-        }
-      .brand div {
-        font-size: 14px;
-      }
-    }
+    .brand img {
+  height: 44px;              /* desktop */
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .brand img {
+    height: 56px;            /* ✅ mobile sweet spot */
+  }
+}
+
     
     nav a{color:#fff;text-decoration:none;margin-left:22px;font-weight:600;transition:0.2s ease}
     /* nav link appearance */
@@ -132,7 +130,25 @@ img, video {
 .gold {
   color: var(--gold);
 }
-@media (max-width: 640px) { .hero-logo { width: 80px; margin-bottom: 10px; } }
+.hero-logo {
+  width: 260px;              /* desktop */
+  max-width: 80%;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .hero-logo {
+    width: 180px;            /* ✅ strong presence on mobile */
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-logo {
+    width: 160px;            /* small phones */
+  }
+}
+
 /* HERO – single source of truth */
 .hero {
   display: flex;
@@ -527,27 +543,29 @@ body {
     }
 
     /* Grid */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    @media (min-width: 680px) {
-      .feature-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    
     @media (max-width: 640px) {
-      .feature-grid {
-        gap: 10px;
-        padding: 0 2px;
-        grid-template-columns: 1fr;
-      }
-    }
+  .feature-card {
+    padding: 12px 10px;
+    border-radius: 8px;
+  }
+
+  .feature-card img {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 6px;
+  }
+
+  .feature-card h3 {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .feature-card p {
+    font-size: 11px;
+    line-height: 1.25;
+  }
+}
+
 
     /* Cards */
     .feature-card {
@@ -843,10 +861,15 @@ section, .container {
   </style>
   <style>
     /* Responsive parity fixes to make mobile match desktop proportions */
-    :root { --max-content-width: 1200px; }
+    :root {
+  --header-height: 72px;
+}
 
-    /* header respects the header-height variable */
-    header { height: var(--header-height); }
+header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+}
 
     /* nav sizing */
     nav .nav-link { font-size: clamp(14px, 2.2vw, 20px); padding: 6px 10px; }
