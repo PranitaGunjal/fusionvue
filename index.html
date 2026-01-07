@@ -165,18 +165,29 @@ img, video {
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
-    min-height: auto;
   }
 
   .hero-side {
-    display: none; /* hide side images on mobile */
+    display: block;
+    width: 100%;
+    height: 220px;
+  }
+
+  .hero-side img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Hide the right image only */
+  .hero-side.right {
+    display: none;
   }
 
   .hero-center {
-    flex: 1;
-    padding: 24px 16px;
+    padding: 20px 16px;
   }
 }
+
 
 @media (max-width: 768px) {
   header {
@@ -915,7 +926,7 @@ body {
         <a href="#contact" class="nav-link" style="color: #fff;">Contact</a>
       </nav>
     </header>
-<br/><br/>
+
     <section class="hero">
 
   <!-- LEFT IMAGE -->
