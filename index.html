@@ -16,7 +16,6 @@
       --gold:#4a60dc; /* header/CTA */
       --gold-dark:#FFAA00;
       --bg-start:#0b1116; --bg-end:#1b2330;
-      --header-height: 100px; /* used to offset fixed header */
       --panel:#ffffff;
       --muted:#9fb0c7;
       --card-grad: linear-gradient(180deg,#0b1116,#111827);
@@ -51,8 +50,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 100px;     
-    padding: 0 28px;
+    height: var(--header-height);   
+    padding: 0 18px;
     background: linear-gradient(90deg, #96c3de, #0f0fe9);
     padding-left: 62px;
     padding-right: 62px;
@@ -110,7 +109,7 @@ img, video {
 }
 
     .brand{display:flex;align-items:center;gap:12px}
-    .brand img{height:64px; width:auto; display:block}
+    .brand img{height:100px; width:auto; display:block}
     
     @media (max-width: 640px) {
       .brand {
@@ -129,85 +128,90 @@ img, video {
     nav a.nav-link{ color: #fff; font-size: 18px; font-weight:600; letter-spacing: .6px; }
 
     /* HERO SECTION */
-.hero {
-  display: flex;
-  flex-direction: row;
-  height: 520px; 
-  background: #ffffff;
-}
 
-/* LEFT & RIGHT */
-.hero-side {
-  flex: 1;
-  overflow: hidden;
-}
-
-.hero-side img {
-  width: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* CENTER */
-.hero-center {
-  flex: 0 0 42%;
-  background: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-   padding: 24px 28px; 
-  z-index: 2;
-}
-
-.hero-logo {
-  width: 540px;
-}
 .gold {
   color: var(--gold);
 }
-.hero-card .lead {
-  font-size: 16px;   /* was 18–20px */
-  line-height: 1.5;
+@media (max-width: 640px) { .hero-logo { width: 80px; margin-bottom: 10px; } }
+/* HERO – single source of truth */
+.hero {
+  display: flex;
+  align-items: stretch;
+  min-height: calc(100vh - var(--header-height));
+  background: #323230;
 }
 
-@media (max-width: 640px) { .hero-logo { width: 80px; margin-bottom: 10px; } }
+/* Desktop layout */
+.hero-side {
+  flex: 1;
+}
+.hero-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+.hero-center {
+  flex: 0 0 42%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
 
-
-
-/* Mobile optimization */
-@media (max-width: 640px) {
-  header {
-    height: 72px;
+/* ✅ MOBILE FIX */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    min-height: auto;
   }
 
-  /* make hero much shorter on phones so content appears above the fold */
-  .hero {
-    min-height: 48vh; /* smaller hero on mobile */
-    max-height: none;
-    padding-top: 76px; /* allow space for fixed header */
-    padding-bottom: 20px;
-    background-position: center;
+  .hero-side {
+    display: none; /* hide side images on mobile */
+  }
+
+  .hero-center {
+    flex: 1;
+    padding: 24px 16px;
   }
 }
 
 @media (max-width: 768px) {
-  .hero {
-    min-height: 60vh;
-    padding: 80px 20px;
-    background-size: contain;   /* 🔑 prevents cropping */
-    background-position: center;
+  header {
+    padding: 12px 16px;
   }
 
-  .hero h1 {
-    font-size: 28px;
-  }
-
-  .hero p {
-    font-size: 16px;
+  .nav {
+    min-height: 56px;
   }
 }
+@media (max-width: 768px) {
+  .offering-card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .offering-card img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+@media (max-width: 768px) {
+  .carousel {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .carousel-item {
+    min-width: 80%;
+    scroll-snap-align: center;
+  }
+}
+
+
 @media (max-width: 768px) {
   .product-card {
     flex-direction: column;
@@ -230,8 +234,8 @@ img, video {
 }
   .hero {
     /* larger hero on desktop/tablet for better visual impact */
-    min-height: 78vh;
-    padding-top: calc(var(--header-height) + 4px);
+    min-height: 58vh;
+    padding-top: calc(var(--header-height) + 2px);
     padding-bottom: 20px;
     background-position: center right;
   }
@@ -707,20 +711,20 @@ body {
   gap: 18px;
   margin-top: 16px;
 }
-
 @media (max-width: 640px) {
-  /* two-column layout on most phones to avoid a single long vertical column */
   #allProducts {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 0 8px;
+  }
+
+  #allProducts .card {
+    border-radius: 12px;
+  }
+
+  #allProducts .card .card-media {
+    height: 140px;
   }
 }
 
-/* very small phones (narrow) fall back to single column */
-@media (max-width: 420px) {
-  #allProducts { grid-template-columns: 1fr; }
-}
 
 /* Card */
 #allProducts .card {
@@ -810,6 +814,7 @@ body {
     
     html, body {
     overflow-x: hidden;
+    width: 100%;
     box-sizing: border-box;
 }
 section {
@@ -819,7 +824,10 @@ section {
 main, section, .product-hero, .product-section {
   padding-top: 90px !important;
 }
-
+section, .container {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 /* 🔥 Mobile optimizations applied globally */
   </style>
   <style>
@@ -861,9 +869,15 @@ main, section, .product-hero, .product-section {
     /* Contact form sizing */
     .contact-form { max-width: 720px; margin: 18px auto; }
     .contact-form form { width: 100%; }
+    img {
+  max-width: 100%;
+  height: auto;
+}
 
-    /* Ensure images keep consistent cropping */
-    img { object-fit: cover; }
+.hero img { object-fit: cover; }
+#allProducts img,
+.slider img { object-fit: contain; }
+ 
     #allProducts .card img { object-fit: contain; }
     @media (max-width: 640px) {
       /* Hide section headings only when mobile nav is open */
@@ -871,6 +885,14 @@ main, section, .product-hero, .product-section {
       body.nav-open section h2,
       body.nav-open section h3 { display: none !important; }
     }
+  * {
+  max-width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
   </style>
 </head>
 <body class="inverted">
@@ -893,7 +915,7 @@ main, section, .product-hero, .product-section {
         <a href="#contact" class="nav-link" style="color: #fff;">Contact</a>
       </nav>
     </header>
-
+<br/><br/>
     <section class="hero">
 
   <!-- LEFT IMAGE -->
