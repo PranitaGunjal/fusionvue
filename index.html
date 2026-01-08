@@ -242,39 +242,70 @@ img, video {
 /* ===== Mobile Hero Fix ===== */
 /* ===== Mobile: 3-column hero preserved ===== */
 @media (max-width: 768px) {
-   .hero {
-    align-items: center; /* center vertically */
-    flex-direction: column; /* stack hero-side and hero-center vertically */
+  /* Hero section */
+.hero {
+  position: relative;
+  overflow: hidden; /* hide blobs overflow */
+  background: #09285c;
+  color: white;
+  padding: 60px 20px;
+}
+
+/* Moving blobs only on mobile */
+@media (max-width: 640px) {
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: blobMove 20s infinite alternate;
+    z-index: 0; /* behind content */
   }
 
-  .hero-side {
-    height: 70%;         /* 70% of hero/container height */
-    width: 80%;          /* shrink width a bit */
-    margin: 0 auto;      /* center horizontally */
+  .hero::before {
+    width: 300px;
+    height: 300px;
+    background: #ff6b6b;
+    top: -80px;
+    left: -80px;
+    animation-duration: 25s;
   }
 
-  .hero-center {
-    padding: 16px 12px; /* 👈 reduces height */
+  .hero::after {
+    width: 200px;
+    height: 200px;
+    background: #4ecdc4;
+    bottom: -60px;
+    right: -60px;
+    animation-duration: 30s;
+    animation-delay: 5s;
   }
+}
 
-    .hero-side img {
-    height: 100%;
-    width: auto;         /* maintain aspect ratio */
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
+/* Animation */
+@keyframes blobMove {
+  0% {
+    transform: translate(0, 0) scale(1);
   }
-
-
-  .hero-desc {
-    font-size: 13px;
-    line-height: 1.35;     /* tighter text */
+  33% {
+    transform: translate(30px, -20px) scale(1.1);
   }
-
-  .hero-btn {
-    padding: 10px 22px;
-    font-size: 14px;
+  66% {
+    transform: translate(-20px, 30px) scale(0.9);
   }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* Make sure hero content is above blobs */
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
 }
 
 
@@ -871,12 +902,15 @@ h1 {
   }
 }
 
+    /* Stats box styling when inverted */
+    /* Desktop: 4 per row */
 .stats-row {
-  display: grid; /* important! */
-  grid-template-columns: repeat(4, 1fr); /* desktop: 4 per row */
-  gap: 24px; /* desktop gap */
+  display: grid; /* ✅ must have display grid */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
+/* Box styling */
 .stats-box {
   background: linear-gradient(180deg,#b2cde4,#09285c);
   border-radius: 18px;
@@ -888,10 +922,9 @@ h1 {
 
 body.inverted .stats-box {
   background: #0e0e0e;
-  padding: 30px;
 }
 
-/* Mobile layout */
+/* Mobile: 2 per row */
 @media (max-width: 640px) {
   .stats-row {
     grid-template-columns: repeat(2, 1fr); /* 2 per row */
@@ -899,11 +932,12 @@ body.inverted .stats-box {
   }
 
   .stats-box {
-    width: 100%;      /* fills the grid cell */
-    max-width: none;  /* remove original limiter */
+    width: 100%; /* fill grid cell */
+    max-width: none;
     padding: 20px;
   }
 }
+
 
     
 section {
