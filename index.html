@@ -242,22 +242,29 @@ img, video {
 /* ===== Mobile Hero Fix ===== */
 /* ===== Mobile: 3-column hero preserved ===== */
 @media (max-width: 768px) {
-  .hero {
-    align-items: stretch;
+   .hero {
+    align-items: center; /* center vertically */
+    flex-direction: column; /* stack hero-side and hero-center vertically */
   }
 
   .hero-side {
-    min-height: 180px;   /* 👈 controls hero height */
+    height: 70%;         /* 70% of hero/container height */
+    width: 80%;          /* shrink width a bit */
+    margin: 0 auto;      /* center horizontally */
   }
 
   .hero-center {
     padding: 16px 12px; /* 👈 reduces height */
   }
 
-  .hero-side img {
+    .hero-side img {
     height: 100%;
+    width: auto;         /* maintain aspect ratio */
     object-fit: cover;
+    display: block;
+    margin: 0 auto;
   }
+
 
   .hero-desc {
     font-size: 13px;
@@ -864,19 +871,36 @@ h1 {
   }
 }
 
-    /* Stats box styling when inverted */
-    .stats-box{background:linear-gradient(180deg,#b2cde4,#09285c);border-radius:18px;padding:30px;width:180px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.5);box-sizing:border-box}
-    body.inverted .stats-box{background:#0e0e0e;padding:30px}
-    
-    @media (max-width: 640px) {
+.stats-row {
+  display: grid; /* important! */
+  grid-template-columns: repeat(4, 1fr); /* desktop: 4 per row */
+  gap: 24px; /* desktop gap */
+}
+
+.stats-box {
+  background: linear-gradient(180deg,#b2cde4,#09285c);
+  border-radius: 18px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  box-sizing: border-box;
+}
+
+body.inverted .stats-box {
+  background: #0e0e0e;
+  padding: 30px;
+}
+
+/* Mobile layout */
+@media (max-width: 640px) {
   .stats-row {
-    grid-template-columns: repeat(2, 1fr); /* ✅ 2 per row */
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
     gap: 14px;
   }
 
   .stats-box {
-    width: 100%;        /* fills grid cell */
-    max-width: none;    /* remove limiter */
+    width: 100%;      /* fills the grid cell */
+    max-width: none;  /* remove original limiter */
     padding: 20px;
   }
 }
