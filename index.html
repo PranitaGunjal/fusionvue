@@ -21,6 +21,7 @@
       --card-grad: linear-gradient(180deg,#0b1116,#111827);
       --radius:14px; --shadow: 0 10px 30px rgba(2,6,23,0.6);
       --gutter:28px;
+      --font-primary: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
     /* ===== GLOBAL RESET ===== */
 *,
@@ -33,7 +34,9 @@
 
 html, body {
   width: 100%;
+  margin: 0;
   overflow-x: hidden;
+  
 }
 
 body {
@@ -44,14 +47,23 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-    .container-inner{padding:0 var(--gutter)}
-    
-    @media (max-width:640px) {
-  .container-inner,
-  .container {
-    padding: 0 14px !important;
+.container {
+  max-width: 100%; /* for normal sections */
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+@media (max-width: 640px) {
+  .container-inner {
+    padding: 0 14px;
   }
 }
+
 
 :root {
   --header-height: 72px;
@@ -94,28 +106,35 @@ img, video {
   height: auto;
   object-fit: contain;
 }
+#navToggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+}
 
 @media (max-width: 640px) {
   header {
+    height: var(--header-height);
     padding: 0 14px;
-  }
-
-  .brand img {
-    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   nav {
-    display: none;
+    display: none !important;
   }
 
   #navToggle {
     display: block;
-    font-size: 28px;
-    background: none;
-    border: none;
-    color: #fff;
+    position: relative;
+    z-index: 1100;
   }
 }
+
 
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -150,34 +169,37 @@ img, video {
   color: var(--gold);
 }
 
-/* ===== HERO ===== */
 .hero {
-  display: flex;
-  width: 100%;
-  min-height: calc(100vh - var(--header-height));
-  background: #323230;
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 520px) 1fr;
+  min-height: auto;
+  height: auto;
+  background: #2f2f2f;
 }
 
+/* Side images */
 .hero-side {
-  flex: 1;
-  position: relative;
+  background-size: cover;
+  background-position: center;
 }
 
-.hero-side img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hero-side.left {
+  background-image: url("left.jpg");
 }
 
+.hero-side.right {
+  background-image: url("right.jpg");
+}
+
+/* Center content */
 .hero-center {
-  flex: 0 0 38%;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 32px 24px;
+  padding: 48px 24px;
 }
+
 
 @media (max-width: 420px) {
   .hero-logo {
@@ -189,12 +211,14 @@ img, video {
   display: flex;
   width: 100%;
   background: #323230;
+  
 }
 
 /* Left & Right images */
 .hero-side {
   flex: 1;
   position: relative;
+   min-height: 0;
 }
 
 /* HERO IMAGES – DESKTOP */
@@ -221,26 +245,33 @@ img, video {
 /* ===== Mobile: 3-column hero preserved ===== */
 @media (max-width: 768px) {
   .hero {
-    grid-template-columns: minmax(64px, 1fr) minmax(220px, 320px) minmax(64px, 1fr);
-    min-height: 70vh;
+    grid-template-columns:
+      minmax(56px, 1fr)
+      minmax(200px, 280px)
+      minmax(56px, 1fr);
+
+    min-height: auto;      /* ⛔ remove vh lock */
+    height: auto;
+    padding: 12px 0;       /* controls total height */
   }
 
   .hero-side {
     background-position: center;
     background-size: cover;
+    min-height: 200px;     /* keeps images visible */
   }
 
   .hero-center {
-    padding: 20px 12px;
+    padding: 16px 10px;    /* reduce vertical padding */
   }
 
   .hero-desc {
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 1.35;     /* tighter text */
   }
 
   .hero-btn {
-    padding: 12px 24px;
+    padding: 10px 22px;
     font-size: 14px;
   }
 }
@@ -249,11 +280,21 @@ img, video {
 
 @media (max-width: 768px) {
   header {
-    padding: 12px 16px;
+    height: var(--header-height);
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .nav {
-    min-height: 56px;
+  nav {
+    display: none !important;
+  }
+
+  #navToggle {
+    display: block;
+    position: relative;
+    z-index: 1100;
   }
 }
 @media (max-width: 768px) {
@@ -332,16 +373,6 @@ img, video {
     padding: 0;
   }
 }
-body {
-  margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
-  color: #e6eef8;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: 0 0 48px 0;
-}
-
 /* TEXT SLIDE FROM LEFT */
 @keyframes slideLeft {
   0% { transform: translateX(-60px); opacity: 0; }
@@ -349,7 +380,7 @@ body {
 }
 
     
-  h1 {
+h1 {
   font-family: 'Poppins', Inter, sans-serif;
   font-weight: 800;
   letter-spacing: 1px;
@@ -938,7 +969,7 @@ body {
     <div class="circle-orn" style="width:220px;height:220px;left:48px;bottom:36px;opacity:0.12"></div>
     <div class="circle-orn" style="width:140px;height:140px;right:64px;top:96px;opacity:0.12"></div>
   </div>
-  <div class="container">
+  <div class="container-inner">
     <header>
       <div class="brand">
           <img src="assets/logo.png" alt="FusionVue logo">
