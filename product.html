@@ -516,6 +516,51 @@ main > section:first-child { margin-top: 12px; }
   top: 8px;
   box-shadow: 0 2px 6px rgba(79,70,229,0.18);
 }
+
+/* Media-card arrow + thumbnail mobile adjustments */
+.media-card { position: relative; }
+.media-card .prev,
+.media-card .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Thumbs row: allow small horizontal scrolling and center */
+.thumbs-row {
+  justify-content: center;
+  gap: 8px;
+  padding: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 640px) {
+  .media-card .prev,
+  .media-card .next {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    background: rgba(255,255,255,0.9);
+    left: 8px;
+    right: 8px;
+  }
+
+  .media-card .prev { left: 8px; right: auto; }
+  .media-card .next { right: 8px; left: auto; }
+
+  .thumb {
+    margin: 0 4px;
+  }
+
+  /* Make sure main image maintains sensible height on small screens */
+  .media-card img.w-full.h-32,
+  .media-card img.w-full.h-56 { height: 200px; }
+}
 </style>
 
 </head>

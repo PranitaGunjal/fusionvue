@@ -330,51 +330,83 @@ img, video {
   }
 }
 /* Only for mobile: <=640px */
+/* Only for mobile: <=640px */
+/* Only for mobile: <=640px */
 @media (max-width: 640px) {
+  .hero-center {
+    position: relative;
+    overflow: hidden;
+  }
+
   .hero-center::before,
   .hero-center::after {
     content: '';
     position: absolute;
     border-radius: 50%;
-    filter: blur(30px);
-    opacity: 0.8;
-    z-index: 0; /* behind content */
-    animation: blobMove 5s infinite alternate;
-    outline: 1px solid red;
+    z-index: 0;
+    opacity: 0.85;
+    filter: blur(32px);
+    animation: blobFloat 14s infinite ease-in-out;
+    will-change: transform;
   }
 
+  /* 🌕 Yellow–Gold gradient blob (top-center) */
   .hero-center::before {
-    width: 250px;
-    height: 250px;
-    background: #e9d737;
-    top: -60px;
-    left: -60px;
-    animation-duration: 7s;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(
+      circle at 30% 30%,
+      #fff6a3,
+      #e9d737 60%,
+      #c9b600
+    );
+    top: 18%;
+    left: 50%;
+    transform: translateX(-55%);
+    animation-duration: 16s;
   }
 
+  /* 🔵 Blue–Purple gradient blob (bottom-center) */
   .hero-center::after {
-    width: 200px;
-    height: 200px;
-    background: #413fe4;
-    bottom: 10px;
-    right: 10px;
-    animation-duration: 25s;
-    animation-delay: 5s;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(
+      circle at 70% 70%,
+      #8b8aff,
+      #413fe4 60%,
+      #2a28b8
+    );
+    bottom: 14%;
+    left: 50%;
+    transform: translateX(-45%);
+    animation-duration: 20s;
+    animation-delay: 2s;
   }
 
-  /* Make sure content is above blobs */
+  /* Keep hero content above blobs */
   .hero-center > * {
     position: relative;
     z-index: 1;
   }
 }
 
-/* Blob animation */
-@keyframes blobMove {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(20px, -15px) scale(1.1); }
-  66%  { transform: translate(-15px, 20px) scale(0.9); }
-  100% { transform: translate(0, 0) scale(1); }
+/* 🌊 Organic floating animation */
+@keyframes blobFloat {
+  0% {
+    transform: translate(-50%, 0) scale(1);
+  }
+  25% {
+    transform: translate(-45%, -10px) scale(1.05);
+  }
+  50% {
+    transform: translate(-50%, 8px) scale(0.95);
+  }
+  75% {
+    transform: translate(-55%, -6px) scale(1.03);
+  }
+  100% {
+    transform: translate(-50%, 0) scale(1);
+  }
 }
 
 /* Tweak hero typography and background crop so mobile layout resembles desktop more closely */
@@ -1018,8 +1050,8 @@ body {
       <div class="brand">
           <img src="assets/logo.png" alt="FusionVue logo">
       </div>
-      <button id="navToggle" aria-label="Toggle menu">☰</button>
-      <nav>
+      <button id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">☰</button>
+      <nav id="primaryNav" role="navigation" aria-hidden="true">
         <a href="#" class="nav-link" style="color: #fff;">Home</a>
         <a href="#about" class="nav-link" style="color: #fff;">About</a>
         <a href="#offerings" class="nav-link" style="color: #fff;">Offerings</a>
@@ -1904,26 +1936,57 @@ body {
     })();
   </script>
     <script>
-      // Mobile nav toggle script — also set body.nav-open so headings hide only when nav is open
+      // Mobile nav toggle script — improved: manage ARIA, compute top offset, close on outside click
       (function(){
         const navToggle = document.getElementById('navToggle');
-        const headerNav = document.querySelector('nav');
-        if(!navToggle || !headerNav) return;
+        const headerNav = document.getElementById('primaryNav');
+        const headerEl = document.querySelector('header');
+        if(!navToggle || !headerNav || !headerEl) return;
+
+        function updateNavTop(){
+          // ensure the mobile menu sits directly below the header
+          const h = headerEl.getBoundingClientRect().height || 72;
+          headerNav.style.top = h + 'px';
+        }
+
+        // initialize
+        updateNavTop();
+
+        // toggle handler
         navToggle.addEventListener('click', (e)=>{
           e.stopPropagation();
           const opened = headerNav.classList.toggle('open');
           document.body.classList.toggle('open', opened);
+          navToggle.setAttribute('aria-expanded', opened ? 'true' : 'false');
+          headerNav.setAttribute('aria-hidden', opened ? 'false' : 'true');
+          if(opened){
+            // focus first link for keyboard users
+            const first = headerNav.querySelector('a');
+            if(first) first.focus();
+          }
         });
+
+        // close when a nav link is clicked (mobile behavior)
         headerNav.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=>{
           headerNav.classList.remove('open');
           document.body.classList.remove('open');
+          navToggle.setAttribute('aria-expanded','false');
+          headerNav.setAttribute('aria-hidden','true');
         }));
+
+        // close on outside click
         document.addEventListener('click', (e)=>{
           if (!headerNav.contains(e.target) && e.target !== navToggle && headerNav.classList.contains('open')){
             headerNav.classList.remove('open');
             document.body.classList.remove('open');
+            navToggle.setAttribute('aria-expanded','false');
+            headerNav.setAttribute('aria-hidden','true');
           }
         });
+
+        // keep menu positioned correctly on resize/orientation change
+        window.addEventListener('resize', updateNavTop);
+        window.addEventListener('orientationchange', updateNavTop);
       })();
     </script>
 </body>
