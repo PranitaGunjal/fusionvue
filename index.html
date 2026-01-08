@@ -80,7 +80,7 @@ header {
   justify-content: space-between;
   padding: 0 62px;
   background: linear-gradient(90deg, #96c3de, #0f0fe9);
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .brand img {
@@ -118,7 +118,7 @@ img, video {
   color: #fff;
   font-size: 28px;
   cursor: pointer;
-  z-index: 1100;
+  z-index: 3000;
 }
 
 @media (max-width: 640px) {
@@ -153,7 +153,8 @@ nav.open {
     right: 0;
     background: #0f0f0f;
     padding: 12px 0;
-    z-index: 1000;
+    z-index: 2500;
+    pointer-events: auto;
     gap: 12px;
   }
 
@@ -370,7 +371,7 @@ nav.open {
       #c9b600
     );
     top: 5%;
-    left: 25%;
+    left: 30%;
     transform: translateX(-55%);
     animation-duration: 5s;
     animation-delay: 2s;
@@ -387,7 +388,7 @@ nav.open {
       #c9b600
     );
     top: 5%;
-    left: 75%;
+    left: 70%;
     transform: translateX(-55%);
     animation-duration: 5s;
     animation-delay: 2s;
@@ -1976,27 +1977,36 @@ body {
         // initialize
         updateNavTop();
 
-        // toggle handler
-        navToggle.addEventListener('click', (e)=>{
-          e.stopPropagation();
+        // toggle handler (shared for click + touchstart)
+        function toggleNav(e){
+          if(e) e.stopPropagation();
           const opened = headerNav.classList.toggle('open');
           document.body.classList.toggle('open', opened);
           navToggle.setAttribute('aria-expanded', opened ? 'true' : 'false');
           headerNav.setAttribute('aria-hidden', opened ? 'false' : 'true');
           if(opened){
-            // focus first link for keyboard users
             const first = headerNav.querySelector('a');
             if(first) first.focus();
           }
-        });
+        }
+        navToggle.addEventListener('click', toggleNav);
+        navToggle.addEventListener('touchstart', function(e){ e.preventDefault(); toggleNav(e); }, {passive:false});
 
         // close when a nav link is clicked (mobile behavior)
-        headerNav.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=>{
-          headerNav.classList.remove('open');
-          document.body.classList.remove('open');
-          navToggle.setAttribute('aria-expanded','false');
-          headerNav.setAttribute('aria-hidden','true');
-        }));
+        headerNav.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', ()=>{
+            headerNav.classList.remove('open');
+            document.body.classList.remove('open');
+            navToggle.setAttribute('aria-expanded','false');
+            headerNav.setAttribute('aria-hidden','true');
+          });
+          a.addEventListener('touchstart', function(){
+            headerNav.classList.remove('open');
+            document.body.classList.remove('open');
+            navToggle.setAttribute('aria-expanded','false');
+            headerNav.setAttribute('aria-hidden','true');
+          }, {passive:true});
+        });
 
         // close on outside click
         document.addEventListener('click', (e)=>{
