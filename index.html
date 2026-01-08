@@ -372,14 +372,14 @@ nav.open {
     z-index: 0;
     opacity: 0.85;
     filter: blur(32px);
-    animation: blobFloat 4s infinite ease-in-out;
+    animation: blobFloat 12s infinite ease-in-out;
     will-change: transform;
   }
 
   /* 🌕 Yellow–Gold gradient blob (top-center) */
   .hero-center::before {
-    width: 160px;
-    height: 160px;
+    width: 170px;
+    height: 170px;
     background: radial-gradient(
       circle at 30% 30%,
       #fff6a3,
@@ -389,14 +389,14 @@ nav.open {
     top: 5%;
     left: 35%;
     transform: translateX(-55%);
-    animation-duration: 5s;
-    animation-delay: 2s;
+    animation-duration: 14s;
+    animation-delay: 0s;
   }
 
   /* 🔵 Blue–Purple gradient blob (bottom-center) */
   .hero-center::after {
-    width: 160px;
-    height: 160px;
+    width: 170px;
+    height: 170px;
     background: radial-gradient(
       circle at 70% 70%,
       #fff6a3,
@@ -406,8 +406,8 @@ nav.open {
     top: 5%;
     left: 65%;
     transform: translateX(-55%);
-    animation-duration: 5s;
-    animation-delay: 2s;
+    animation-duration: 16s;
+    animation-delay: 1s;
   }
 
   /* Keep hero content above blobs */
@@ -437,13 +437,13 @@ nav.open {
     transform: translate(-50%, 0) scale(1);
   }
   25% {
-    transform: translate(-45%, -10px) scale(1.05);
+    transform: translate(-50%, -28px) scale(1.05);
   }
   50% {
-    transform: translate(-50%, 8px) scale(0.95);
+    transform: translate(-50%, 32px) scale(0.96);
   }
   75% {
-    transform: translate(-55%, -6px) scale(1.03);
+    transform: translate(-50%, -18px) scale(1.03);
   }
   100% {
     transform: translate(-50%, 0) scale(1);
@@ -1803,6 +1803,8 @@ body {
       update();
     })();
   </script>
+  </body>
+  </html>
   <script>
     // Offerings slider: preload images, show loader, then autoplay every 2s
     (function(){
@@ -2039,5 +2041,52 @@ body {
         window.addEventListener('orientationchange', updateNavTop);
       })();
     </script>
+  <!-- DEBUG: highlight touch targets and log them to console (temporary) -->
+  <script>
+    (function(){
+      if(!('ontouchstart' in window)) return; // only for touch devices
+      function flash(el){
+        if(!el) return;
+        const orig = el.style.outline;
+        el.style.outline = '3px solid rgba(255,0,0,0.95)';
+        el.style.outlineOffset = '2px';
+        setTimeout(()=>{ el.style.outline = orig; el.style.outlineOffset = ''; }, 700);
+      }
+
+      document.addEventListener('touchstart', function(e){
+        try{
+          const t = e.target;
+          console.log('DEBUG touchstart target:', t, 'tag:', t.tagName, 'id:', t.id, 'classes:', t.className);
+          flash(t);
+        }catch(err){ console.warn('debug touch handler error', err); }
+      }, {passive:true});
+
+      // also log taps specifically on the hamburger
+      const navToggle = document.getElementById('navToggle');
+      if(navToggle){
+        navToggle.addEventListener('click', ()=>{ console.log('DEBUG: navToggle click fired'); });
+        navToggle.addEventListener('touchstart', ()=>{ console.log('DEBUG: navToggle touchstart fired'); }, {passive:true});
+      }
+
+      // show a small on-screen debug helper so user sees logs without remote console
+      const dbg = document.createElement('div');
+      dbg.id = 'touch-debug-helper';
+      dbg.style.position = 'fixed';
+      dbg.style.bottom = '12px';
+      dbg.style.left = '12px';
+      dbg.style.padding = '8px 10px';
+      dbg.style.background = 'rgba(0,0,0,0.6)';
+      dbg.style.color = '#fff';
+      dbg.style.fontSize = '12px';
+      dbg.style.zIndex = 999999;
+      dbg.style.borderRadius = '8px';
+      dbg.style.maxWidth = '45%';
+      dbg.textContent = 'Tap debug active';
+      document.body.appendChild(dbg);
+      setTimeout(()=>{ dbg.style.opacity = '0.6'; }, 1000);
+      setTimeout(()=>{ dbg.remove(); }, 15000);
+    })();
+  </script>
+
 </body>
 </html>
