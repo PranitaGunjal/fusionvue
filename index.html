@@ -330,14 +330,8 @@ img, video {
 }
 /* Only for mobile: <=640px */
 @media (max-width: 640px) {
-  .hero {
-    position: relative;
-    overflow: hidden; /* hide overflowing blobs */
-  }
-
-  /* Left and right blobs */
-  .hero::before,
-  .hero::after {
+  .hero-center::before,
+  .hero-center::after {
     content: '';
     position: absolute;
     border-radius: 50%;
@@ -347,37 +341,37 @@ img, video {
     animation: blobMove 20s infinite alternate;
   }
 
-  .hero::before {
-    width: 300px;
-    height: 300px;
+  .hero-center::before {
+    width: 200px;
+    height: 200px;
     background: #ff6b6b;
-    top: -80px;
-    left: -80px;
+    top: -50px;
+    left: -50px;
     animation-duration: 25s;
   }
 
-  .hero::after {
-    width: 200px;
-    height: 200px;
+  .hero-center::after {
+    width: 150px;
+    height: 150px;
     background: #4ecdc4;
-    bottom: -60px;
-    right: -60px;
+    bottom: -40px;
+    right: -40px;
     animation-duration: 30s;
     animation-delay: 5s;
   }
 
   /* Make sure content is above blobs */
-  .hero > * {
+  .hero-center > * {
     position: relative;
     z-index: 1;
   }
 }
 
-/* Mobile blob animation */
+/* Blob animation */
 @keyframes blobMove {
   0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(30px, -20px) scale(1.1); }
-  66%  { transform: translate(-20px, 30px) scale(0.9); }
+  33%  { transform: translate(20px, -15px) scale(1.1); }
+  66%  { transform: translate(-15px, 20px) scale(0.9); }
   100% { transform: translate(0, 0) scale(1); }
 }
 
