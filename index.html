@@ -80,7 +80,8 @@ header {
   justify-content: space-between;
   padding: 0 62px;
   background: linear-gradient(90deg, #96c3de, #0f0fe9);
-  z-index: 2000;
+  z-index: 99998;
+  pointer-events: auto;
 }
 
 .brand img {
@@ -142,7 +143,9 @@ nav.open {
   #navToggle {
     display: block;
     position: absolute;
-    z-index: 1100;
+    z-index: 100000 !important;
+    pointer-events: auto;
+    touch-action: manipulation;
   }
   /* make hamburger easier to tap */
   #navToggle {
@@ -157,7 +160,7 @@ nav.open {
     border-radius: 8px;
     -webkit-tap-highlight-color: transparent;
   }
-  nav.open {
+    nav.open {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -166,7 +169,7 @@ nav.open {
     right: 0;
     background: #0f0f0f;
     padding: 12px 0;
-    z-index: 2500;
+    z-index: 99997;
     pointer-events: auto;
     gap: 12px;
   }
@@ -384,7 +387,7 @@ nav.open {
       #c9b600
     );
     top: 5%;
-    left: 33%;
+    left: 35%;
     transform: translateX(-55%);
     animation-duration: 5s;
     animation-delay: 2s;
@@ -401,7 +404,7 @@ nav.open {
       #c9b600
     );
     top: 5%;
-    left: 67%;
+    left: 65%;
     transform: translateX(-55%);
     animation-duration: 5s;
     animation-delay: 2s;
