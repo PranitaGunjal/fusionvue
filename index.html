@@ -336,16 +336,17 @@ img, video {
     content: '';
     position: absolute;
     border-radius: 50%;
-    filter: blur(50px);
-    opacity: 0.9;
+    filter: blur(30px);
+    opacity: 0.8;
     z-index: 0; /* behind content */
     animation: blobMove 5s infinite alternate;
+    outline: 1px solid red;
   }
 
   .hero-center::before {
     width: 250px;
     height: 250px;
-    background: #e7d319;
+    background: #e9d737;
     top: -60px;
     left: -60px;
     animation-duration: 7s;
@@ -354,9 +355,9 @@ img, video {
   .hero-center::after {
     width: 200px;
     height: 200px;
-    background: #2e2bcf;
-    bottom: -50px;
-    right: -50px;
+    background: #413fe4;
+    bottom: 10px;
+    right: 10px;
     animation-duration: 25s;
     animation-delay: 5s;
   }

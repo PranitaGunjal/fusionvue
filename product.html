@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" type="text/css">
   <title>Our Products — FusionVue</title>
+  <meta name="description" content="FusionVue product showcase: LED, display, home theater, immersive rooms, projection mapping, projectors, sound and video conferencing solutions." />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     /* GLOBAL MOBILE FIXES — ADD THESE */
@@ -15,7 +16,8 @@
 
 /* All sections must not hide behind the header */
 section {
-  padding-top: var(--header-height);
+  /* header overlap handled by main padding; keep scroll-margin for anchors */
+  padding-top: 0;
   padding-bottom: 20px;
   scroll-margin-top: var(--header-height);
   box-sizing: border-box;
@@ -33,6 +35,9 @@ html, body {
       padding: 0;
       box-sizing: border-box;
     }
+
+    /* screen-reader only helper */
+    .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
 
     html, body {
       overflow-x: hidden;
@@ -59,6 +64,71 @@ header {
     left: 0;
     right: 0;
     box-sizing: border-box;
+}
+
+/* Accessibility: skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 12px;
+  padding: 8px 12px;
+  background: #fff;
+  color: #111;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10000;
+}
+
+main { padding-top: calc(var(--header-height) + 28px) !important; }
+
+/* Design tokens for consistent styling */
+:root {
+  --card-bg: #ffffff;
+  --card-radius: 14px;
+  --card-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --card-shadow-strong: 0 16px 40px rgba(15, 23, 42, 0.12);
+  --accent: #4f46e5;
+  --muted: #6b7280;
+}
+
+body { font-family: 'Inter', 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+/* Reusable card style for product panels */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1rem;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  overflow: hidden;
+}
+.card:hover,
+.card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-strong);
+}
+
+/* Make thumbnails feel tactile on touch devices */
+.thumb { touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0.05); }
+.thumb:active { transform: scale(0.98); }
+
+/* Ensure buttons indicate interactivity */
+button.prev, button.next { cursor: pointer; }
+
+/* Mobile: make cards full-width and increase tap targets */
+@media (max-width: 640px) {
+  .card { padding: 12px; width: 100%; max-width: 100%; border-radius: 12px; }
+  .thumb { width: 56px; height: 56px; }
+  .card img.w-full.h-56 { height: 220px; }
 }
 
 @media(max-width: 640px) {
@@ -141,6 +211,11 @@ nav a { color:#f2efef; text-decoration:none; margin-left:22px; font-weight:600; 
 .thumb.active {
     opacity: 1;
     border-color: #4f46e5;
+}
+
+.thumb:focus {
+  outline: 3px solid rgba(79,70,229,0.25);
+  outline-offset: 2px;
 }
 
 @media (max-width: 640px) {
@@ -370,88 +445,172 @@ img {
     font-size: 28px !important;
   }
 }
+
+/* Ensure first section is clear of fixed header on all viewports */
+main > section:first-child { margin-top: 12px; }
+
+@media (max-width: 640px) {
+  main > section:first-child { margin-top: 8px; }
+}
+
+/* Enhanced styling for immersive sections and media card */
+.stats-box-2 {
+  background: linear-gradient(180deg, #0b0f17 0%, #263248 55%, #b3c6ff 100%);
+  color: #eef2ff;
+  padding: 48px;
+  border-radius: 22px;
+  box-shadow: 0 20px 60px rgba(74,96,220,0.12);
+}
+.stats-box-2 h2 {
+  font-size: 48px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  background: linear-gradient(90deg,#cbd5ff,#4f46e5);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.media-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 12px 30px rgba(15,23,42,0.12);
+  border: 6px solid rgba(255,255,255,0.85);
+}
+.media-card .relative { border-radius: 10px; overflow: hidden; }
+.media-card img { display:block; border-radius: 8px; }
+.media-card .thumb { width: 64px; height: 64px; border-radius: 10px; opacity:0.9; }
+.media-card .thumb.active { transform: scale(1.04); box-shadow: 0 8px 20px rgba(79,70,229,0.18); border: 3px solid var(--accent); opacity:1; }
+.media-card .thumb:not(.active) { filter: grayscale(8%); }
+
+.media-card .thumbs-row { padding: 8px; border-radius: 8px; background: rgba(250,250,255,0.92); display: inline-flex; }
+.media-card .thumbs-row .thumb { box-shadow: 0 6px 18px rgba(12,18,30,0.06); }
+
+@media (max-width: 900px) {
+  .stats-box-2 { padding: 28px; }
+  .stats-box-2 h2 { font-size: 36px; }
+  .media-card .thumb { width: 52px; height: 52px; }
+}
+
+/* nicer list bullets for product features */
+.stats-box-2 ul {
+  list-style: none;
+  padding-left: 0;
+}
+.stats-box-2 ul li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 10px;
+  color: rgba(255,255,255,0.92);
+}
+.stats-box-2 ul li::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: absolute;
+  left: 0;
+  top: 8px;
+  box-shadow: 0 2px 6px rgba(79,70,229,0.18);
+}
 </style>
 
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-<header class="bg-white shadow fixed w-full z-10">
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="shadow fixed w-full z-10" role="banner">
   <div class="brand">
         <img src="assets/logo.png" alt="FusionVue logo">
       </div>
-    <nav>
+    <nav role="navigation" aria-label="Primary">
       <!-- Use a relative link to the local index file so clicking 'Home' works when opened from the filesystem -->
-      <a href="index.html" class="text-sm text-gray-2600 mr-4">Home</a>
-      <a href="#Active-LED" class="text-sm text-gray-2600 mr-2">Active LED</a>
-      <a href="#Display" class="text-sm text-gray-2600 mr-2">Display</a>
-      <a href="#Home-Theater" class="text-sm text-gray-2600 mr-2">Home Theater</a>
-      <a href="#Immersive-Room" class="text-sm text-gray-2600 mr-2">Immersive Room</a>
-      <a href="#Projection-Mapping" class="text-sm text-gray-2600 mr-2">Projection Mapping</a>
-      <a href="#Projector" class="text-sm text-gray-2600 mr-2">Projector</a>
-      <a href="#Sound" class="text-sm text-gray-2600 mr-2">Sound</a>
-      <a href="#Video-Conferencing" class="text-sm text-gray-2600">Video Conferencing</a>
+      <a href="index.html" class="text-sm text-white hover:underline mr-4">Home</a>
+      <a href="#Active-LED" class="text-sm text-white hover:underline mr-2">Active LED</a>
+      <a href="#Display" class="text-sm text-white hover:underline mr-2">Display</a>
+      <a href="#Home-Theater" class="text-sm text-white hover:underline mr-2">Home Theater</a>
+      <a href="#Immersive-Room" class="text-sm text-white hover:underline mr-2">Immersive Room</a>
+      <a href="#Projection-Mapping" class="text-sm text-white hover:underline mr-2">Projection Mapping</a>
+      <a href="#Projector" class="text-sm text-white hover:underline mr-2">Projector</a>
+      <a href="#Sound" class="text-sm text-white hover:underline mr-2">Sound</a>
+      <a href="#Video-Conferencing" class="text-sm text-white hover:underline">Video Conferencing</a>
     </nav>
-  </div>
 </header>
 
-<main class="max-w-7xl mx-auto px-6 py-32">
+<main id="main" class="max-w-7xl mx-auto px-6 py-16">
   
   <!-- Active LED Section -->
  <section id="Active-LED" class="stats-box">
   <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
     <span style="background:linear-gradient(90deg, #010911, #0527eb); -webkit-background-clip:text; color:transparent;">ACTIVE LED</span>
   </h2>
- <div class="flex flex-col lg:flex-row items-start gap-8">
-
-    <!-- LEFT SIDE — TEXT CONTENT -->
-    <div class="flex-1 text-gray-900 leading-relaxed">
-  <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
-
-      <li class ="ml-6">Vertical & horizontal display options</li>
-      <li class ="ml-6">16×7 and 24×7 operation modes</li>  
-
-      <li class ="ml-6">Touchscreen & gesture-based LED displays</li>
-      <li class ="ml-6">Real-time content & remote management</li>
-
-      <li class ="ml-6">High-definition, vibrant visuals</li>
-      <li class ="ml-6">Indoor & outdoor performance</li>
-
-      <li class ="ml-6">Energy-efficient and long-lasting</li>
-      <li class ="ml-6">Customizable sizes & layouts</li>
-
-      <li class ="ml-6">Wide viewing angles</li>
-      <li class ="ml-6">Lightweight and durable</li>
-
-      <li class ="ml-6">Remote content control</li>
-      <li class ="ml-6">Low maintenance</li>
-
-  </ul>
-</div>
+<div class="flex flex-col lg:flex-row items-start gap-12">
+  <!-- LEFT SIDE — TEXT CONTENT -->
+  <div class="flex-1 text-gray-800 leading-relaxed">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 list-disc list-inside">
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        Vertical & horizontal display options
+      </li>
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        16×7 and 24×7 operation modes
+      </li>
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        Touchscreen & gesture-based LED displays
+      </li>
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        High-definition, vibrant visuals
+      </li>
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        Indoor & outdoor performance
+      </li>
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        Energy-efficient and long-lasting
+      </li>
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        Customizable sizes & layouts
+      </li>
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        Lightweight and durable
+      </li>
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        Remote content control
+      </li>
+      <li class="hover:text-blue-600 transition-colors duration-200">
+        Low maintenance
+      </li>
+    </ul>
+  </div>
 
 
 
     <!-- RIGHT SIDE — IMAGE BLOCK -->
-    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100 card media-card">
 
       <!-- Main Image -->
       <div class="relative overflow-hidden rounded-lg">
         <img id="mainImage-LED"
-            src="assets/products/Active LED/elite-led-technologies-karmanghat-hyderabad-led-screens-on-hire-p65hoe20fm.avif"
-            class="w-full h-56 object-contain transition-all duration-300 hover:scale-95" />
+          src="assets/products/Active LED/elite-led-technologies-karmanghat-hyderabad-led-screens-on-hire-p65hoe20fm.avif"
+          alt="Active LED sample"
+          loading="lazy"
+          class="w-full h-32 object-contain transition-all duration-200 hover:scale-90" />
 
         <!-- Arrows -->
-        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❮</button>
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Previous image">❮</button>
 
-<button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❯</button>
+      <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Next image">❯</button>
 
 
       <!-- Thumbnails -->
-      <div class="flex gap-2 mt-3 justify-center">
-        <img  src="assets/products/Active LED/elite-led-technologies-karmanghat-hyderabad-led-screens-on-hire-p65hoe20fm.avif" class="thumb">
-        <img  src="assets/products/Active LED/fixed-led-screen-2228816276-aetw5kqa.webp" class="thumb">
-        <img  src="assets/products/Active LED/Illuminating-Brilliance-Exploring-the-Features-of-LED-Video.jpg" class="thumb">
-        <img  src="assets/products/Active LED/outdoor-led-video-wall-1.jpg" class="thumb">
-        <img  src="assets/products/Active LED/P2-604-500-X-500mm-Outdoor-Rental-Concert-Stage-Background-LED-Video-Wall-Display-Full-Color-Billboard-Digital-Signage-Screen.avif" class="thumb">
+      <div class="thumbs-row flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Active LED/elite-led-technologies-karmanghat-hyderabad-led-screens-on-hire-p65hoe20fm.avif" class="thumb" alt="Active LED thumbnail 1" loading="lazy" tabindex="0" role="button" aria-label="Active LED image 1">
+        <img src="assets/products/Active LED/fixed-led-screen-2228816276-aetw5kqa.webp" class="thumb" alt="Active LED thumbnail 2" loading="lazy" tabindex="0" role="button" aria-label="Active LED image 2">
+        <img src="assets/products/Active LED/Illuminating-Brilliance-Exploring-the-Features-of-LED-Video.jpg" class="thumb" alt="Active LED thumbnail 3" loading="lazy" tabindex="0" role="button" aria-label="Active LED image 3">
+        <img src="assets/products/Active LED/outdoor-led-video-wall-1.jpg" class="thumb" alt="Active LED thumbnail 4" loading="lazy" tabindex="0" role="button" aria-label="Active LED image 4">
+        <img src="assets/products/Active LED/P2-604-500-X-500mm-Outdoor-Rental-Concert-Stage-Background-LED-Video-Wall-Display-Full-Color-Billboard-Digital-Signage-Screen.avif" class="thumb" alt="Active LED thumbnail 5" loading="lazy" tabindex="0" role="button" aria-label="Active LED image 5">
       </div>
 
     </div>
@@ -471,49 +630,43 @@ img {
   <div class="flex flex-col lg:flex-row items-start gap-8">
     <!-- LEFT SIDE — TEXT CONTENT -->
     <div class="flex-1 leading-relaxed" style="color: #fff;">
-      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
-        <li class="ml-6">Innovative display solutions</li>
-        <li class="ml-6">LED screens for all environments</li>
-        <li class="ml-6">LCD monitors for clear visuals</li>
-        <li class="ml-6">Digital signage & interactive kiosks</li>
-        <li class="ml-6">Custom display solutions</li>
-        <li class="ml-6">Immersive and engaging experiences</li>
-        <li class="ml-6">Vertical & horizontal installations</li>
-        <li class="ml-6">16×7 operation mode</li>
-        <li class="ml-6">24×7 operation mode</li>
-        <li class="ml-6">Touchscreen interaction</li>
-        <li class="ml-6">Gesture-based displays</li>
-        <li class="ml-6">Real-time content updates</li>
-        <li class="ml-6">Remote management & control</li>
-        <li class="ml-6">Energy-efficient and long-lasting</li>
-        <li class="ml-6">Lightweight and durable designs</li>
-        <li class="ml-6">Customizable sizes & layouts</li>
-        <li class="ml-6">Wide viewing angles</li>
-        <li class="ml-6">Seamless integration in spaces</li>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 list-disc list-inside">
+        <li class="hover:text-blue-600 transition-colors duration-200">LED screens for all environments</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Immersive and engaging experiences</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">16×7 operation mode</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">24×7 operation mode</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Touchscreen interaction</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Gesture-based displays</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Energy-efficient and long-lasting</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Lightweight and durable designs</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Customizable sizes & layouts</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Seamless integration in spaces</li>
       </ul>
     </div>
 
     <!-- RIGHT SIDE — IMAGE BLOCK -->
-    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100 card media-card">
       <!-- Main Image -->
       <div class="relative overflow-hidden rounded-lg">
-        <img id="mainImage-Display"
+           <img id="mainImage-Display"
              src="assets/products/Display/Scala-Expert-Guide_-How-to-Create-Digital-Signage-img1-1536x864.webp"
-             class="w-full h-56 object-contain transition-all duration-300 hover:scale-95" />
+             alt="Display solutions sample"
+             loading="lazy"
+             class="w-full h-32 object-contain transition-all duration-200 hover:scale-90" />
 
-        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❮</button>
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Previous image">❮</button>
 
-        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❯</button>
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Next image">❯</button>
 
       </div>
         
       <!-- Thumbnails -->
-      <div class="flex gap-2 mt-3 justify-center">
-        <img src="assets/products/Display/6683e235d281f212df282ef6-55-digital-signage-displays-4k-lcd.jpg" class="thumb">
-        <img src="assets/products/Display/IQ-Digital-Signage-small.webp" class="thumb">
-        <img src="assets/products/Display/Scala-Expert-Guide_-How-to-Create-Digital-Signage-img1-1536x864.webp" class="thumb">
-        <img src="assets/products/Display/Sony-India-Introduces-EZ20L-4K-Professional-Displays.webp" class="thumb">
-        <img src="assets/products/Display/wall-mounted-and-free-standing-digital-advertising-screen-and-poster-display.jpg" class="thumb">
+      <div class="thumbs-row flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Display/6683e235d281f212df282ef6-55-digital-signage-displays-4k-lcd.jpg" class="thumb" alt="Display thumbnail 1" loading="lazy" tabindex="0" role="button" aria-label="Display image 1">
+        <img src="assets/products/Display/IQ-Digital-Signage-small.webp" class="thumb" alt="Display thumbnail 2" loading="lazy" tabindex="0" role="button" aria-label="Display image 2">
+        <img src="assets/products/Display/Scala-Expert-Guide_-How-to-Create-Digital-Signage-img1-1536x864.webp" class="thumb" alt="Display thumbnail 3" loading="lazy" tabindex="0" role="button" aria-label="Display image 3">
+        <img src="assets/products/Display/Sony-India-Introduces-EZ20L-4K-Professional-Displays.webp" class="thumb" alt="Display thumbnail 4" loading="lazy" tabindex="0" role="button" aria-label="Display image 4">
+        <img src="assets/products/Display/wall-mounted-and-free-standing-digital-advertising-screen-and-poster-display.jpg" class="thumb" alt="Display thumbnail 5" loading="lazy" tabindex="0" role="button" aria-label="Display image 5">
       </div>
     </div>
   </div>
@@ -531,56 +684,54 @@ img {
 
     <!-- LEFT SIDE — TEXT CONTENT -->
     <div class="flex-1 text-gray-900 leading-relaxed">
-      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 list-disc list-inside">
 
-        <li class="ml-6">Premium audio & visual clarity</li>
-        <li class="ml-6">Immersive surround sound</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Premium audio & visual clarity</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Immersive surround sound</li>
 
-        <li class="ml-6">Custom-designed theater setups</li>
-        <li class="ml-6">Optimized for any room size</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Custom-designed theater setups</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Optimized for any room size</li>
 
-        <li class="ml-6">Professional installation</li>
-        <li class="ml-6">Smart home automation</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Professional installation</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Smart home automation</li>
 
-        <li class="ml-6">4K & Ultra HD projection</li>
-        <li class="ml-6">High-end acoustic treatment</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">4K & Ultra HD projection</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">High-end acoustic treatment</li>
 
-        <li class="ml-6">Remote and app-based control</li>
-        <li class="ml-6">Cinematic viewing experience</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Remote and app-based control</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Cinematic viewing experience</li>
 
-        <li class="ml-6">Comfort-focused layouts</li>
-        <li class="ml-6">Low maintenance</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Comfort-focused layouts</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Low maintenance</li>
 
       </ul>
     </div>
 
     <!-- RIGHT SIDE — IMAGE BLOCK -->
-    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100 card media-card">
 
       <!-- Main Image -->
       <div class="relative overflow-hidden rounded-lg">
-        <img id="mainImage-HT"
+           <img id="mainImage-HT"
              src="assets/products/Home Theater/65f424daa8498f18411160c1-sony-sscs5-3-way-3-driver-bookshelf.jpg"
-             class="w-full h-56 object-contain transition-all duration-300 hover:scale-95" />
+             alt="Home theater sample"
+             loading="lazy"
+             class="w-full h-32 object-contain transition-all duration-200 hover:scale-90" />
 
         <!-- Arrows -->
-        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">
-          ❮
-        </button>
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Previous image">❮</button>
 
-        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">
-          ❯
-        </button>
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Next image">❯</button>
       </div>
 
       <!-- Thumbnails -->
-      <div class="flex gap-2 mt-3 justify-center">
-        <img src="assets/products/Home Theater/65f424daa8498f18411160c1-sony-sscs5-3-way-3-driver-bookshelf.jpg" class="thumb">
-        <img src="assets/products/Home Theater/diy-home-theater-room-.jpeg" class="thumb">
-        <img src="assets/products/Home Theater/iStock-177100713.jpg" class="thumb">
-        <img src="assets/products/Home Theater/main_header_03.jpg" class="thumb">
-        <img src="assets/products/Home Theater/picturescreen.webp" class="thumb">
-        <img src="assets/products/Home Theater/when-to-use-7-1-surround-sound-what-is-7-1-surround-sound-AV-Access-1900x1027.jpg" class="thumb">
+      <div class="thumbs-row flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Home Theater/65f424daa8498f18411160c1-sony-sscs5-3-way-3-driver-bookshelf.jpg" class="thumb" alt="Home theater thumbnail 1" loading="lazy" tabindex="0" role="button" aria-label="Home theater image 1">
+        <img src="assets/products/Home Theater/diy-home-theater-room-.jpeg" class="thumb" alt="Home theater thumbnail 2" loading="lazy" tabindex="0" role="button" aria-label="Home theater image 2">
+        <img src="assets/products/Home Theater/iStock-177100713.jpg" class="thumb" alt="Home theater thumbnail 3" loading="lazy" tabindex="0" role="button" aria-label="Home theater image 3">
+        <img src="assets/products/Home Theater/main_header_03.jpg" class="thumb" alt="Home theater thumbnail 4" loading="lazy" tabindex="0" role="button" aria-label="Home theater image 4">
+        <img src="assets/products/Home Theater/picturescreen.webp" class="thumb" alt="Home theater thumbnail 5" loading="lazy" tabindex="0" role="button" aria-label="Home theater image 5">
+        <img src="assets/products/Home Theater/when-to-use-7-1-surround-sound-what-is-7-1-surround-sound-AV-Access-1900x1027.jpg" class="thumb" alt="Home theater thumbnail 6" loading="lazy" tabindex="0" role="button" aria-label="Home theater image 6">
       </div>
 
     </div>
@@ -591,47 +742,41 @@ img {
   <!-- Immersive Room Section -->
  <!-- Immersive Room Section -->
 <section id="Immersive-Room" class="stats-box-2 mt-20">
-  <h2 style="font-size:50px; font-weight:bold; margin-bottom:20px;">
-    <span style="background:linear-gradient(90deg, #fff, #0527eb); -webkit-background-clip:text; color:transparent;">
-      IMMERSIVE ROOM SOLUTIONS
-    </span>
-  </h2>
+  <h2>IMMERSIVE ROOM SOLUTIONS</h2>
 
   <div class="flex flex-col lg:flex-row items-start gap-8">
     
     <!-- LEFT SIDE — TEXT CONTENT -->
     <div class="flex-1 leading-relaxed" style="color:#fff;">
-      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 list-disc list-inside">
 
-        <li class="ml-6">360° immersive projection</li>
-        <li class="ml-6">Interactive touch & gesture control</li>
-        <li class="ml-6">High-resolution dynamic visuals</li>
-        <li class="ml-6">Spatial surround audio</li>
-        <li class="ml-6">Real-time content control</li>
-        <li class="ml-6">Multi-wall synchronization</li>
-        <li class="ml-6">Suitable for museums & exhibitions</li>
-        <li class="ml-6">Perfect for training simulations</li>
-        <li class="ml-6">Custom-built room environments</li>
-        <li class="ml-6">Supports VR + AR integrations</li>
-        <li class="ml-6">Lightweight projection panels</li>
-        <li class="ml-6">Remote monitoring & playback</li>
-        <li class="ml-6">Low-latency visual rendering</li>
-        <li class="ml-6">Adaptive lighting effects</li>
-        <li class="ml-6">Scalable room sizes</li>
-        <li class="ml-6">Seamless wall-to-wall blending</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">360° immersive projection</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Spatial surround audio</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Real-time content control</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Multi-wall synchronization</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Perfect for training simulations</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Supports VR + AR integrations</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Lightweight projection panels</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Remote monitoring & playback</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Low-latency visual rendering</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Adaptive lighting effects</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Scalable room sizes</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Seamless wall-to-wall blending</li>
 
       </ul>
     </div>
 
     <!-- RIGHT SIDE — IMAGE SLIDER -->
-    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100 card media-card">
 
       <!-- Main Image -->
       <div class="relative overflow-hidden rounded-lg">
         <img 
           id="mainImage-Immersive"
           src="assets/products/Immersive Room/dali-pano-dalle-2-1280-1.jpg"
-          class="w-full h-56 object-contain transition-all duration-300 hover:scale-95"
+          alt="Immersive room sample"
+          loading="lazy"
+          class="w-full h-32 object-contain transition-all duration-200 hover:scale-90"
         />
 
         <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❮</button>
@@ -640,13 +785,13 @@ img {
       </div>
 
       <!-- Thumbnails -->
-      <div class="flex gap-2 mt-3 justify-center">
-        <img src="assets/products/Immersive Room/dali-pano-dalle-2-1280-1.jpg" class="thumb">
-        <img src="assets/products/Immersive Room/interactive-immersive-room.jpeg" class="thumb">
-        <img src="assets/products/Immersive Room/museum-is_slider2.jpg" class="thumb">
-        <img src="assets/products/Immersive Room/Pixel-Artworks-Immersive-Room-Jungle-2.jpg" class="thumb">
-        <img src="assets/products/Immersive Room/rent_04_immersive_room.jpg" class="thumb">
-        <img src="assets/products/Immersive Room/room-to-breathe.jpg" class="thumb">
+      <div class="thumbs-row flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Immersive Room/dali-pano-dalle-2-1280-1.jpg" class="thumb active" alt="Immersive thumbnail 1" loading="lazy" tabindex="0" role="button" aria-label="Immersive image 1">
+        <img src="assets/products/Immersive Room/interactive-immersive-room.jpeg" class="thumb" alt="Immersive thumbnail 2" loading="lazy" tabindex="0" role="button" aria-label="Immersive image 2">
+        <img src="assets/products/Immersive Room/museum-is_slider2.jpg" class="thumb" alt="Immersive thumbnail 3" loading="lazy" tabindex="0" role="button" aria-label="Immersive image 3">
+        <img src="assets/products/Immersive Room/Pixel-Artworks-Immersive-Room-Jungle-2.jpg" class="thumb" alt="Immersive thumbnail 4" loading="lazy" tabindex="0" role="button" aria-label="Immersive image 4">
+        <img src="assets/products/Immersive Room/rent_04_immersive_room.jpg" class="thumb" alt="Immersive thumbnail 5" loading="lazy" tabindex="0" role="button" aria-label="Immersive image 5">
+        <img src="assets/products/Immersive Room/room-to-breathe.jpg" class="thumb" alt="Immersive thumbnail 6" loading="lazy" tabindex="0" role="button" aria-label="Immersive image 6">
       </div>
     </div>
 
@@ -667,51 +812,46 @@ img {
 
     <!-- LEFT SIDE — TEXT CONTENT -->
     <div class="flex-1 leading-relaxed" style="color:#111;">
-      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
-        <li class="ml-6">Transforms surfaces into visual displays</li>
-        <li class="ml-6">Ideal for events & branding</li>
-        <li class="ml-6">Accurate 2D/3D projection mapping</li>
-        <li class="ml-6">Immersive visual experiences</li>
-        <li class="ml-6">Custom content for businesses</li>
-        <li class="ml-6">Touch & motion interaction</li>
-        <li class="ml-6">Perfect for product launches</li>
-        <li class="ml-6">Creates engaging storytelling</li>
-        <li class="ml-6">Scalable for any venue size</li>
-        <li class="ml-6">Useful for marketing & training</li>
-        <li class="ml-6">Architectural visualization</li>
-        <li class="ml-6">High-impact presentations</li>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 list-disc list-inside">
+        <li class="hover:text-blue-600 transition-colors duration-200">Transforms surfaces into visual displays</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Ideal for events & branding</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Accurate 2D/3D projection mapping</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Immersive visual experiences</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Custom content for businesses</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Touch & motion interaction</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Perfect for product launches</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Creates engaging storytelling</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Scalable for any venue size</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Useful for marketing & training</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Architectural visualization</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">High-impact presentations</li>
       </ul>
     </div>
 
     <!-- RIGHT SIDE — IMAGE BLOCK -->
-    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100 card media-card">
 
       <!-- Main Image -->
       <div class="relative overflow-hidden rounded-lg">
-        <img id="mainImage-Projection"
+           <img id="mainImage-Projection"
              src="assets/products/Projection Mapping/mapping.webp"
-             class="w-full h-56 object-contain transition-all duration-300 hover:scale-95" />
+             alt="Projection mapping sample"
+             loading="lazy"
+             class="w-full h-32 object-contain transition-all duration-200 hover:scale-90" />
 
-        <button class="prev absolute left-2 top-1/2 -translate-y-1/2
-          bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl
-          flex items-center justify-center">❮</button>
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Previous image">❮</button>
 
-        <button class="next absolute right-2 top-1/2 -translate-y-1/2
-          bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl
-          flex items-center justify-center">❯</button>
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Next image">❯</button>
       </div>
 
       <!-- Thumbnails -->
-      <div class="flex gap-2 mt-3 justify-center">
-        <img src="assets/products/Projection Mapping/mapping.webp" class="thumb">
-         <img src="assets/products/Projection Mapping/Pani- video mapping technology- basa studio 4.jpg" class="thumb">
-
-  
-        <img src="assets/products/Projection Mapping/project-mapping-06.jpg" class="thumb">
-                
-        <img src="assets/products/Projection Mapping/WhatsAppImage2023-04-30at2.46.48PMX4KT.jpeg" class="thumb">
-        <img src="assets/products/Projection Mapping/Zz03MTA3ODI3YWU0MjU3ZTAzN2Q3ZWUzYTVmNDJhMGEwOA==.jpg" class="thumb">
-        <img src="assets/products/Projection Mapping/projection-mapping.webp" class="thumb">
+      <div class="thumbs-row flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Projection Mapping/mapping.webp" class="thumb" alt="Projection thumbnail 1" loading="lazy" tabindex="0" role="button" aria-label="Projection image 1">
+        <img src="assets/products/Projection Mapping/Pani- video mapping technology- basa studio 4.jpg" class="thumb" alt="Projection thumbnail 2" loading="lazy" tabindex="0" role="button" aria-label="Projection image 2">
+        <img src="assets/products/Projection Mapping/project-mapping-06.jpg" class="thumb" alt="Projection thumbnail 3" loading="lazy" tabindex="0" role="button" aria-label="Projection image 3">
+        <img src="assets/products/Projection Mapping/WhatsAppImage2023-04-30at2.46.48PMX4KT.jpeg" class="thumb" alt="Projection thumbnail 4" loading="lazy" tabindex="0" role="button" aria-label="Projection image 4">
+        <img src="assets/products/Projection Mapping/Zz03MTA3ODI3YWU0MjU3ZTAzN2Q3ZWUzYTVmNDJhMGEwOA==.jpg" class="thumb" alt="Projection thumbnail 5" loading="lazy" tabindex="0" role="button" aria-label="Projection image 5">
+        <img src="assets/products/Projection Mapping/projection-mapping.webp" class="thumb" alt="Projection thumbnail 6" loading="lazy" tabindex="0" role="button" aria-label="Projection image 6">
       </div>
 
     </div>
@@ -735,58 +875,50 @@ img {
 
     <!-- LEFT SIDE — TEXT CONTENT -->
     <div class="flex-1 leading-relaxed" style="color:#fff;">
-      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 list-disc list-inside">
 
-        <li class="ml-6">High-performance projection</li>
-        <li class="ml-6">Ideal for business presentations</li>
-        <li class="ml-6">Perfect for classrooms & training</li>
-        <li class="ml-6">Suitable for home theaters</li>
-        <li class="ml-6">Supports gaming visuals</li>
-        <li class="ml-6">Great for large venues</li>
-        <li class="ml-6">High-brightness projection</li>
-        <li class="ml-6">Outdoor-ready options</li>
-        <li class="ml-6">Interactive touch projection</li>
-        <li class="ml-6">Gesture-based controls</li>
-        <li class="ml-6">Lightweight mini projectors</li>
-        <li class="ml-6">Portable compact designs</li>
-        <li class="ml-6">Perfect for on-the-go use</li>
-        <li class="ml-6">Lighting & signage projection</li>
-        <li class="ml-6">Dynamic branding displays</li>
-        <li class="ml-6">Smooth, user-friendly operation</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Ideal for business presentations</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Perfect for classrooms & training</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Suitable for home theaters</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Supports gaming visuals</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Great for large venues</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">High-brightness projection</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Outdoor-ready options</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Lightweight mini projectors</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Portable compact designs</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Perfect for on-the-go use</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Lighting & signage projection</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Dynamic branding displays</li>
 
       </ul>
     </div>
 
     <!-- RIGHT SIDE — IMAGE SLIDER -->
-    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100 card media-card">
 
       <!-- Main Image -->
       <div class="relative overflow-hidden rounded-lg">
         <img 
           id="mainImage-Projector"
           src="assets/products/Projector/0009958_8.png"
-          class="w-full h-56 object-contain transition-all duration-300 hover:scale-95"
+          alt="Projector sample"
+          loading="lazy"
+          class="w-full h-32 object-contain transition-all duration-200 hover:scale-90"
         />
 
-        <button 
-          class="prev absolute left-2 top-1/2 -translate-y-1/2 
-                 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full 
-                 text-xl flex items-center justify-center">❮</button>
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Previous image">❮</button>
 
-        <button 
-          class="next absolute right-2 top-1/2 -translate-y-1/2 
-                 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full 
-                 text-xl flex items-center justify-center">❯</button>
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center" aria-label="Next image">❯</button>
       </div>
 
       <!-- Thumbnails -->
-      <div class="flex gap-2 mt-3 justify-center">
-        <img src="assets/products/Projector/1_08c1c81d-8b1f-469e-9eae-bbaad6344393.webp" class="thumb">
-        <img src="assets/products/Projector/1_41acb45f-3ef9-489f-8ea3-1e0ca1ec0607.webp" class="thumb">
-        <img src="assets/products/Projector/AVStore2_ab296e73-f10e-452d-8f56-1e4a588b8882.webp" class="thumb">
-        <img src="assets/products/Projector/lu935st-01.webp" class="thumb">
-        <img src="assets/products/Projector/sony.jpg" class="thumb">
-        <img src="assets/products/Projector/tw-9400_1200x1200.webp" class="thumb">
+      <div class="thumbs-row flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Projector/1_08c1c81d-8b1f-469e-9eae-bbaad6344393.webp" class="thumb" alt="Projector thumbnail 1" loading="lazy" tabindex="0" role="button" aria-label="Projector image 1">
+        <img src="assets/products/Projector/1_41acb45f-3ef9-489f-8ea3-1e0ca1ec0607.webp" class="thumb" alt="Projector thumbnail 2" loading="lazy" tabindex="0" role="button" aria-label="Projector image 2">
+        <img src="assets/products/Projector/AVStore2_ab296e73-f10e-452d-8f56-1e4a588b8882.webp" class="thumb" alt="Projector thumbnail 3" loading="lazy" tabindex="0" role="button" aria-label="Projector image 3">
+        <img src="assets/products/Projector/lu935st-01.webp" class="thumb" alt="Projector thumbnail 4" loading="lazy" tabindex="0" role="button" aria-label="Projector image 4">
+        <img src="assets/products/Projector/sony.jpg" class="thumb" alt="Projector thumbnail 5" loading="lazy" tabindex="0" role="button" aria-label="Projector image 5">
+        <img src="assets/products/Projector/tw-9400_1200x1200.webp" class="thumb" alt="Projector thumbnail 6" loading="lazy" tabindex="0" role="button" aria-label="Projector image 6">
       </div>
 
     </div>
@@ -807,52 +939,50 @@ img {
 
     <!-- LEFT SIDE — TEXT CONTENT -->
     <div class="flex-1 leading-relaxed" style="color:#111;">
-      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 list-disc list-inside">
 
-        <li class="ml-6">High-fidelity audio output</li>
-        <li class="ml-6">Perfect for events & conferences</li>
-        <li class="ml-6">Corporate-grade sound systems</li>
-        <li class="ml-6">Crystal-clear voice projection</li>
-        <li class="ml-6">Professional PA system support</li>
-        <li class="ml-6">Home theater audio setups</li>
-        <li class="ml-6">Wireless & Bluetooth connectivity</li>
-        <li class="ml-6">Compact speakers for portability</li>
-        <li class="ml-6">Amplifiers for large venues</li>
-        <li class="ml-6">High-power bass output</li>
-        <li class="ml-6">Ideal for studios & production</li>
-        <li class="ml-6">Perfect for stage & live sound</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">High-fidelity audio output</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Perfect for events & conferences</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Corporate-grade sound systems</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Crystal-clear voice projection</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Professional PA system support</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Home theater audio setups</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Wireless & Bluetooth connectivity</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Compact speakers for portability</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Amplifiers for large venues</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">High-power bass output</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Ideal for studios & production</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Perfect for stage & live sound</li>
 
       </ul>
     </div>
 
     <!-- RIGHT SIDE — IMAGE SLIDER -->
-    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100 card media-card">
 
       <!-- Main Image -->
       <div class="relative overflow-hidden rounded-lg">
         <img 
           id="mainImage-Sound"
           src="assets/products/Sound/1740b256422f56af079deeb73614208b.webp"
-          class="w-full h-56 object-contain transition-all duration-300 hover:scale-95"
+          alt="Sound solutions sample"
+          loading="lazy"
+          class="w-full h-32 object-contain transition-all duration-200 hover:scale-90"
         />
 
-        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 
-          bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl 
-          flex items-center justify-center">❮</button>
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❮</button>
 
-        <button class="next absolute right-2 top-1/2 -translate-y-1/2 
-          bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl 
-          flex items-center justify-center">❯</button>
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❯</button>
       </div>
 
       <!-- Thumbnails -->
-      <div class="flex gap-2 mt-3 justify-center">
-        <img src="assets/products/Sound/1740b256422f56af079deeb73614208b.webp" class="thumb">
-        <img src="assets/products/Sound/audio-system-1669880933.jpg" class="thumb">
-        <img src="assets/products/Sound/bs301w.jpg" class="thumb">
-        <img src="assets/products/Sound/DGWCmL7EGdgJBr9T49gfAD.jpg" class="thumb">
-        <img src="assets/products/Sound/download.jpg" class="thumb">
-        <img src="assets/products/Sound/images.jpg" class="thumb">
+      <div class="thumbs-row flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Sound/1740b256422f56af079deeb73614208b.webp" class="thumb" alt="Sound thumbnail 1" loading="lazy" tabindex="0" role="button" aria-label="Sound image 1">
+        <img src="assets/products/Sound/audio-system-1669880933.jpg" class="thumb" alt="Sound thumbnail 2" loading="lazy" tabindex="0" role="button" aria-label="Sound image 2">
+        <img src="assets/products/Sound/bs301w.jpg" class="thumb" alt="Sound thumbnail 3" loading="lazy" tabindex="0" role="button" aria-label="Sound image 3">
+        <img src="assets/products/Sound/DGWCmL7EGdgJBr9T49gfAD.jpg" class="thumb" alt="Sound thumbnail 4" loading="lazy" tabindex="0" role="button" aria-label="Sound image 4">
+        <img src="assets/products/Sound/download.jpg" class="thumb" alt="Sound thumbnail 5" loading="lazy" tabindex="0" role="button" aria-label="Sound image 5">
+        <img src="assets/products/Sound/images.jpg" class="thumb" alt="Sound thumbnail 6" loading="lazy" tabindex="0" role="button" aria-label="Sound image 6">
       </div>
 
     </div>
@@ -876,53 +1006,45 @@ img {
 
     <!-- LEFT SIDE — TEXT CONTENT -->
     <div class="flex-1 leading-relaxed" style="color:#fff;">
-      <ul class="grid grid-cols-2 gap-x-10 gap-y-2 list-disc ml-6">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 list-disc list-inside">
 
-        <li class="ml-6">High-resolution cameras for crystal-clear video</li>
-        <li class="ml-6">Superior audio clarity for effective communication</li>
-        <li class="ml-6">All-in-one video conferencing setups</li>
-        <li class="ml-6">Ideal for corporate boardrooms</li>
-        <li class="ml-6">Perfect for remote & hybrid teams</li>
-        <li class="ml-6">Advanced systems for small to large meeting rooms</li>
-        <li class="ml-6">Seamless connectivity for uninterrupted meetings</li>
-        <li class="ml-6">Supports interactive collaboration tools</li>
-        <li class="ml-6">Compact & easy-mount camera solutions</li>
-        <li class="ml-6">High-performance audio-video integration</li>
-        <li class="ml-6">Optimized for online training & education</li>
-        <li class="ml-6">Professional-grade conferencing hardware</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">High-resolution cameras for crystal-clear video</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">All-in-one video conferencing setups</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Ideal for corporate boardrooms</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Perfect for remote & hybrid teams</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Advanced systems for small to large meeting rooms</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Seamless connectivity for uninterrupted meetings</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">Supports interactive collaboration tools</li>
+        <li class="hover:text-blue-600 transition-colors duration-200">High-performance audio-video integration</li>
 
       </ul>
     </div>
 
     <!-- RIGHT SIDE — IMAGE SLIDER -->
-    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100">
+    <div class="w-full max-w-md bg-white shadow-md rounded-xl p-3 border border-gray-100 card media-card">
 
       <!-- Main Image -->
       <div class="relative overflow-hidden rounded-lg">
         <img 
           id="mainImage-VideoConferencing"
           src="assets/products/Video%20Conferencing/20240627054727337521e.png"
-          class="w-full h-56 object-contain transition-all duration-300 hover:scale-95"
+          alt="Video conferencing sample"
+          loading="lazy"
+          class="w-full h-32 object-contain transition-all duration-200 hover:scale-90"
         />
 
-        <button 
-          class="prev absolute left-2 top-1/2 -translate-y-1/2 
-                 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full 
-                 text-xl flex items-center justify-center">❮</button>
+        <button class="prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❮</button>
 
-        <button 
-          class="next absolute right-2 top-1/2 -translate-y-1/2 
-                 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full 
-                 text-xl flex items-center justify-center">❯</button>
+        <button class="next absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white shadow-md w-8 h-8 rounded-full text-xl flex items-center justify-center">❯</button>
       </div>
 
       <!-- Thumbnails -->
-      <div class="flex gap-2 mt-3 justify-center">
-        <img src="assets/products/Video%20Conferencing/20240627054727337521e.png" class="thumb">
-        <img src="assets/products/Video%20Conferencing/3-3.jpg" class="thumb">
-        <img src="assets/products/Video%20Conferencing/meeting-room-video-conferencing-solution-jpg-1-jpg.jpg" class="thumb">
-        <img src="assets/products/Video%20Conferencing/MVC860-en-us-20240719T042819-2.png" class="thumb">
-        <img src="assets/products/Video%20Conferencing/PIC4.jpg" class="thumb">
+      <div class="thumbs-row flex gap-2 mt-3 justify-center">
+        <img src="assets/products/Video%20Conferencing/20240627054727337521e.png" class="thumb" alt="Video conferencing thumbnail 1" loading="lazy" tabindex="0" role="button" aria-label="Video conferencing image 1">
+        <img src="assets/products/Video%20Conferencing/3-3.jpg" class="thumb" alt="Video conferencing thumbnail 2" loading="lazy" tabindex="0" role="button" aria-label="Video conferencing image 2">
+        <img src="assets/products/Video%20Conferencing/meeting-room-video-conferencing-solution-jpg-1-jpg.jpg" class="thumb" alt="Video conferencing thumbnail 3" loading="lazy" tabindex="0" role="button" aria-label="Video conferencing image 3">
+        <img src="assets/products/Video%20Conferencing/MVC860-en-us-20240719T042819-2.png" class="thumb" alt="Video conferencing thumbnail 4" loading="lazy" tabindex="0" role="button" aria-label="Video conferencing image 4">
+        <img src="assets/products/Video%20Conferencing/PIC4.jpg" class="thumb" alt="Video conferencing thumbnail 5" loading="lazy" tabindex="0" role="button" aria-label="Video conferencing image 5">
       </div>
 
     </div>
@@ -1058,13 +1180,23 @@ img {
 
     <!-- Right Column: Form -->
     <div class="contact-form">
-      <form>
-        <input type="text" placeholder="Your Name *" required>
-        <input type="email" placeholder="Email Address *" required>
-        <input type="text" placeholder="Phone Number">
-        <input type="text" placeholder="Company Name">
-        <textarea placeholder="Message *" rows="5" required></textarea>
-        <button type="submit">SUBMIT</button>
+      <form method="post" action="#" aria-label="Contact form">
+        <label class="sr-only">Your Name</label>
+        <input type="text" name="name" placeholder="Your Name *" required>
+
+        <label class="sr-only">Email Address</label>
+        <input type="email" name="email" placeholder="Email Address *" required>
+
+        <label class="sr-only">Phone Number</label>
+        <input type="text" name="phone" placeholder="Phone Number">
+
+        <label class="sr-only">Company Name</label>
+        <input type="text" name="company" placeholder="Company Name">
+
+        <label class="sr-only">Message</label>
+        <textarea name="message" placeholder="Message *" rows="5" required></textarea>
+
+        <button type="submit">Send enquiry</button>
       </form>
     </div>
   </div>
@@ -1110,8 +1242,8 @@ img {
       padding:14px 28px;
       border-radius:12px;
       background:#4a60dc;
-      color:#111;
-      font-weight:bold;
+      color:#fff;
+      font-weight:700;
       border:none;
       cursor:pointer;
       transition:0.3s;
@@ -1325,6 +1457,13 @@ img {
       t.addEventListener("click", () => {
         current = i;
         updateMainImage();
+      });
+      // keyboard support for thumbnails
+      t.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          t.click();
+        }
       });
     });
 
