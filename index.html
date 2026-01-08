@@ -187,46 +187,6 @@ img, video {
   object-fit: cover;
 }
 
-/* center content */
-.hero-center {
-  flex: 0 0 38%;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 20px;
-}
-
-
-
-@media (max-width: 420px) {
-  .hero-logo {
-    width: 160px;            /* small phones */
-  }
-}
-
-.hero {
-  display: flex;
-  width: 100%;
-  background: #323230;
-  
-}
-
-/* Left & Right images */
-.hero-side {
-  flex: 1;
-  position: relative;
-   min-height: 0;
-}
-
-/* HERO IMAGES – DESKTOP */
-.hero-side img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-
 /* Center content */
 .hero-center {
   flex: 0 0 38%;
@@ -239,73 +199,44 @@ img, video {
   z-index: 2;
 }
 
+
+
+@media (max-width: 420px) {
+  .hero-logo {
+    width: 160px;            /* small phones */
+  }
+}
+
 /* ===== Mobile Hero Fix ===== */
 /* ===== Mobile: 3-column hero preserved ===== */
 @media (max-width: 768px) {
-  /* Hero section */
-.hero {
-  position: relative;
-  overflow: hidden; /* hide blobs overflow */
-  background: #09285c;
-  color: white;
-  padding: 60px 20px;
-}
-
-/* Moving blobs only on mobile */
-@media (max-width: 640px) {
-  .hero::before,
-  .hero::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.6;
-    animation: blobMove 20s infinite alternate;
-    z-index: 0; /* behind content */
+   .hero {
+    align-items: center; /* center vertically */
+    flex-direction: column; /* stack hero-side and hero-center vertically */
   }
 
-  .hero::before {
-    width: 300px;
-    height: 300px;
-    background: #ff6b6b;
-    top: -80px;
-    left: -80px;
-    animation-duration: 25s;
+  .hero-side {
+     display: none;/* or a smaller height */
   }
 
-  .hero::after {
-    width: 200px;
-    height: 200px;
-    background: #4ecdc4;
-    bottom: -60px;
-    right: -60px;
-    animation-duration: 30s;
-    animation-delay: 5s;
+  .hero-center {
+     flex: 1 1 100%; /* 👈 reduces height */
   }
-}
 
-/* Animation */
-@keyframes blobMove {
-  0% {
-    transform: translate(0, 0) scale(1);
+    .hero-side img {
+     display: none;
   }
-  33% {
-    transform: translate(30px, -20px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 30px) scale(0.9);
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-}
 
-/* Make sure hero content is above blobs */
-.hero > * {
-  position: relative;
-  z-index: 1;
-}
 
+  .hero-desc {
+    font-size: 13px;
+    line-height: 1.35;     /* tighter text */
+  }
+
+  .hero-btn {
+    padding: 10px 22px;
+    font-size: 14px;
+  }
 }
 
 
@@ -1070,8 +1001,9 @@ body {
         <h2 style="font-family:'Poppins',sans-serif;font-size:44px;margin:0 0 10px; line-height:1.1;"><span style="color:#111;background:#fff;padding:4px 10px;border-radius:4px; display:inline-block; font-size:44px;">WHO IS</span> <span style="color:#fff; font-size:44px;">FUSIONVUE?</span></h2>
         <p style="color:#f0f0f0;max-width:860px;margin:12px auto;font-size:16px; line-height:1.4;">At <strong style="color:#e9eaf0">FusionVue</strong> we are a premier Audio & Video Integration company specializing in cutting-edge AV solutions for corporate, commercial and luxury residential spaces.</p>
       </div>
-
+      
       <div style="display:flex;justify-content:center;gap:12px;max-width:100%;margin:16px auto; flex-wrap:wrap; padding:0 8px; box-sizing:border-box;">
+        <div class="stats-row">
         <div class="stats-box">
           <div style="font-size:24px;color:var(--gold);font-weight:800">10+</div>
           <div style="color:#fff;margin-top:8px; font-size:13px;">Years<br/>Experience</div>
@@ -1087,6 +1019,7 @@ body {
          <div class="stats-box">
           <div style="font-size:24px;color:var(--gold);font-weight:800">15+</div>
           <div style="color:#fff;margin-top:8px; font-size:13px;">Industry<br/>Awards</div>
+        </div>
         </div>
       </div>
     </section>
