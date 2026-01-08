@@ -106,6 +106,7 @@ img, video {
   height: auto;
   object-fit: contain;
 }
+/* Default: hide mobile toggle */
 #navToggle {
   display: none;
   background: transparent;
@@ -113,6 +114,7 @@ img, video {
   color: #fff;
   font-size: 28px;
   cursor: pointer;
+  z-index: 1100;
 }
 
 @media (max-width: 640px) {
@@ -132,6 +134,24 @@ img, video {
     display: block;
     position: relative;
     z-index: 1100;
+  }
+  nav.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 72px; /* below header */
+    left: 0;
+    right: 0;
+    background: #0f0f0f;
+    padding: 12px 0;
+    z-index: 1000;
+    gap: 12px;
+  }
+
+  nav.open a {
+    font-size: 18px;
+    color: #fff;
+    padding: 8px 16px;
   }
 }
 
@@ -301,16 +321,64 @@ img, video {
   }
 }
 
-
-  /* Default nav: show nav on larger screens, hide mobile toggle */
-  #navToggle { display: none; background: transparent; border: none; color: #fff; font-size: 28px; }
-
   /* Mobile: hide desktop nav, show toggle button */
 
 @media (max-width: 640px) {
   .hero {
     background-position: center;
   }
+}
+/* Only for mobile: <=640px */
+@media (max-width: 640px) {
+  .hero {
+    position: relative;
+    overflow: hidden; /* hide overflowing blobs */
+  }
+
+  /* Left and right blobs */
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    z-index: 0; /* behind content */
+    animation: blobMove 20s infinite alternate;
+  }
+
+  .hero::before {
+    width: 300px;
+    height: 300px;
+    background: #ff6b6b;
+    top: -80px;
+    left: -80px;
+    animation-duration: 25s;
+  }
+
+  .hero::after {
+    width: 200px;
+    height: 200px;
+    background: #4ecdc4;
+    bottom: -60px;
+    right: -60px;
+    animation-duration: 30s;
+    animation-delay: 5s;
+  }
+
+  /* Make sure content is above blobs */
+  .hero > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* Mobile blob animation */
+@keyframes blobMove {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -20px) scale(1.1); }
+  66%  { transform: translate(-20px, 30px) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
 /* Tweak hero typography and background crop so mobile layout resembles desktop more closely */
@@ -1843,21 +1911,21 @@ body {
       // Mobile nav toggle script — also set body.nav-open so headings hide only when nav is open
       (function(){
         const navToggle = document.getElementById('navToggle');
-        const headerNav = document.querySelector('header nav');
+        const headerNav = document.querySelector('nav');
         if(!navToggle || !headerNav) return;
         navToggle.addEventListener('click', (e)=>{
           e.stopPropagation();
           const opened = headerNav.classList.toggle('open');
-          document.body.classList.toggle('nav-open', opened);
+          document.body.classList.toggle('open', opened);
         });
         headerNav.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=>{
           headerNav.classList.remove('open');
-          document.body.classList.remove('nav-open');
+          document.body.classList.remove('open');
         }));
         document.addEventListener('click', (e)=>{
           if (!headerNav.contains(e.target) && e.target !== navToggle && headerNav.classList.contains('open')){
             headerNav.classList.remove('open');
-            document.body.classList.remove('nav-open');
+            document.body.classList.remove('open');
           }
         });
       })();
