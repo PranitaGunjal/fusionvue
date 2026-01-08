@@ -89,9 +89,13 @@ header {
 }
 
 nav {
-  display: flex;
-  gap: 16px;
+  display: none;
 }
+
+nav.open {
+  display: flex;
+}
+
 
 nav a {
   color: #fff;
@@ -127,8 +131,13 @@ img, video {
   }
 
   nav {
-    display: none !important;
-  }
+  display: none;
+}
+
+nav.open {
+  display: flex;
+}
+
 
   #navToggle {
     display: block;
@@ -361,24 +370,25 @@ img, video {
       #c9b600
     );
     top: 5%;
-    left: 15%;
+    left: 25%;
     transform: translateX(-55%);
     animation-duration: 5s;
+    animation-delay: 2s;
   }
 
   /* 🔵 Blue–Purple gradient blob (bottom-center) */
   .hero-center::after {
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     background: radial-gradient(
       circle at 70% 70%,
-      #8b8aff,
-      #413fe4 60%,
-      #2a28b8
+      #fff6a3,
+      #e9d737 60%,
+      #c9b600
     );
     top: 5%;
-    left: 85%;
-    transform: translateX(-45%);
+    left: 75%;
+    transform: translateX(-55%);
     animation-duration: 5s;
     animation-delay: 2s;
   }
@@ -387,6 +397,20 @@ img, video {
   .hero-center > * {
     position: relative;
     z-index: 1;
+  }
+   nav {
+  display: none;
+}
+
+nav.open {
+  display: flex;
+}
+
+
+  #navToggle {
+    display: block;
+    position: relative;
+    z-index: 1100;
   }
 }
 
@@ -1050,7 +1074,7 @@ body {
       <div class="brand">
           <img src="assets/logo.png" alt="FusionVue logo">
       </div>
-      <button id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">☰</button>
+      <button id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primaryNav">☰</button>
       <nav id="primaryNav" role="navigation" aria-hidden="true">
         <a href="#" class="nav-link" style="color: #fff;">Home</a>
         <a href="#about" class="nav-link" style="color: #fff;">About</a>
