@@ -266,38 +266,6 @@ nav.open {
 
 /* ===== Mobile Hero Fix ===== */
 /* ===== Mobile: 3-column hero preserved ===== */
-@media (max-width: 768px) {
-   .hero {
-    align-items: center; /* center vertically */
-    flex-direction: column; /* stack hero-side and hero-center vertically */
-  }
-
-  .hero-side {
-     display: none;/* or a smaller height */
-  }
-
-  .hero-center {
-     flex: 1 1 100%; /* 👈 reduces height */
-     
-  }
-
-    .hero-side img {
-     display: none;
-  }
-
-
-  .hero-desc {
-    font-size: 13px;
-    line-height: 1.35;     /* tighter text */
-  }
-
-  .hero-btn {
-    padding: 10px 22px;
-    font-size: 14px;
-  }
-}
-
-
 
 @media (max-width: 768px) {
   header {
@@ -318,6 +286,65 @@ nav.open {
     z-index: 1100;
   }
 }
+@media (max-width: 768px) {
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Common style for all icons */
+  .hero::before,
+  .hero::after,
+  .hero .icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    opacity: 0.12;
+    z-index: 0;
+    animation: float 12s linear infinite;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  /* Camera icon */
+  .hero .icon.camera {
+    top: 10%;
+    left: 20%;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23edac08" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5c-1.1 0-2 .9-2 2H5v14h14V7h-5c0-1.1-.9-2-2-2zm0 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>');
+  }
+
+  /* Display icon */
+  .hero .icon.display {
+    top: 50%;
+    left: 70%;
+    width: 50px;
+    height: 30px;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%230728e6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 5h16v10H4z"/><path fill="none" d="M0 0h24v24H0z"/></svg>');
+  }
+
+  /* Sound icon */
+  .hero .icon.sound {
+    top: 70%;
+    left: 30%;
+    width: 35px;
+    height: 35px;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23edac08" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>');
+  }
+
+  /* Animation for floating effect */
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(10deg); }
+  }
+
+  /* Make sure hero text is on top */
+  .hero > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
 @media (max-width: 768px) {
   .offering-card {
     padding: 16px;
