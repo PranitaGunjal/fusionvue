@@ -431,6 +431,13 @@ nav.open {
   }
 }
 
+/* Prevent hero-side images from intercepting header taps on small screens */
+@media (max-width: 640px) {
+  .hero-side, .hero-side img {
+    pointer-events: none;
+  }
+}
+
 /* 🌊 Organic floating animation */
 @keyframes blobFloat {
   0% {
