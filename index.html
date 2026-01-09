@@ -1206,6 +1206,61 @@ body {
     /* Ensure form controls and interactive elements inherit the font */
     input, textarea, select, button, a { font-family: 'Merriweather', serif !important; }
   </style>
+  <style>
+    /* Mobile hero refinements (<=640px) */
+    @media (max-width: 640px) {
+      .hero {
+        height: auto !important;
+        min-height: 360px;
+        padding: calc(var(--header-height) + 12px) 0 28px !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .hero-side { display: none !important; }
+
+      .hero-center { padding: 18px 12px !important; width: 100%; }
+
+      .hero-title {
+        font-size: clamp(28px, 8vw, 40px) !important;
+        line-height: 1.05 !important;
+        white-space: normal !important;
+        margin: 0 !important;
+      }
+
+      .hero-subtitle {
+        font-size: clamp(12px, 3.6vw, 16px) !important;
+        letter-spacing: 1.5px !important;
+        padding: 0.35em 0.8em !important;
+        margin-top: 0.45em !important;
+      }
+
+      .lead {
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+        max-width: 48ch !important;
+        margin-top: 12px !important;
+        padding: 0 6px !important;
+      }
+
+      .cta-btn {
+        display: block !important;
+        width: calc(100% - 24px) !important;
+        max-width: 420px !important;
+        margin: 12px auto 0 auto !important;
+        padding: 14px 18px !important;
+        font-size: 16px !important;
+        border-radius: 12px !important;
+      }
+
+      /* Remove heavy decorative blobs/ornaments on mobile */
+      .hero-bg, .hero-bg .blob, .circle-orn, .hero-center::before, .hero-center::after {
+        display: none !important;
+        opacity: 0 !important;
+      }
+    }
+  </style>
 </head>
 <body class="inverted">
   <div class="hero-bg" aria-hidden="true">
@@ -2182,52 +2237,5 @@ body {
         window.addEventListener('orientationchange', updateNavTop);
       })();
     </script>
-  <!-- DEBUG: highlight touch targets and log them to console (temporary) -->
-  <script>
-    (function(){
-      if(!('ontouchstart' in window)) return; // only for touch devices
-      function flash(el){
-        if(!el) return;
-        const orig = el.style.outline;
-        el.style.outline = '3px solid rgba(255,0,0,0.95)';
-        el.style.outlineOffset = '2px';
-        setTimeout(()=>{ el.style.outline = orig; el.style.outlineOffset = ''; }, 700);
-      }
-
-      document.addEventListener('touchstart', function(e){
-        try{
-          const t = e.target;
-          console.log('DEBUG touchstart target:', t, 'tag:', t.tagName, 'id:', t.id, 'classes:', t.className);
-          flash(t);
-        }catch(err){ console.warn('debug touch handler error', err); }
-      }, {passive:true});
-
-      // also log taps specifically on the hamburger
-      const navToggle = document.getElementById('navToggle');
-      if(navToggle){
-        navToggle.addEventListener('click', ()=>{ console.log('DEBUG: navToggle click fired'); });
-        navToggle.addEventListener('touchstart', ()=>{ console.log('DEBUG: navToggle touchstart fired'); }, {passive:true});
-      }
-
-      // show a small on-screen debug helper so user sees logs without remote console
-      const dbg = document.createElement('div');
-      dbg.id = 'touch-debug-helper';
-      dbg.style.position = 'fixed';
-      dbg.style.bottom = '12px';
-      dbg.style.left = '12px';
-      dbg.style.padding = '8px 10px';
-      dbg.style.background = 'rgba(0,0,0,0.6)';
-      dbg.style.color = '#fff';
-      dbg.style.fontSize = '12px';
-      dbg.style.zIndex = 999999;
-      dbg.style.borderRadius = '8px';
-      dbg.style.maxWidth = '45%';
-      dbg.textContent = 'Tap debug active';
-      document.body.appendChild(dbg);
-      setTimeout(()=>{ dbg.style.opacity = '0.6'; }, 1000);
-      setTimeout(()=>{ dbg.remove(); }, 15000);
-    })();
-  </script>
-
 </body>
 </html>
