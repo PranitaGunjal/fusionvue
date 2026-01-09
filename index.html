@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FusionVue</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -219,34 +220,42 @@ nav.open {
 .hero {
   display: flex;
   width: 100%;
-  align-items: stretch;
-  background: #323230;
+  align-items: stretch;   /* key */
+  background: transparent;
+  min-height: 250px;
+  height: calc(100vh - var(--header-height));
+  padding: 0 !important; /* remove section horizontal padding so images touch viewport edges */
 }
 
-/* side images */
+/* Side image wrapper */
 .hero-side {
   flex: 1;
-  min-height: 220px;
 }
 
 .hero-side img {
   width: 100%;
-  height: 100%;
+  height: 100%;           /* fill side column */
   object-fit: cover;
 }
 
 /* Center content */
 .hero-center {
-  flex: 0 0 38%;
-  background: #fff;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 32px 24px;
+  padding: 30px 0; /* remove side padding so center card aligns with images */
   z-index: 2;
 }
-
+.hero-card {
+  width: 100%;
+  max-width: 100%;
+  container-type: inline-size; /* 🔥 REQUIRED */
+}
 
 
 @media (max-width: 420px) {
@@ -499,12 +508,77 @@ h1 {
 }
 
 .hero h1 {
-  font-size: clamp(32px, 6vw, 74px);
+  font-size: inherit;
+  line-height: inherit;
 }
 
 .hero h2 {
   font-size: clamp(18px, 2.4vw, 28px);
   color: #000;
+}
+
+/* ===== Hero Brand Styling ===== */
+.hero-brand { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.hero-title {
+  font-family: 'Montserrat', 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: min(16rem, 16cqw);
+  line-height: 0.82;
+
+  letter-spacing: clamp(2.2px, 0.6cqw, 8px);
+  text-align: center;
+  white-space: nowrap;
+
+  background: linear-gradient(90deg, #edac08, #0728e6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  margin-inline: -6%;
+}
+
+.hero-subtitle {
+  display: inline-block;
+
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 4cqw, 2.6rem);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+
+  padding: 0.45em 1.2em;
+  margin-top: 0.6em;
+
+  border: 2px solid rgba(15, 15, 233, 0.55);
+  border-radius: 888px;
+
+  background: linear-gradient(90deg, #0e0e0e, #0b0b4e, #0e0e0e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeUp 700ms cubic-bezier(.2,.9,.3,1) 0.36s both;
+}
+
+.lead {
+  font-family: 'Merriweather', serif;
+  font-size: clamp(1.55rem, 1.6vw, 1.4rem);
+  line-height: 1.95;
+  letter-spacing: 0.06em;
+
+  color: rgba(232, 238, 248, 0.88);
+  max-width: 46ch;
+
+  margin-top: 1.6rem;
+}
+
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title, .hero-subtitle { animation: none !important; transform: none !important; opacity: 1 !important; }
 }
 
 
@@ -544,7 +618,7 @@ h1 {
       }
     }
     
-    .cta-btn{display:inline-block;padding:16px 28px;border-radius:28px;background:#111;color:#f3eded;font-weight:700;text-decoration:none;margin-right:10px;box-shadow:0 10px 30px rgba(224,168,0,0.12);cursor:pointer;transition:0.2s ease}
+    .cta-btn{display:inline-block;padding:20px 34px;border-radius:34px;background:#efbb29;color:#0c0c0c;font-weight:900;text-decoration:none;margin-right:15px;box-shadow:0 20px 40px rgba(224,168,0,0.12);cursor:pointer;transition:0.2s ease}
     
     @media (max-width: 640px) {
       .cta-btn {
@@ -1018,11 +1092,12 @@ body.inverted .stats-box {
 
     
 section {
-  scroll-margin-top: 90px !important;
+  scroll-margin-top: calc(var(--header-height) + 8px) !important;
 }
 
 main, section, .product-hero, .product-section {
-  padding-top: 90px !important;
+  padding-top: var(--header-height) !important;
+  scroll-margin-top: calc(var(--header-height) + 8px) !important;
 }
 section, .container {
   max-width: 100%;
@@ -1041,7 +1116,7 @@ section, .container {
 
     /* Sections use consistent padding and scroll margin */
     section { padding: clamp(24px, 4vw, 64px) 16px; box-sizing: border-box; scroll-margin-top: var(--header-height); }
-    section h2 { font-size: clamp(22px, 3.4vw, 44px); line-height:1.05; margin-bottom: 12px; }
+    section h2 { font-size: clamp(18px, 2.4vw, 28px); line-height:1.05; margin-bottom: 12px; }
 
 
     .cta-btn { font-size: clamp(14px, 2vw, 18px); padding: 12px 20px; }
@@ -1087,6 +1162,14 @@ body {
 }
 
   </style>
+  <style>
+    /* Enforce Merriweather font everywhere */
+    html, body, * {
+      font-family: 'Merriweather', serif !important;
+    }
+    /* Ensure form controls and interactive elements inherit the font */
+    input, textarea, select, button, a { font-family: 'Merriweather', serif !important; }
+  </style>
 </head>
 <body class="inverted">
   <div class="hero-bg" aria-hidden="true">
@@ -1119,7 +1202,10 @@ body {
   <!-- CENTER CONTENT -->
   <div class="hero-center">
     <div class="hero-card">
-      <img src="assets/logo.png" alt="FusionVue logo" class="hero-logo">
+      <div class="hero-brand" aria-hidden="false">
+        <p class="hero-title">FUSIONVUE</p>
+        <div class="hero-subtitle">AUDIO VIDEO INTEGRATOR</div>
+      </div>
 
       <p class="lead">
         Delivering <strong class="gold">immersive AV solutions</strong> that transform
@@ -1128,7 +1214,7 @@ body {
         to create <strong class="gold">connected, intelligent spaces</strong>.
       </p>
 
-      <div style="margin-top:26px">
+      <div style="margin-top:28px">
         <a class="cta-btn" href="#offerings">Explore Offerings</a>
       </div>
     </div>
@@ -1144,20 +1230,20 @@ body {
      <!-- WHO / STATS section -->
     <section id="about"  style="padding:32px 16px; background:#4a60dc; color:#fff; width:100%; box-sizing:border-box; overflow-x:hidden;">
       <div style="max-width:900px;margin:0 auto;text-align:center;color:#fff;padding:12px 12px">
-        <h2 style="font-family:'Poppins',sans-serif;font-size:44px;margin:0 0 10px; line-height:1.1;"><span style="color:#111;background:#fff;padding:4px 10px;border-radius:4px; display:inline-block; font-size:44px;">WHO IS</span> <span style="color:#fff; font-size:44px;">FUSIONVUE?</span></h2>
-        <p style="color:#f0f0f0;max-width:860px;margin:12px auto;font-size:16px; line-height:1.4;">At <strong style="color:#00020f">Fusionvue Audio Video Integrator</strong> we are a premier Audio & Video Integration company specializing in cutting-edge AV solutions for corporate, commercial and luxury residential spaces.</p>
+        <h2 style="font-family:'Poppins',sans-serif;font-size:44px;margin:0 0 10px; line-height:1.1;"><span style="color:#111;background:#fff;padding:4px 10px;border-radius:4px; display:inline-block; font-size:54px;">WHO IS</span> <span style="color:#fff; font-size:54px;">FUSIONVUE?</span></h2>
+        <p style="color:#f0f0f0;max-width:860px;margin:12px auto;font-size:20px; line-height:1.4;">At <strong style="color:#00020f">Fusionvue Audio Video Integrator</strong> we are a premier Audio & Video Integration company specializing in cutting-edge AV solutions for corporate, commercial and luxury residential spaces.</p>
       </div>
       
       <div style="display:flex;justify-content:center;gap:12px;max-width:100%;margin:16px auto; flex-wrap:wrap; padding:0 8px; box-sizing:border-box;">
         <div class="stats-row">
         <div class="stats-box">
-          <div style="font-size:24px;color:var(--gold);font-weight:800">10+</div>
-          <div style="color:#fff;margin-top:8px; font-size:13px;">Years<br/>Experience</div>
+          <div style="font-size:28px;color:var(--gold);font-weight:800">10+</div>
+          <div style="color:#fff;margin-top:8px; font-size:20px;">Years<br/>Experience</div>
         </div>
     
         <div class="stats-box">
-          <div style="font-size:24px;color:var(--gold);font-weight:800">25+</div>
-          <div style="color:#fff;margin-top:8px; font-size:13px;">Happy<br/>Clients</div>
+          <div style="font-size:28px;color:var(--gold);font-weight:800">25+</div>
+          <div style="color:#fff;margin-top:8px; font-size:20px;">Happy<br/>Clients</div>
         </div>
 
         </div>
@@ -1521,7 +1607,7 @@ body {
       <h3 style="font-size: 40px; font-weight:bold;color: #4a60dc;text-align: center;">Contact Us</h3>
       <p style="color: #fff;">
         <img src="./assets/location.png" alt="Location" style="width:24px; vertical-align:middle; margin-right:8px;">
-        <strong>Address</strong></p> <p style="color: #fff;"> Navi Mumbai (410206) Maharashtra </p>
+        <strong>Address</strong></p>  <p style="color: #fff;"> Navi Mumbai (410206) Maharashtra </p>
       </p>
       <br>
       <p style="color: #fff;">
