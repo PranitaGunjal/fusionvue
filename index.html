@@ -582,7 +582,7 @@ h1 {
   .hero-title {
     font-size: clamp(4.8rem, 14vw, 7.2rem); /* controlled but bold */
     line-height: 0.95;
-    letter-spacing: clamp(1px, 1.2vw, 4px);
+    letter-spacing: clamp(1px, 1.2vw, 3.5px);
 
     white-space: normal;        /* 👈 allow wrap */
     margin-inline: 0;           /* 👈 remove negative margin */
@@ -590,7 +590,7 @@ h1 {
   }
 
   .hero-subtitle {
-    font-size: clamp(1.8rem, 4.2vw, 1.7rem);
+    font-size: clamp(1.8rem, 4.2vw, 1.9rem);
     letter-spacing: 2px;
 
     padding: 0.4em 1em;
@@ -598,13 +598,15 @@ h1 {
   }
 
   .lead {
-    font-size: clamp(1rem, 4vw, 1.35rem);
-    line-height: 1.8;
+    font-size: clamp(1.05rem, 4vw, 1.3rem);
+    line-height: 1.75;
     letter-spacing: 0.04em;
 
     max-width: 32ch;
-    margin-top: 1.2rem;
+    margin: 1.2rem auto 0;   /* 👈 centers block */
     padding-inline: 14px;
+
+    text-align: center;      /* 👈 centers text */
   }
 }
 @media (max-width: 480px) {
@@ -1223,7 +1225,7 @@ body {
       .hero-center { padding: 18px 12px !important; width: 100%; }
 
       .hero-title {
-        font-size: clamp(52px, 15vw, 64px) !important;
+        font-size: clamp(52px, 12vw, 64px) !important;
         line-height: 1.03 !important;
         white-space: normal !important;
         margin: 0 !important;
@@ -1241,7 +1243,6 @@ body {
       .lead {
         font-size: 10px !important;
         line-height: 1.3 !important;
-        max-width: 32ch !important;
         margin-top: 12px !important;
         padding: 0 6px !important;
       }
@@ -1262,10 +1263,10 @@ body {
         opacity: 0 !important;
       }
       /* Slightly reduce #about heading and intro sizes on mobile for better balance */
-      #about h2 { font-size: clamp(20px, 5vw, 28px) !important; margin-bottom: 8px !important; }
+      #about h2 { font-size: clamp(25px, 10vw, 32px) !important; margin-bottom: 8px !important; }
       #about h2 span { font-size: clamp(18px, 5.5vw, 24px) !important; }
       /* Make WHY CHOOSE FUSIONVUE match WHO IS FUSIONVUE sizing on mobile */
-      #why-choose-us h2 { font-size: clamp(20px, 5vw, 28px) !important; margin-bottom: 8px !important; }
+      #why-choose-us h2 { font-size: clamp(25px, 10vw, 32px) !important; margin-bottom: 8px !important; }
       #why-choose-us h2 span { font-size: clamp(18px, 5.5vw, 24px) !important; }
     }
   </style>
