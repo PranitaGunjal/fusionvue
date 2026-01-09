@@ -1223,21 +1223,23 @@ body {
       .hero-center { padding: 18px 12px !important; width: 100%; }
 
       .hero-title {
-        font-size: clamp(28px, 8vw, 40px) !important;
-        line-height: 1.05 !important;
+        font-size: clamp(32px, 10vw, 48px) !important;
+        line-height: 1.03 !important;
         white-space: normal !important;
         margin: 0 !important;
+        font-weight: 900 !important;
       }
 
       .hero-subtitle {
-        font-size: clamp(12px, 3.6vw, 16px) !important;
-        letter-spacing: 1.5px !important;
+        font-size: clamp(14px, 4.5vw, 18px) !important;
+        letter-spacing: 1.4px !important;
         padding: 0.35em 0.8em !important;
         margin-top: 0.45em !important;
+        font-weight: 700 !important;
       }
 
       .lead {
-        font-size: 16px !important;
+        font-size: 15px !important;
         line-height: 1.6 !important;
         max-width: 48ch !important;
         margin-top: 12px !important;
@@ -1259,7 +1261,22 @@ body {
         display: none !important;
         opacity: 0 !important;
       }
+      /* Slightly reduce #about heading and intro sizes on mobile for better balance */
+      #about h2 { font-size: clamp(20px, 5vw, 28px) !important; margin-bottom: 8px !important; }
+      #about h2 span { font-size: clamp(18px, 5.5vw, 24px) !important; }
+      /* Make WHY CHOOSE FUSIONVUE match WHO IS FUSIONVUE sizing on mobile */
+      #why-choose-us h2 { font-size: clamp(20px, 5vw, 28px) !important; margin-bottom: 8px !important; }
+      #why-choose-us h2 span { font-size: clamp(18px, 5.5vw, 24px) !important; }
     }
+  </style>
+  <style>
+    /* Header / nav safety overrides to ensure hamburger is always tappable */
+    header, #primaryNav, #navToggle {
+      z-index: 999999 !important;
+      pointer-events: auto !important;
+    }
+    /* If any hero ornaments accidentally overlap, keep header on top */
+    .hero-bg, .circle-orn { z-index: -5 !important; }
   </style>
 </head>
 <body class="inverted">
